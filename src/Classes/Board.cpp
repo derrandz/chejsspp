@@ -38,6 +38,12 @@ Board::~Board()
  */
 bool Board::initSquares()
 {
+	/**
+	 * 
+	 * i takes care of the y coordinates.
+	 * j takes care of the x coordinates.
+	 * 
+	 */
 	for (int i = 0, turn = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 8; j++)
@@ -213,7 +219,7 @@ bool Board::getClickedPiece(int x, int y)
 			}
 		}
 	}
-	
+
 	return false;
 }
 
@@ -315,7 +321,12 @@ void Board::handleEvents(SDL_Event& e)
 				square->assignPiece(piece);
 				piece->assignSquare(square);
 			}
-
+			else
+			{
+				Square* square = &piece->getCurrentSquare();
+				piece->assignSquare(square);
+				std::cout << "\n Failed to locate the square." << std::endl;
+			}
 	       	this->unbindMovingPiece(); 
 			std::cout << "The moving piece has been released.\n";
 		}
@@ -331,10 +342,13 @@ void Board::handleEvents(SDL_Event& e)
  */
 Square* Board::find(int x, int y)
 {
-	if(x >= 0 && x < 1280 /2)
+	if(x >= 0 && x < 640 /2)
 	{
-		if( y >= 0 && y < 1280 /2)
+		if( y >= 0 && y < 640 /2)
 		{
+			/**
+			 * This represents the top left side of the board.
+			 */
 			for (int i = 0; i < 4; ++i)
 			{
 				for (int j = 0; j < 4; ++j)
@@ -346,8 +360,11 @@ Square* Board::find(int x, int y)
 				}
 			}
 		}
-		else if( y >= 1280 /2 && y < 1280)
+		else if( y >= 640 /2 && y < 640)
 		{
+			/**
+			 * This represents the bottom left side of the board.
+			 */
 			for (int i = 4; i < 8; ++i)
 			{
 				for (int j = 0; j < 4; ++j)
@@ -361,10 +378,13 @@ Square* Board::find(int x, int y)
 		}
 
 	}
-	else if( x >= 1280 / 2 && x < 1280)
+	else if( x >= 640 / 2 && x < 640)
 	{
-		if( y >= 0 && y < 1280 /2)
+		if( y >= 0 && y < 640 /2)
 		{
+			/**
+			 * This represents the top right side of the board.
+			 */
 			for (int i = 0; i < 4; ++i)
 			{
 				for (int j = 4; j < 8; ++j)
@@ -376,8 +396,11 @@ Square* Board::find(int x, int y)
 				}
 			}
 		}
-		else if( y >= 1280 /2 && y < 1280)
+		else if( y >= 640 /2 && y < 640)
 		{
+			/**
+			 * This represents the bottom right side of the board.
+			 */
 			for (int i = 4; i < 8; ++i)
 			{
 				for (int j = 4; j < 8; ++j)
