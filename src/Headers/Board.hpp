@@ -172,6 +172,18 @@ class Board
 		 * @return Returns the found square, otherwise NULL.
 		 */
 		Square* find(int x, int y);
+
+		/**
+		 * Renders the board's squares.
+		 * 
+		 */
+		void renderSquares();
+
+		/**
+		 * Renders the board's pieces.
+		 * 
+		 */
+		void renderPieces();
 };
 
 #endif // __BOARD_HPP__

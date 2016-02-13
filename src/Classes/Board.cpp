@@ -98,31 +98,57 @@ bool Board::initSquares()
  */
 bool Board::initPieces()
 {
-	this->pieces[0][0] = new Piece("Black", "blackBishop", "bB", 0, 0);
-	this->pieces[0][1] = new Piece("Black1", "blackBishop1", "bB1", 160, 0);
-	
-	if( !this->pieces[0][0] && !this->pieces[0][1])
+	/**
+	 * Black pieces
+	 */
+	this->pieces[0][0] = new Piece("black", "blackRookLeft", "bRl", 0, 0);
+	this->pieces[0][1] = new Piece("black", "blackKnightLeft", "bNl", 80, 0);
+	this->pieces[0][2] = new Piece("black", "blackBishopLeft", "bBl", 80*2, 0);
+	this->pieces[0][3] = new Piece("black", "blackKing", "bK", 80*3, 0);
+	this->pieces[0][4] = new Piece("black", "blackQueen", "bQ", 80*4, 0);
+	this->pieces[0][5] = new Piece("black", "blackBishopRight", "bBr", 80*5, 0);
+	this->pieces[0][6] = new Piece("black", "blackKnightRight", "bNr", 80*6, 0);
+	this->pieces[0][7] = new Piece("black", "blackRookRight", "bRr", 80*7, 0);
+
+	for (int i = 8; i < 16; i++)
 	{
-		throw 0;
-	}	
-	else
-	{
-		this->pieces[0][0]->loadMedia();
-		this->pieces[0][1]->loadMedia();
-	}	
-	/*
-	// White pieces
-	for (int i = 0; i < 16; ++i)
-	{
-		this->pieces[0][i] = new Piece();
+		this->pieces[0][i] = new Piece("black", "blackPion", "bP", 0, 0);
 	}
 
-	// Black pieces
-	for (i = 0; i < 16; ++i)
+	/**
+	 * White pieces
+	 *
+	 * The coordinates that are supplied to these pieces don't matter.
+	 * 
+	 */
+	this->pieces[1][0] = new Piece("white", "whiteRookLeft", "wRl", 0, 0);
+	this->pieces[1][1] = new Piece("white", "whiteKnightLeft", "wNl", 0, 0);
+	this->pieces[1][2] = new Piece("white", "whiteBishopLeft", "wBl", 0, 0);
+	this->pieces[1][3] = new Piece("white", "whiteKing", "wK", 0, 0);
+	this->pieces[1][4] = new Piece("white", "whiteQueen", "wQ", 0, 0);
+	this->pieces[1][5] = new Piece("white", "whiteBishopRight", "wBr", 0, 0);
+	this->pieces[1][6] = new Piece("white", "whiteKnightRight", "wNr", 0, 0);
+	this->pieces[1][7] = new Piece("white", "whiteRookRight", "wRr", 0, 0);
+
+	for (int i = 8; i < 16; i++)
 	{
-		this->pieces[1][i] = new Piece();
+		this->pieces[1][i] = new Piece("white", "whitePion", "wP", 80*(i/8), 80);
 	}
-	*/
+	
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 16; j++)
+		{
+			if( !this->pieces[i][j])
+			{
+				throw 0;
+			}	
+			else
+			{
+				this->pieces[i][j]->loadMedia();
+			}
+		}
+	}	
 
 	std::cout << "All pieces have been successfully initialized.\n";
 
@@ -167,12 +193,40 @@ bool Board::init()
 		std::cout << "\nCould not initialize the pieces";
 	}
 
-	this->loadPieceAtSquare( this->squares[0][0] , this->pieces[0][0] );
-	this->loadPieceAtSquare( this->squares[0][1] , this->pieces[0][1] );
+	/**
+	 * Black pieces
+	 */
+	for (int i = 0; i < 8; i++)
+	{
+		this->loadPieceAtSquare( this->squares[0][i] , this->pieces[0][i] );
+	}
+
+	for (int i = 0, j = 8; i < 8; i++, j++)
+	{
+		this->loadPieceAtSquare( this->squares[1][i] , this->pieces[0][j] );
+	}
+
+	/**
+	 * White pieces
+	 */
+	for (int i = 0; i < 8; i++)
+	{
+		this->loadPieceAtSquare( this->squares[7][i] , this->pieces[1][i] );
+	}
+
+	for (int i = 0, j = 8; i < 8; i++, j++)
+	{
+		this->loadPieceAtSquare( this->squares[6][i] , this->pieces[1][j] );
+	}
+
 	return true;
 }
 
-void Board::render()
+/**
+ * Renders the board's squares.
+ * 
+ */
+void Board::renderSquares()
 {
 	for (int i = 0; i < 8; ++i)
 	{
@@ -181,17 +235,46 @@ void Board::render()
 			this->squares[i][j]->render();
 		}
 	}
+}
 
-	this->pieces[0][0]->render();
-	this->pieces[0][1]->render();
-
-	// for (int i = 0; i < 2; ++i)
+/**
+ * Renders the board's pieces.
+ * 
+ */
+void Board::renderPieces()
+{
+	// if(this->isPieceMoving())
 	// {
-	// 	for (int j = 0; j < 16; ++j)
+	// 	for (int i = 0; i < 2; ++i)
 	// 	{
-	// 		this->pieces[i][j]->render();
+	// 		for (int j = 0; j < 16; ++j)
+	// 		{
+	// 			if( this->pieces[i][j]->code.compare(this->getMovingPiece().code) != 0 )
+	// 			{
+	// 				this->pieces[i][j]->render();
+	// 			}
+	// 		}
+
+	// 		this->getMovingPiece().render();
 	// 	}
 	// }
+	// else
+	// {
+		for (int i = 0; i < 2; ++i)
+		{
+			for (int j = 0; j < 16; ++j)
+			{
+				this->pieces[i][j]->render();
+			}
+		}	
+	// }
+	
+}
+
+void Board::render()
+{
+	this->renderSquares();
+	this->renderPieces();
 }
 
 /**
