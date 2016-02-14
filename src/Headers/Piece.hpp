@@ -29,18 +29,18 @@ class Piece
 		 * 
 		 */
 		Position position;
-
+		
+		/**
+		 * Indicates whether the piece is being draged
+		 * 
+		 */
+	
+	protected:
 		/**
 		 * The square that this piece currently holds/occupies
 		 * 
 		 */
 		Square* currentSquare;
-	
-		/**
-		 * Indicates whether the piece is being draged
-		 * 
-		 */
-		static bool dragging;
 		
 	public:
 		/**
@@ -158,7 +158,7 @@ class Piece
 		 * Moves the piece as it should be moved, provided its nature and behavior.
 		 * 
 		 */
-		// virtual void move() = 0;
+		virtual bool isMoveValid(Square*);
 		
 		/**
 		 * Tells whether a couple (x, y) coordinates collides with this piece's box.
@@ -175,7 +175,7 @@ class Piece
 		 * Assigns to this piece the current square.
 		 * 
 		 */
-		void assignSquare(Square* square);
+		virtual void assignSquare(Square* square, int load=1);
 };
 
 #endif // __PIECE_HPP__

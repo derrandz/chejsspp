@@ -67,6 +67,11 @@ class Square
 		 */
 		std::string suit;
 
+		/**
+		 * The square's coordinates in chess language
+		 */
+		std::string coordinates;
+
 	/*
 	 |****************************
 	 |
@@ -87,7 +92,7 @@ class Square
 		 * Constructor
 		 * 
 		 */
-		Square(std::string suit, unsigned int height, unsigned int width, int x, int y);
+		Square(std::string coordinates, std::string suit, unsigned int height, unsigned int width, int x, int y);
 
 		/**
 		 * Destructor

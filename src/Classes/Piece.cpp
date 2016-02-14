@@ -1,7 +1,5 @@
 #include "../Headers/Board.hpp"
 
-bool Piece::dragging = false;
-
 /**
  * Constructor
  * 
@@ -11,8 +9,8 @@ position((int)squareHeight, (int)squareWidth, (int)x, (int)y)
 {
 	this->suit          = suit;
 	this->name          = name;
-	this->suitPath      = "../res/board/pieces/black/bB_80.png"; // Will be changed into a modular/dynamic way.
 	this->code          = code;
+	this->suitPath      = "../res/board/pieces/"+this->suit+"/"+ this->code+"_80.png";
 	this->currentSquare = NULL;
 }
 
@@ -217,11 +215,42 @@ bool Piece::collidesWith(int x, int y)
 }
 
 /**
+ * Moves the piece as it should be moved, provided its nature and behavior.
+ * This method is going to be overriden for each piece type.
+ * 
+ */
+bool Piece::isMoveValid(Square* square)
+{
+	if(square != NULL)
+	{
+		return true;
+	}
+}
+
+/**
  * Assigns to this piece the current square.
  * 
  */
-void Piece::assignSquare(Square* square)
+void Piece::assignSquare(Square* square, int load)
 {
-	this->currentSquare = square;
-	this->position = square->getPosition();
+	if(square != NULL)
+	{
+		if(load)
+		{
+			this->currentSquare = square;
+			this->position = this->currentSquare->getPosition();
+		}
+		else
+		{
+			if(this->isMoveValid(square))
+			{
+				this->currentSquare = square;
+				this->position = square->getPosition();	
+			}
+			else
+			{
+				this->position = this->currentSquare->getPosition();
+			}
+		}
+	}
 }

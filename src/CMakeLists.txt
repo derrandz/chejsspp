@@ -6,9 +6,10 @@ set(SOURCE_HEADER_FILES Headers/*)
 
 # Get all the classes source files
 AUX_SOURCE_DIRECTORY("./Classes" SOURCE_CLASSES_FILES)
+AUX_SOURCE_DIRECTORY("./Classes/Pieces" SOURCE_CLASSES_FILES_1)
 
 # All sources files including main.cpp
-set(SOURCE_FILES main.cpp ${SOURCE_CLASSES_FILES})
+set(SOURCE_FILES main.cpp ${SOURCE_CLASSES_FILES} ${SOURCE_CLASSES_FILES_1})
 
 # Header files for our classes
 include_directories(${SOURCE_HEADER_FILES})

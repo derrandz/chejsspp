@@ -16,10 +16,11 @@ std::string Square::blackSuitPath = "../res/board/square/black_suit.jpg";
  * Constructor
  * 
  */
-Square::Square(std::string suit, unsigned int xheight, unsigned int xwidth, int x, int y):
+Square::Square(std::string xcoordinates, std::string suit, unsigned int xheight, unsigned int xwidth, int x, int y):
 texture(xheight, xwidth),
 position((int)xheight, (int)xwidth, (int)x, (int)y)
 {
+	this->coordinates = xcoordinates;
 	this->width    = xwidth;
 	this->height   = xheight;
 	this->suit     = suit;
@@ -180,7 +181,7 @@ bool Square::collidesWith(int x, int y)
 {
 	SDL_Rect& myBox = this->getBox();
 
-	bool isXContained = ( x > myBox.x ) && (x <= myBox.x + myBox.w);
+	bool isXContained = ( x >= myBox.x ) && (x <= myBox.x + myBox.w);
 	bool isYContained = ( y >= myBox.y ) && (y <= myBox.y + myBox.h );
 
 	return isXContained && isYContained;

@@ -1,4 +1,10 @@
 #include "../Headers/Board.hpp"
+#include "../Headers/Pieces/Rook.hpp"
+#include "../Headers/Pieces/King.hpp"
+#include "../Headers/Pieces/Queen.hpp"
+#include "../Headers/Pieces/Bishop.hpp"
+#include "../Headers/Pieces/Knight.hpp"
+#include "../Headers/Pieces/Pawn.hpp"
 
 const int boardHeight = 640;
 const int boardWidth = 640;
@@ -44,18 +50,24 @@ bool Board::initSquares()
 	 * j takes care of the x coordinates.
 	 * 
 	 */
+
+	 char A='A';
 	for (int i = 0, turn = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 8; j++)
 		{
+			std::stringstream convertstream;
+			convertstream << std::to_string(i);
+			convertstream << static_cast<char>(A + j);
+
 			if(turn == 0)
 			{
-				this->squares[i][j] = new Square("white", squareHeight, squareWidth, squareWidth*j, squareHeight*i);
+				this->squares[i][j] = new Square(convertstream.str(),"white", squareHeight, squareWidth, squareWidth*j, squareHeight*i);
 				turn = 1;
 			}
 			else if(turn == 1)
 			{
-				this->squares[i][j] = new Square("black", squareHeight, squareWidth, squareWidth*j, squareHeight*i);
+				this->squares[i][j] = new Square(convertstream.str(),"black", squareHeight, squareWidth, squareWidth*j, squareHeight*i);
 				turn = 0;
 			}
 
@@ -75,6 +87,8 @@ bool Board::initSquares()
 					std::cout << "Initialized square but failed to load media.\n";
 				}
 			}
+
+			std::cout << "Coordinates x: " << 80*j << "y: " << 80*i << std::endl;
 		}
 
 		if(turn == 0)
@@ -85,6 +99,7 @@ bool Board::initSquares()
 		{
 			turn = 0;
 		}
+
 	}
 
 	std::cout << "All squares have been successfully initialized.\n";
@@ -101,38 +116,51 @@ bool Board::initPieces()
 	/**
 	 * Black pieces
 	 */
-	this->pieces[0][0] = new Piece("black", "blackRookLeft", "bRl", 0, 0);
-	this->pieces[0][1] = new Piece("black", "blackKnightLeft", "bNl", 80, 0);
-	this->pieces[0][2] = new Piece("black", "blackBishopLeft", "bBl", 80*2, 0);
-	this->pieces[0][3] = new Piece("black", "blackKing", "bK", 80*3, 0);
-	this->pieces[0][4] = new Piece("black", "blackQueen", "bQ", 80*4, 0);
-	this->pieces[0][5] = new Piece("black", "blackBishopRight", "bBr", 80*5, 0);
-	this->pieces[0][6] = new Piece("black", "blackKnightRight", "bNr", 80*6, 0);
-	this->pieces[0][7] = new Piece("black", "blackRookRight", "bRr", 80*7, 0);
+	
+	// Rooks
+	this->pieces[0][0] = new Rook("black", 0, 0);
+	this->pieces[0][7] = new Rook("black", 80*7, 0);
+
+	// Knights
+	this->pieces[0][1] = new Knight("black", 80, 0);
+	this->pieces[0][6] = new Knight("black", 80*6, 0);
+
+	// Bishops
+	this->pieces[0][2] = new Bishop("black", 80*2, 0);
+	this->pieces[0][5] = new Bishop("black", 80*5, 0);
+
+	// The royal couple
+	this->pieces[0][3] = new Queen("black", 80*3, 0);
+	this->pieces[0][4] = new King("black", 80*4, 0);
 
 	for (int i = 8; i < 16; i++)
 	{
-		this->pieces[0][i] = new Piece("black", "blackPion", "bP", 0, 0);
+		this->pieces[0][i] = new Pawn("black", 80*(i/8), 80);
 	}
 
 	/**
 	 * White pieces
-	 *
-	 * The coordinates that are supplied to these pieces don't matter.
-	 * 
 	 */
-	this->pieces[1][0] = new Piece("white", "whiteRookLeft", "wRl", 0, 0);
-	this->pieces[1][1] = new Piece("white", "whiteKnightLeft", "wNl", 0, 0);
-	this->pieces[1][2] = new Piece("white", "whiteBishopLeft", "wBl", 0, 0);
-	this->pieces[1][3] = new Piece("white", "whiteKing", "wK", 0, 0);
-	this->pieces[1][4] = new Piece("white", "whiteQueen", "wQ", 0, 0);
-	this->pieces[1][5] = new Piece("white", "whiteBishopRight", "wBr", 0, 0);
-	this->pieces[1][6] = new Piece("white", "whiteKnightRight", "wNr", 0, 0);
-	this->pieces[1][7] = new Piece("white", "whiteRookRight", "wRr", 0, 0);
+	
+	// Rooks
+	this->pieces[1][0] = new Rook("white", 0, 0);
+	this->pieces[1][7] = new Rook("white", 80*7, 0);
+
+	// Knights
+	this->pieces[1][1] = new Knight("white", 80, 0);
+	this->pieces[1][6] = new Knight("white", 80*6, 0);
+
+	// Bishops
+	this->pieces[1][2] = new Bishop("white", 80*2, 0);
+	this->pieces[1][5] = new Bishop("white", 80*5, 0);
+
+	// The royal couple
+	this->pieces[1][3] = new Queen("white", 80*3, 0);
+	this->pieces[1][4] = new King("white", 80*4, 0);
 
 	for (int i = 8; i < 16; i++)
 	{
-		this->pieces[1][i] = new Piece("white", "whitePion", "wP", 80*(i/8), 80);
+		this->pieces[1][i] = new Pawn("white", 80*(i/8), 80);
 	}
 	
 	for (int i = 0; i < 2; ++i)
@@ -145,6 +173,17 @@ bool Board::initPieces()
 			}	
 			else
 			{
+				int x , y;
+				x = this->pieces[i][j]->getBox().x;
+				y = this->pieces[i][j]->getBox().y;
+				
+				Square* square = Board::find(x, y);
+
+				if(square != NULL)
+				{
+					this->loadPieceAtSquare(square, this->pieces[i][j]);
+				}
+
 				this->pieces[i][j]->loadMedia();
 			}
 		}
@@ -243,23 +282,20 @@ void Board::renderSquares()
  */
 void Board::renderPieces()
 {
-	// if(this->isPieceMoving())
-	// {
-	// 	for (int i = 0; i < 2; ++i)
-	// 	{
-	// 		for (int j = 0; j < 16; ++j)
-	// 		{
-	// 			if( this->pieces[i][j]->code.compare(this->getMovingPiece().code) != 0 )
-	// 			{
-	// 				this->pieces[i][j]->render();
-	// 			}
-	// 		}
+	if(this->isPieceMoving())
+	{
+		for (int i = 0; i < 2; ++i)
+		{
+			for (int j = 0; j < 16; ++j)
+			{
+				this->pieces[i][j]->render();
+			}
+		}
 
-	// 		this->getMovingPiece().render();
-	// 	}
-	// }
-	// else
-	// {
+		this->getMovingPiece().render();
+	}
+	else
+	{
 		for (int i = 0; i < 2; ++i)
 		{
 			for (int j = 0; j < 16; ++j)
@@ -267,7 +303,7 @@ void Board::renderPieces()
 				this->pieces[i][j]->render();
 			}
 		}	
-	// }
+	}
 	
 }
 
@@ -402,12 +438,12 @@ void Board::handleEvents(SDL_Event& e)
 			if(square != NULL)
 			{
 				square->assignPiece(piece);
-				piece->assignSquare(square);
+				piece->assignSquare(square, 0);
 			}
 			else
 			{
 				Square* square = &piece->getCurrentSquare();
-				piece->assignSquare(square);
+				piece->assignSquare(square, 0);
 				std::cout << "\n Failed to locate the square." << std::endl;
 			}
 	       	this->unbindMovingPiece(); 
