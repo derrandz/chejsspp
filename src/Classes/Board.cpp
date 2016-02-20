@@ -87,8 +87,6 @@ bool Board::initSquares()
 					std::cout << "Initialized square but failed to load media.\n";
 				}
 			}
-
-			std::cout << "Coordinates x: " << 80*j << "y: " << 80*i << std::endl;
 		}
 
 		if(turn == 0)
