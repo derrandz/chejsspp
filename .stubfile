@@ -1,0 +1,40 @@
+#ifndef __CLASS__
+#define __CLASS__
+
+
+class Class
+{
+	/*
+	 |****************************
+	 |
+	 |		Attributes
+	 |
+	 |****************************
+	 */
+	private:
+		/**
+		 * [Attr Description]
+		 * 
+		 */
+		 Type* attr;
+
+	/*
+	 |****************************
+	 |
+	 |		Methodes
+	 |
+	 |****************************
+	 */
+	private:
+		/**
+		 * [Method description]
+		 * 
+		 * @return bool : returns true upon success, and false upon failure.
+		 */
+		bool method();
+
+	public: 
+
+};
+
+#endif __CLASS__
