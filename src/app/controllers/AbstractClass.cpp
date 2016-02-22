@@ -33,6 +33,6 @@ void AbstractController::registerView(View& newView)
  */
 void AbstractController::run()
 {
-	this->mainAction();
+	// this->mainAction();
 	this->renderViews();
 }

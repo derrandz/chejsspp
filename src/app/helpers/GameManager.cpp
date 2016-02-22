@@ -22,6 +22,8 @@ int GameManager::run()
 	//Instantiate a controller
 	MainController mainController;
 
+    mainController.mainAction();
+    
 	//Make the cursor visible.
     SDL_ShowCursor(SDL_ENABLE);
 
