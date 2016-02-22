@@ -4,12 +4,10 @@ project(SDLChesspp)
 # includes cmake/FindSDL2.cmake
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
-set(BIN_DIR "${PROJECT_BINARY_DIR}/bin")
-
-
+# set(BIN_DIR "${PROJECT_BINARY_DIR}/bin")
 
 # Set an output directory for our binaries
-set(BIN_DIR ${SDLChesspp_SOURCE_DIR}/bin)
+# set(BIN_DIR ${SDLChesspp_SOURCE_DIR}/bin)
 
 # Bump up warning levels appropriately for clang, gcc & msvc
 # Also set debug/optimization flags depending on the build type. IDE users choose this when

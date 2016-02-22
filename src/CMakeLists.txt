@@ -1,24 +1,29 @@
-# The project's name
-project(src)
+# Executable's path
+set(BIN_DIR "./../bin")
 
 # Name the source files
-set(SOURCE_HEADER_FILES Headers/*)
+set(HEADER_APP_FILES ./../include/app)
 
 # Get all the classes source files
-AUX_SOURCE_DIRECTORY("./Classes" SOURCE_CLASSES_FILES)
-AUX_SOURCE_DIRECTORY("./Classes/Pieces" SOURCE_CLASSES_FILES_1)
+AUX_SOURCE_DIRECTORY("app/controllers" SOURCE_CONTROLLERS_FILES)
+AUX_SOURCE_DIRECTORY("app/helpers" SOURCE_HELPERS_FILES)
+AUX_SOURCE_DIRECTORY("app/views" SOURCE_VIEWS_FILES)
+AUX_SOURCE_DIRECTORY("app/entities" SOURCE_ENTITIES_FILES)
+
+# Source files for the app directory.
+set(APP_SOURCE_FILES ${SOURCE_CONTROLLERS_FILES} ${SOURCE_HELPERS_FILES} ${SOURCE_VIEWS_FILES} ${SOURCE_ENTITIES_FILES})
 
 # All sources files including main.cpp
-set(SOURCE_FILES main.cpp ${SOURCE_CLASSES_FILES} ${SOURCE_CLASSES_FILES_1})
+set(SOURCE_FILES main.cpp ${APP_SOURCE_FILES})
 
 # Header files for our classes
-include_directories(${SOURCE_HEADER_FILES})
+include_directories(${HEADER_APP_FILES})
 
 # The generated executable
-add_executable(sdlchesspp ${SOURCE_FILES})
+add_executable(chessgame ${SOURCE_FILES})
 
 # The libraries we are linking against
-target_link_libraries(sdlchesspp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY})
+target_link_libraries(chessgame ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY})
 
 # The installation path
-install(TARGETS sdlchesspp RUNTIME DESTINATION ${BIN_DIR})
+install(TARGETS chessgame RUNTIME DESTINATION ${BIN_DIR})
