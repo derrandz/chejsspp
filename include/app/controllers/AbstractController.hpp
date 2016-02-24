@@ -19,7 +19,7 @@ class AbstractController
 		/**
 		 * The to-be-rendered views
 		 */
-		static std::vector<View> viewsContainer;
+		static std::vector<View*> viewsContainer;
 
 	/*
 	 |****************************
@@ -35,12 +35,24 @@ class AbstractController
 		 */
 		void renderViews();
 
+		/**
+		 * Initializes the SDL resources for the views.
+		 * 
+		 */
+		void initViews();
+
+		/**
+		 * Frees the SDL resources.
+		 * 
+		 */
+		void freeViews();
+
 	public:
 		/**
 		 * Registers the supplied view in the container.
 		 * 
 		 */
-		static void registerView(View&);
+		static void registerView(View*);
 
 		/**
 		 * A supply method that will take whatever logic supplied and make sure it is run in the controller.
@@ -52,7 +64,7 @@ class AbstractController
 		 * Runs the controller. (Might raise an exception*)
 		 * 
 		 */
-		virtual void run();
+		virtual int run();
 
 
 };

@@ -19,7 +19,7 @@ MainController::~MainController()
  */
 void MainController::mainAction()
 {
-	View testView = View("../res/board/pieces/black/bB_80.png", 80, 80, 0, 0);
+	this->registerView(new View("../res/board/pieces/black/bB_80.png", 80, 80, 0, 0));
 
-	this->registerView(testView);
+	std::cout << "View created\n";
 }

@@ -1,5 +1,5 @@
-#ifndef __VIEW_H_INCLUDED_
-#define __VIEW_H_INCLUDED_
+#ifndef _VIEW_H_INCLUDED_
+#define _VIEW_H_INCLUDED_
 
 #include "../helpers/Texture.hpp"
 
@@ -82,4 +82,4 @@ class View
 		void render();
 };
 
-#endif __VIEW_H_INCLUDED__
+#endif _VIEW_H_INCLUDED__
