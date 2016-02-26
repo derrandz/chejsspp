@@ -2,6 +2,7 @@
 #define _VIEW_H_INCLUDED_
 
 #include "../helpers/Texture.hpp"
+#include <vector>
 
 class View
 {
@@ -24,6 +25,12 @@ class View
 		 * 
 		 */
 		SDL_Rect myRect;
+
+		/**
+		 * Utility method. Detects whether the click is on this view or not.
+		 * 
+		 */
+		bool isSelected(int x, int y);
 
 	public:
 		/**
@@ -73,13 +80,20 @@ class View
 		 * Constructor and destructor
 		 * 
 		 */
-		View(std::string path, int height, int width, int x, int y);
+		View(std::string path, int x, int y, int height, int width);
 		~View();
+		
 		/**
 		 * Renders the actual view to the screen.
 		 * 
 		 */
-		void render();
+		virtual void render();
+
+		/**
+		 * Renders the actual view to the screen.
+		 * 
+		 */
+		virtual void render(int x, int y);
 };
 
 #endif _VIEW_H_INCLUDED__

@@ -4,5 +4,28 @@
 
 int main( int argc, char* args[] )
 {
-    return GameManager::run();
+	/**
+	 * Bootstrap code.
+	 * 
+	 */
+	GameManager* gameManager;
+
+	try
+	{
+		gameManager = GameManager::getInstance();
+	}
+	catch(std::string e)
+	{
+		std::cout << e << std::endl;
+	}
+	
+	try
+	{
+	    return gameManager->run();
+	}
+	catch(std::string e)
+	{
+		std::cout << e << std::endl;
+		return -1;
+	}
 }

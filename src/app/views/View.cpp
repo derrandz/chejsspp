@@ -103,7 +103,7 @@ void View::closeSDL()
  * Constructor and destructor
  * 
  */
-View::View(std::string path, int height, int width, int x, int y)
+View::View(std::string path, int x, int y, int height, int width)
 :myTexture(height, width)
 {
 	this->filePath = path;
@@ -111,8 +111,6 @@ View::View(std::string path, int height, int width, int x, int y)
 	this->myRect.w = width;
 	this->myRect.x = x;
 	this->myRect.y = y;
-
-    this->load();
 }
 
 View::~View()
@@ -137,4 +135,27 @@ bool View::load()
 void View::render()
 {
 	this->myTexture.render(this->myRect.x, this->myRect.y, NULL, 0.0, NULL, SDL_FLIP_NONE);
+}
+
+/**
+ * Renders the actual view to the screen.
+ * 
+ */
+void View::render(int x, int y)
+{
+    this->myTexture.render(x, y, NULL, 0.0, NULL, SDL_FLIP_NONE);
+}
+
+/**
+ * Utility method. Detects whether the click is on this view or not.
+ * 
+ */
+bool View::isSelected(int x, int y)
+{
+    SDL_Rect& myBox = this->myRect;
+
+    bool isSelected_X = ( x > myBox.x ) && (x <= myBox.x + myBox.w);
+    bool isSelected_Y = ( y >= myBox.y ) && (y <= myBox.y + myBox.h );
+
+    return isSelected_X && isSelected_Y;
 }

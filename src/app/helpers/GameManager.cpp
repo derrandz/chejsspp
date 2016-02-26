@@ -2,10 +2,67 @@
 #include "controllers/MainController.hpp"
 
 /**
- * Where the game's controllers are going to be stored.
+ * Where the singletonED instance is going to be stored.
  * 
  */
-std::vector<MainController> GameManager::controllersContainer;
+GameManager* GameManager::instance = NULL;
+
+/**
+ * Creates the instance and binds it to its little container.
+ * 
+ */
+void GameManager::bootstrap()
+{
+	if(GameManager::instance == NULL)
+	{
+		GameManager::instance = new GameManager();
+	}
+}
+
+
+/**
+ * Returns the static singletonED instance.
+ * @return const GameManager*
+ * 
+ */
+GameManager* GameManager::getInstance()
+{
+	GameManager::bootstrap();
+
+	GameManager* instancePtr = GameManager::instance;
+
+	if(instancePtr != NULL)
+	{
+		return GameManager::instance;
+	}
+	else
+	{
+		std::stringstream exception;
+
+		exception << "GameManager instance has not been initialized properly.\n";
+
+		throw exception.str();
+	}
+}
+
+/**
+ * THE FORBIDDEN CITY!
+ *
+ * The methods that are put private as to forbid their usage.
+ * 
+ */
+GameManager::GameManager(){}
+// GameManager::GameManager(GameManager const&){}
+// void GameManager::operator=(GameManager const&){}
+
+/**
+ * Registers a controller into the GameManager's container.
+ * 
+ */
+void GameManager::registerController(AbstractController* controller)
+{
+    GameManager::getInstance()->controllersContainer.push_back(controller);
+}
 
 /**
  * Boots the application, instantiates the controller and makes it global
@@ -14,30 +71,7 @@ std::vector<MainController> GameManager::controllersContainer;
  */
 int GameManager::bootApp()
 {
-    MainController controller;
-    GameManager::registerController(controller);
-}
-
-/**
- * Destructor and Constructor
- * 
- */
-GameManager::GameManager()
-{
-
-}
-
-GameManager::~GameManager()
-{
-
-}
-
-/**
- * Registers a controller into the GameManager's container.
- */
-void GameManager::registerController(MainController controller)
-{
-    GameManager::controllersContainer.push_back(controller);
+    GameManager::getInstance()->registerController(new MainController());
 }
 
 /**
@@ -47,9 +81,15 @@ void GameManager::registerController(MainController controller)
  */
 int GameManager::run()
 {
-	GameManager gameManager;
+    this->bootApp();
 
-    gameManager.bootApp();
-
-    return GameManager::controllersContainer.begin()->run();
+    AbstractController* controller_ptr  = *this->controllersContainer.begin();
+    try
+    {
+	    return controller_ptr->run(this->gameStatus);
+    }
+    catch(std::string e)
+    {
+    	throw e;
+    }
 }

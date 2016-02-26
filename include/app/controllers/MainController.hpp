@@ -36,11 +36,22 @@ class MainController: public AbstractController
 		~MainController();
 		
 		/**
+		 * Bootstrap's the controller with whatever configuration specified.
+		 * 
+		 */
+		void bootstrap();
+
+		/**
+		 * Handles any event specified.
+		 * 
+		 */
+		void handleEvents(SDL_Event& e);
+
+		/**
 		 * A supply method that will take whatever logic supplied and make sure it is run in the controller.
 		 * 
 		 */
-		void mainAction();
-
+		void mainAction() const;
 
 };
 

@@ -53,54 +53,77 @@ void AbstractController::freeViews()
 }
 
 /**
+ * Handles any event specified.
+ * 
+ */
+void AbstractController::handleEvents(SDL_Event& e)
+{
+    int x, y;
+
+    if(e.type == SDL_MOUSEBUTTONDOWN)
+    {
+        SDL_GetMouseState( &x, &y );
+
+    }
+}
+
+/**
+ * Bootstrap's the controller with whatever configuration specified.
+ * 
+ */
+void AbstractController::bootstrap()
+{
+    
+}
+
+/**
  * Runs the controller. (Might raise an exception*)
  * 
  * @return int: 0 upon success, -1 upload failure.
  */
-int AbstractController::run()
+int AbstractController::run(bool& gameStatus)
 {
 	try
 	{
 		this->initViews();
+        this->bootstrap();
 	}
 	catch(std::string e)
 	{
-		std::cout << e << std::endl;
-		return -1;
+		throw e;
 	};
 
-    this->mainAction();
-    
+
 	//Make the cursor visible.
     SDL_ShowCursor(SDL_ENABLE);
-
-    //Main loop flag
-    bool quit = false;
 
     //Event handler
     SDL_Event e;
 
 
     //While application is running
-    while( !quit )
+    while( !gameStatus )
     {
         //Handle events on queue
         while( SDL_PollEvent( &e ) != 0 )
         {
             switch( e.type )
             {
-                case SDL_QUIT: quit = true; break;
+                case SDL_QUIT: gameStatus = true; break;
 
-                case SDL_KEYDOWN: if( e.key.keysym.sym == SDLK_ESCAPE ) quit = true; break;
+                case SDL_KEYDOWN: if( e.key.keysym.sym == SDLK_ESCAPE ) gameStatus = true; break;
 
-                default: quit = false; break;
+                default: gameStatus = false; break;
             }
+
+            this->handleEvents(e);
         }
 
         //Clear screen
         SDL_SetRenderDrawColor( View::renderer, 0xFF, 0xFF, 0xFF, 0xFF );
         SDL_RenderClear( View::renderer );
 
+        this->mainAction();
         this->renderViews();
 
         //Update screen

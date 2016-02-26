@@ -55,16 +55,28 @@ class AbstractController
 		static void registerView(View*);
 
 		/**
+		 * Bootstrap's the controller with whatever configuration specified.
+		 * 
+		 */
+		virtual void bootstrap();
+
+		/**
 		 * A supply method that will take whatever logic supplied and make sure it is run in the controller.
 		 * 
 		 */
-		virtual void mainAction() = 0;
+		virtual void mainAction() const = 0;
+
+		/**
+		 * Handles any event specified.
+		 * 
+		 */
+		virtual void handleEvents(SDL_Event& );
 
 		/**
 		 * Runs the controller. (Might raise an exception*)
 		 * 
 		 */
-		virtual int run();
+		virtual int run(bool&);
 
 
 };

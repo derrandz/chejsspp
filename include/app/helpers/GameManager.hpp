@@ -3,7 +3,7 @@
 
 #include <vector>
 
-class MainController;
+class AbstractController;
 
 class GameManager
 {
@@ -13,6 +13,34 @@ class GameManager
 	 |
 	 |****************************
 	 */
+	private:
+		/**
+		 * Where the singletonED instance is going to be stored.
+		 * 
+		 */
+		static GameManager* instance;
+
+		/**
+		 * Indicates whether the game has ended or not.
+		 * 
+		 */
+		bool gameStatus;
+
+		/**
+		 * Where the game's controllers are going to be stored.
+		 * 
+		 */
+		std::vector<AbstractController*> controllersContainer;
+
+		/**
+		 * THE FORBIDDEN CITY!
+		 *
+		 * The methods that are put private as to forbid their usage.
+		 * 
+		 */
+		GameManager();
+        // GameManager(GameManager const&);
+        // void operator=(GameManager const&);
 
 	/*
 	 |****************************
@@ -22,11 +50,11 @@ class GameManager
 	 */
 	private:
 		/**
-		 * Where the game's controllers are going to be stored.
+		 * Creates the instance and binds it to its little container.
 		 * 
 		 */
-		static std::vector<MainController> controllersContainer;
-
+		static void bootstrap();
+		
 		/**
 		 * Boots the application
 		 * @return boolean: returns true upon success, throws an exception upon failure.
@@ -37,15 +65,22 @@ class GameManager
 		/**
 		 * Registers a controller into the GameManager's container.
 		 */
-		static void registerController(MainController);
+		void registerController(AbstractController*);
 
 	public: 
-		static int run();	
+		/**
+		 * Returns the static singletonED instance.
+		 * @return const GameManager*
+		 * 
+		 */
+		static GameManager* getInstance();
 
-		GameManager();
-		~GameManager();
-
-		
+		/**
+		 * Launches the game.
+		 * @return int
+		 * 
+		 */
+		int run();	
 
 };
 
