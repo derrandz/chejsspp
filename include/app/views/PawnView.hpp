@@ -72,7 +72,7 @@ class PawnView : public PieceView
 		    {
 		    	std::stringstream exception;
 
-		    	exception << "PieceViewException: Could not load image : " << this->filePath;
+		    	exception << "PawnViewException: Could not load image : " << this->filePath;
 
 		    	throw exception.str();
 		    }

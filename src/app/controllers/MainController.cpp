@@ -1,7 +1,8 @@
 #include "controllers/MainController.hpp"
 #include "views/PawnView.hpp"
 #include "views/BoardView.hpp"
-
+#include "entities/AbstractBoardEntity.hpp"
+#include "entities/MainBoard.hpp"
 /**
  * BEHOLD THE GODS OF DEATH AND LIFE.
  * 
@@ -22,9 +23,12 @@ MainController::~MainController()
  */
 void MainController::bootstrap()
 {
+	MainBoard mainBoard;
+	mainBoard.initStandardBoard();
+
 	try
 	{
-	    this->registerView(new BoardView(/* Will later specify a certain configuration to load with.*/));
+	    this->registerView(new BoardView(mainBoard.getFinalArrayBoard()));
 	}
 	catch(std::string e)
 	{
@@ -32,6 +36,8 @@ void MainController::bootstrap()
 	}
 
 	std::cout << "Board View created\n";
+
+	// mainBoard.drawBoard();
 }
 /**
  * Handles any event specified.

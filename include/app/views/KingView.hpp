@@ -59,7 +59,25 @@ class KingView : public PieceView
 		KingView(bool suitColor, int x, int y, int height, int width)
 		:PieceView(suitColor, x, y, height, width)
 		{
+			if(suitColor)
+			{
+				this->filePath = this->getWhiteSuitPath();
+			}
+			else
+			{
+				this->filePath = this->getBlackSuitPath();
+			}
 
+		    if(!this->load())
+		    {
+		    	std::stringstream exception;
+
+		    	exception << "KingViewException: Could not load image : " << this->filePath;
+
+		    	throw exception.str();
+		    }
+		    
+			std::cout << "King has been made" << std::endl;
 		};
 
 		~KingView();

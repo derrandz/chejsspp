@@ -4,6 +4,9 @@
 #include "views/View.hpp"
 #include "views/SquareView.hpp"
 #include "views/PieceView.hpp"
+#include <map>
+
+typedef std::map<std::string, std::vector<PieceView*>>::iterator pieces_it;
 
 class BoardView : public View
 {
@@ -28,6 +31,18 @@ class BoardView : public View
 		bool initPieces();
 
 		/**
+		 * Initializes the squares.
+		 * 
+		 */
+		void renderSquares();
+		
+		/**
+		 * Initializes the squares.
+		 * 
+		 */
+		void renderPieces();
+
+		/**
 		 * Initializes the BoardView with all the needed component views.
 		 * @return boolean
 		 * 
@@ -45,8 +60,16 @@ class BoardView : public View
 		 * A board has many pieces regardless of their type, and they are dynamically added and deleted.
 		 * 
 		 */
-		std::vector<PieceView*> pieces;
+		std::map<std::string, std::vector<PieceView*>> pieces;
 
+	public:
+		/**
+		 * The board's graphical representation in strings.
+		 * 
+		 */
+		std::string boardConfiguration[8][8]; 
+
+		
 	/*
 	 |****************************
 	 |
@@ -54,15 +77,12 @@ class BoardView : public View
 	 |
 	 |****************************
 	 */
-	private:
-		
-
 	public:
 		/**
 		 * Constructor
 		 * 
 		 */
-		BoardView();
+		BoardView(std::string**);
 		
 		/**
 		 * Destructor
@@ -75,6 +95,13 @@ class BoardView : public View
 		 * 
 		 */
 		void render();
+
+		/**
+		 * Returns the board in an 8*8 strings array, and each index, there should be either an empty string, or a string representing a piece, such as "wP" for white pawn
+		 * @return std::string[] : Array of strings.
+		 * 
+		 */
+		// std::string[][] getBoardConfiguration();
 
 };
 

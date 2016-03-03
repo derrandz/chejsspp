@@ -49,6 +49,11 @@ class Board
 		Piece *pieces[2][16];
 
 		/**
+		 * The board array representation.
+		 * 
+		 */
+		std::string board[8][8];
+		/**
 		 * The piece that is being currently dragged.
 		 * 
 		 */

@@ -56,10 +56,28 @@ class KnightView : public PieceView
 		 * Constructor and destructor
 		 * 
 		 */
-		KnightView(std::string path, int x, int y, int height, int width)
+		KnightView(bool suitColor, int x, int y, int height, int width)
 		:PieceView(suitColor, x, y, height, width)
 		{
+			if(suitColor)
+			{
+				this->filePath = this->getWhiteSuitPath();
+			}
+			else
+			{
+				this->filePath = this->getBlackSuitPath();
+			}
 
+		    if(!this->load())
+		    {
+		    	std::stringstream exception;
+
+		    	exception << "KnightViewException: Could not load image : " << this->filePath;
+
+		    	throw exception.str();
+		    }
+		    
+			std::cout << "Knight has been made" << std::endl;
 		};
 		
 		~KnightView();

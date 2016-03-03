@@ -56,10 +56,28 @@ class RookView : public PieceView
 		 * Constructor and destructor
 		 * 
 		 */
-		RookView(std::string path, int x, int y, int height, int width)
+		RookView(bool suitColor, int x, int y, int height, int width)
 		:PieceView(suitColor, x, y, height, width)
 		{
+			if(suitColor)
+			{
+				this->filePath = this->getWhiteSuitPath();
+			}
+			else
+			{
+				this->filePath = this->getBlackSuitPath();
+			}
 
+		    if(!this->load())
+		    {
+		    	std::stringstream exception;
+
+		    	exception << "RookViewException: Could not load image : " << this->filePath;
+
+		    	throw exception.str();
+		    }
+		    
+			std::cout << "Rook has been made" << std::endl;
 		};
 		
 		~RookView();

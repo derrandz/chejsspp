@@ -56,10 +56,28 @@ class BishopView : public PieceView
 		 * Constructor and destructor
 		 * 
 		 */
-		BishopView(std::string path, int x, int y, int height, int width)
+		BishopView(bool suitColor, int x, int y, int height, int width)
 		:PieceView(suitColor, x, y, height, width)
 		{
-		
+			if(suitColor)
+			{
+				this->filePath = this->getWhiteSuitPath();
+			}
+			else
+			{
+				this->filePath = this->getBlackSuitPath();
+			}
+
+		    if(!this->load())
+		    {
+		    	std::stringstream exception;
+
+		    	exception << "BishopViewException: Could not load image : " << this->filePath;
+
+		    	throw exception.str();
+		    }
+		    
+			std::cout << "Bishop has been made" << std::endl;	
 		};
 		
 		~BishopView();
