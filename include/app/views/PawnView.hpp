@@ -56,8 +56,8 @@ class PawnView : public PieceView
 		 * Constructor and destructor
 		 * 
 		 */
-		PawnView(bool suitColor, int x, int y, int height, int width)
-		:PieceView(suitColor, x, y, height, width)
+		PawnView(bool suitColor, std::string name, int x, int y, int height, int width)
+		:PieceView(suitColor, name, x, y, height, width)
 		{
 			if(suitColor)
 			{
@@ -76,8 +76,6 @@ class PawnView : public PieceView
 
 		    	throw exception.str();
 		    }
-		    
-			std::cout << "Pawn has been made" << std::endl;
 		};
 		
 		~PawnView()

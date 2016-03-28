@@ -159,3 +159,13 @@ bool View::isSelected(int x, int y)
 
     return isSelected_X && isSelected_Y;
 }
+
+/**
+ * Handles the events related to this view, keyboard and mouse events.
+ * @param e SDL_Event
+ * 
+ */
+void View::handleEvents(SDL_Event& e)
+{
+    
+}

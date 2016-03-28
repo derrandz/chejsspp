@@ -56,8 +56,8 @@ class RookView : public PieceView
 		 * Constructor and destructor
 		 * 
 		 */
-		RookView(bool suitColor, int x, int y, int height, int width)
-		:PieceView(suitColor, x, y, height, width)
+		RookView(bool suitColor, std::string name, int x, int y, int height, int width)
+		:PieceView(suitColor, name, x, y, height, width)
 		{
 			if(suitColor)
 			{
@@ -76,8 +76,6 @@ class RookView : public PieceView
 
 		    	throw exception.str();
 		    }
-		    
-			std::cout << "Rook has been made" << std::endl;
 		};
 		
 		~RookView();

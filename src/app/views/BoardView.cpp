@@ -5,6 +5,95 @@
 #include "views/KnightView.hpp"
 #include "views/QueenView.hpp"
 #include "views/RookView.hpp"
+#include "helpers/HelperFunctions.hpp"
+
+/**
+ * Draws the board, for debugging purposes.
+ * 
+ */
+void BoardView::drawBoard()
+{
+	for (int i = 0; i < 8; ++i)
+	{
+		for (int j = 0; j < 8; ++j)
+		{
+			if(this->boardConfiguration[i][j].compare(" ") == 0)
+			{
+				std::cout << "  .  ";
+			}
+			else
+			{
+				std::cout << "  " << this->boardConfiguration[i][j] << " ";
+			}
+		}
+
+		std::cout << std::endl;
+	}
+}
+
+/**
+ * Loads a provided configuration.
+ * @param std::string**
+ * 
+ */
+void BoardView::loadBoard(std::string** board)
+{
+	for (int i = 0; i < 64; ++i)
+	{
+		this->boardConfiguration[i/8][i%8] = board[i/8][i%8];
+	}
+}
+
+/**
+ * Constructor and destructor
+ * 
+ */
+BoardView::BoardView(std::string** xboard)
+:View("", 0, 0, 0, 0)
+{
+	this->pieces      = new PieceView**[8];
+	this->activePiece = NULL;
+	this->activePieceCoordinates = new int[2]{-1 , -1};
+	this->myRect.h    = View::SCREEN_HEIGHT;
+	this->myRect.w    = View::SCREEN_WIDTH;
+
+	this->loadBoard(xboard);
+
+	for (int i = 0; i < 8; ++i) {
+	  this->pieces[i] = new PieceView*[8];
+	}
+
+	for (int i = 0; i < 8; ++i) {
+	  for (int j = 0; j < 8; ++j) {
+	    this->pieces[i][j] = NULL;
+	  }
+	}
+
+	try
+	{
+		this->init();
+	}
+	catch(std::string e)
+	{
+		std::stringstream exception;
+
+		exception << "BoardViewInitException: Exception caught during board initalization: " << std::endl;
+		exception << "\t" << e << std::endl;
+
+		throw exception.str();
+	}
+}
+
+BoardView::~BoardView()
+{
+	for (int i = 0; i < 64; ++i)
+	{
+		if(NULL != this->pieces[i/8][i%8])
+		{
+			delete this->pieces[i/8][i%8];
+		}
+	}
+}
 
 /**
  * Initializes the squares.
@@ -46,25 +135,73 @@ bool BoardView::initPieces()
 {
 	try
 	{
-		/**
-		 * Black pieces
-		 */
-		this->pieces["bR"] = std::vector<PieceView*>(2, new RookView(false, 0, 0, 80, 80));
-		this->pieces["bN"] = std::vector<PieceView*>(2, new KnightView(false, 0, 0, 80, 80));
-		this->pieces["bB"] = std::vector<PieceView*>(2, new BishopView(false, 0, 0, 80, 80));
-		this->pieces["bK"] = std::vector<PieceView*>(1, new KingView(false, 0, 0, 80, 80));
-		this->pieces["bQ"] = std::vector<PieceView*>(1, new QueenView(false, 0, 0, 80, 80));
-		this->pieces["bP"] = std::vector<PieceView*>(8, new PawnView(false, 0, 0, 80, 80));
+		std::string pieceName;
 
-		/**
-		 * White pieces
-		 */
-		this->pieces["wR"] = std::vector<PieceView*>(2, new RookView(true, 0, 0, 80, 80));
-		this->pieces["wN"] = std::vector<PieceView*>(2, new KnightView(true, 0, 0, 80, 80));
-		this->pieces["wB"] = std::vector<PieceView*>(2, new BishopView(true, 0, 0, 80, 80));
-		this->pieces["wK"] = std::vector<PieceView*>(1, new KingView(true, 0, 0, 80, 80));
-		this->pieces["wQ"] = std::vector<PieceView*>(1, new QueenView(true, 0, 0, 80, 80));
-		this->pieces["wP"] = std::vector<PieceView*>(8, new PawnView(true, 0, 0, 80, 80));
+		for (int i = 0; i < 64; ++i)
+		{
+			pieceName = this->boardConfiguration[i/8][i%8];
+
+			if(pieceName.compare("bP") == 0)
+			{
+				this->pieces[i/8][i%8] = new PawnView(false, pieceName, (i%8)*80, (i/8)*80, 80, 80);
+			}
+			else
+			if(pieceName.compare("bR") == 0)
+			{
+				this->pieces[i/8][i%8] = new RookView(false, pieceName, (i%8)*80, (i/8)*80, 80, 80);
+			}
+			else
+			if(pieceName.compare("bN") == 0)
+			{
+				this->pieces[i/8][i%8] = new KnightView(false, pieceName, (i%8)*80, (i/8)*80, 80, 80);
+			}
+			else
+			if(pieceName.compare("bB") == 0)
+			{
+				this->pieces[i/8][i%8] = new BishopView(false, pieceName, (i%8)*80, (i/8)*80, 80, 80);
+			}
+			else
+			if(pieceName.compare("bK") == 0)
+			{
+				this->pieces[i/8][i%8] = new KingView(false, pieceName, (i%8)*80, (i/8)*80, 80, 80);
+			}
+			else
+			if(pieceName.compare("bQ") == 0)
+			{
+				this->pieces[i/8][i%8] = new QueenView(false, pieceName, (i%8)*80, (i/8)*80, 80, 80);
+			}
+			else
+				/********** White pieces **********/
+			if(pieceName.compare("wP") == 0)
+			{
+				this->pieces[i/8][i%8] = new PawnView(true, pieceName, (i%8)*80, (i/8)*80, 80, 80);
+			}
+			else
+			if(pieceName.compare("wR") == 0)
+			{
+				this->pieces[i/8][i%8] = new RookView(true, pieceName, (i%8)*80, (i/8)*80, 80, 80);
+			}
+			else
+			if(pieceName.compare("wN") == 0)
+			{
+				this->pieces[i/8][i%8] = new KnightView(true, pieceName, (i%8)*80, (i/8)*80, 80, 80);
+			}
+			else
+			if(pieceName.compare("wB") == 0)
+			{
+				this->pieces[i/8][i%8] = new BishopView(true, pieceName, (i%8)*80, (i/8)*80, 80, 80);
+			}
+			else
+			if(pieceName.compare("wK") == 0)
+			{
+				this->pieces[i/8][i%8] = new KingView(true, pieceName, (i%8)*80, (i/8)*80, 80, 80);
+			}
+			else
+			if(pieceName.compare("wQ") == 0)
+			{
+				this->pieces[i/8][i%8] = new QueenView(true, pieceName, (i%8)*80, (i/8)*80, 80, 80);
+			}
+		}
 	}
 	catch(std::string e)
 	{
@@ -99,41 +236,6 @@ bool BoardView::init()
 }
 
 /**
- * Constructor and destructor
- * 
- */
-BoardView::BoardView(std::string** xboard)
-:View("", 0, 0, 0, 0)
-{
-	this->myRect.h = View::SCREEN_HEIGHT;
-	this->myRect.w = View::SCREEN_WIDTH;
-
-	for (int i = 0; i < 64; ++i)
-	{
-		this->boardConfiguration[i/8][i%8] = xboard[i/8][i%8];
-	}
-
-	try
-	{
-		this->init();
-	}
-	catch(std::string e)
-	{
-		std::stringstream exception;
-
-		exception << "BoardViewInitException: Exception caught during board initalization: " << std::endl;
-		exception << "\t" << e << std::endl;
-
-		throw exception.str();
-	}
-}
-
-BoardView::~BoardView()
-{
-
-}
-
-/**
  * Initializes the squares.
  * 
  */
@@ -158,126 +260,69 @@ void BoardView::renderSquares()
 }
 
 /**
+ * Removes the pieces.
+ * 
+ */
+void BoardView::destructPieces()
+{
+	for (int i = 0; i < 64; ++i)
+	{
+		if(NULL != this->pieces[i/8][i%8])
+		{
+			delete this->pieces[i/8][i%8];
+
+			this->pieces[i/8][i%8] = NULL;
+		}
+	}
+}
+
+/**
+ * Updates thep pieces from the boardConfiguration
+ * 
+ */
+void BoardView::updatePieces()
+{
+	/**
+	 * If there is a piece that is moving, the renderer would be in "input-mode"
+	 * So, we will be rendering the real time changes.
+	 *
+	 * Once there is no movement, the renderer would be in "output-mode", rendering the board's configuration.
+	 */
+	if(!this->isThereAMovingPiece())
+	{
+		this->destructPieces();
+
+		try
+		{
+			this->initPieces();
+		}
+		catch(std::string e)
+		{
+			throw e;
+		}
+	}
+}
+
+/**
  * Initializes the squares.
  * 
  */
 void BoardView::renderPieces()
 {
-	int rendered_bP = 0,
-		rendered_bN = 0,
-		rendered_bR = 0,
-		rendered_bB = 0,
-		rendered_bK = 0,
-		rendered_bQ = 0,
-
-		rendered_wP = 0,
-		rendered_wN = 0,
-		rendered_wR = 0,
-		rendered_wB = 0,
-		rendered_wK = 0,
-		rendered_wQ = 0;
-
-	pieces_it piecesIterator;
+	try
+	{
+		this->updatePieces();
+	}
+	catch(std::string e)
+	{
+		throw e;
+	}
 
 	for (int i = 0; i < 64; ++i)
 	{
-		std::string pieceName = this->boardConfiguration[i/8][i%8];
-		piecesIterator = this->pieces.find(pieceName);
-
-		if(piecesIterator != this->pieces.end())
+		if(this->pieces[i/8][i%8] != NULL)
 		{
-			PieceView* extptr;
-
-			if(pieceName.compare("bP") == 0)
-			{
-				extptr = (piecesIterator->second.at(rendered_bP));
-				
-				rendered_bP++;
-			}
-			else
-			if(pieceName.compare("bR") == 0)
-			{
-				extptr = (piecesIterator->second.at(rendered_bR));
-				
-				rendered_bR++;
-			}
-			else
-			if(pieceName.compare("bN") == 0)
-			{
-				extptr = (piecesIterator->second.at(rendered_bN));
-				
-				rendered_bN++;
-			}
-			else
-			if(pieceName.compare("bB") == 0)
-			{
-				extptr = (piecesIterator->second.at(rendered_bB));
-				
-				rendered_bB++;
-			}
-			else
-			if(pieceName.compare("bK") == 0)
-			{
-				extptr = (piecesIterator->second.at(rendered_bK));
-				
-				rendered_bK++;
-			}
-			else
-			if(pieceName.compare("bQ") == 0)
-			{
-				extptr = (piecesIterator->second.at(rendered_bQ));
-				
-				rendered_bQ++;
-			}
-			else
-				/********** White pieces **********/
-			if(pieceName.compare("wP") == 0)
-			{
-				extptr = (piecesIterator->second.at(rendered_wP));
-				
-				rendered_wP++;
-			}
-			else
-			if(pieceName.compare("wR") == 0)
-			{
-				extptr = (piecesIterator->second.at(rendered_wR));
-				
-				rendered_wR++;
-			}
-			else
-			if(pieceName.compare("wN") == 0)
-			{
-				extptr = (piecesIterator->second.at(rendered_wN));
-				
-				rendered_wN++;
-			}
-			else
-			if(pieceName.compare("wB") == 0)
-			{
-				extptr = (piecesIterator->second.at(rendered_wB));
-				
-				rendered_wB++;
-			}
-			else
-			if(pieceName.compare("wK") == 0)
-			{
-				extptr = (piecesIterator->second.at(rendered_wK));
-				
-				rendered_wK++;
-			}
-			else
-			if(pieceName.compare("wQ") == 0)
-			{
-				extptr = (piecesIterator->second.at(rendered_wQ));
-				
-				rendered_wQ++;
-			}
-			else
-			{
-				continue;	
-			}
-
-			extptr->render((i%8) * 80, (i/8) * 80);
+			this->pieces[i/8][i%8]->render();
 		}
 	}
 }
@@ -288,6 +333,224 @@ void BoardView::renderPieces()
  */
 void BoardView::render()
 {
-	this->renderSquares();
-	this->renderPieces();
+	try
+	{
+		this->renderSquares();
+		this->renderPieces();
+	}
+	catch(std::string e)
+	{
+		throw e;
+	}
+}
+
+/**
+ * Self-descriptive
+ * @param PieceView*
+ * 
+ */
+void BoardView::registerMovingPiece(PieceView* piece)
+{
+	this->activePiece = piece;
+	this->activePieceCoordinates[0] = piece->getX();
+	this->activePieceCoordinates[1] = piece->getY();
+}
+
+/**
+ * Self-descriptive
+ * @param PieceView*
+ * 
+ */
+void BoardView::forgetMovingPiece()
+{
+	this->activePiece = NULL;
+	this->activePieceCoordinates[0] = -1;
+	this->activePieceCoordinates[1] = -1;
+}
+
+/**
+ * Self-descriptive
+ * @return [description]
+ * 
+ */
+PieceView* BoardView::getMovingPiece()
+{
+	return this->activePiece;
+}
+
+/**
+ * Self-descriptive.
+ * @return boolean
+ * 
+ */
+bool BoardView::isThereAMovingPiece()
+{
+	return this->activePiece != NULL;
+}
+
+/**
+ * Gets the piece that is holding the square at (x, y) coordinates.
+ * @return [description]
+ * 
+ */
+PieceView* BoardView::getPieceAt(int& x, int& y)
+{
+	for (int i = 0; i < 64; ++i)
+	{
+		int piece_x = (i%8) * 80;
+		int piece_y = (i/8) * 80;
+
+		if(HelperFunctions::checkCollision(x, y, piece_x, piece_y))
+		{
+			return this->pieces[i/8][i%8];
+		}
+	}
+}
+
+/**
+ * Returns the exact coordinates of the square that collides with the provided coordinates.
+ * @param  x int
+ * @param  y int
+ * @return   int* : array
+ */
+int* BoardView::getSquareAt(int& x, int& y)
+{
+	int* coordinates;
+
+	for (int i = 0; i < 64; ++i)
+	{
+		int square_x = (i%8) * 80;
+		int square_y = (i/8) * 80;
+
+		if(HelperFunctions::checkCollision(x, y, square_x, square_y))
+		{
+			coordinates = new int[2]{square_x, square_y};
+			return coordinates;
+		}
+	}
+	
+	coordinates = new int[2]{-1, -1};
+	return coordinates;
+}
+
+/**
+ * Puts the moving piece in the host square.
+ * @param x int
+ * @param y int
+ * 
+ */
+void BoardView::bindMovingPieceToSquare(int& x, int& y)
+{
+	int old_i, old_j, new_i, new_j;
+
+	old_i = this->activePieceCoordinates[1]/80;
+	old_j = this->activePieceCoordinates[0]/80;
+
+	new_i = y/80;
+	new_j = x/80;
+
+	PieceView* moving_piece = this->getMovingPiece();
+	moving_piece->move(x, y);
+
+	this->pieces[new_i][new_j] = moving_piece;
+	this->pieces[old_i][old_j] = NULL;
+
+	this->activePieceCoordinates[0] = x;
+	this->activePieceCoordinates[1] = y;
+
+	this->boardConfiguration[old_i][old_j] = " ";
+	this->boardConfiguration[new_i][new_j] = moving_piece->getName();
+}
+
+/**
+ * Binds the moving piece to its old position, in the screen and also in the boardCOnfiguration array.
+ * 
+ */
+void BoardView::bindMovingPieceToPreviousPosition()
+{
+	PieceView* moving_piece = this->getMovingPiece();
+	moving_piece->move(this->activePieceCoordinates[0], this->activePieceCoordinates[1]);
+}
+
+/**
+ * Handles the click event.
+ * @param e the SDL_Event object
+ * 
+ */
+void BoardView::handleClickEvent(SDL_Event& e)
+{
+	int x, y;
+
+    SDL_GetMouseState( &x, &y );
+
+    if(e.type == SDL_MOUSEBUTTONDOWN)
+	{
+        PieceView* piecePtr = this->getPieceAt(x, y);
+
+        if(piecePtr != NULL)
+        {
+	        this->registerMovingPiece(piecePtr);
+        	piecePtr->move((x - 80)/2, (y - 80)/2);
+        }
+        else
+        {
+        	std::cout << "==================="<< std::endl << "Could not capture any piece at the clicked position." << std::endl << std::endl;
+        }
+	}
+
+	if(e.type == SDL_MOUSEBUTTONUP)
+	{
+		if(this->isThereAMovingPiece())
+		{
+			std::cout << "There is a moving piece and it should now be released." << std::endl;
+
+			int* coordinates = this->getSquareAt(x, y);
+
+			if(coordinates[0] != -1 && coordinates[1] != -1)
+			{
+				std::cout << "Found a receipent square." << std::endl;
+				this->bindMovingPieceToSquare(x, y);
+			}
+			else
+			{
+				std::cout << "Found no receipent square, moving the piece back to where it was." << std::endl;
+				this->bindMovingPieceToPreviousPosition();
+			}
+
+			this->forgetMovingPiece();
+			std::cout << "\t\t Piece is forgotten now." << std::endl;
+
+			for (int i = 0; i < 8; ++i)
+			{
+				for (int j = 0; j < 8; ++j)
+				{
+					std::cout << this->boardConfiguration[i][j] << " ";
+				}
+				std::cout << std::endl;
+				std::cout << " -  -  -  -  -  -  -  - " << std::endl;
+			}
+		}
+		else
+		{
+			std::cout << "==================="<< std::endl << "There is no moving piece to forget." << std::endl;
+		}
+	}
+
+    if(this->isThereAMovingPiece())
+    {
+    	PieceView* piecePtr = this->getMovingPiece();
+
+    	std::cout << "There is moving piece" << std::endl;
+    	piecePtr->move(x -40, y -40);
+    }
+}
+
+/**
+ * Handles the events related to this view, keyboard and mouse events.
+ * @param e SDL_Event
+ * 
+ */
+void BoardView::handleEvents(SDL_Event& e)
+{
+	this->handleClickEvent(e);
 }

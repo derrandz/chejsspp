@@ -1,17 +1,19 @@
 #ifndef _MAIN_CONTROLLER_INCLUDED_
 #define _MAIN_CONTROLLER_INCLUDED_
 
-#include "AbstractController.hpp";
+#include "AbstractController.hpp"
+#include "entities/MainBoard.hpp"
 
-class MainController: public AbstractController
+class BoardsController: public AbstractController
 {
 	/*
 	 |****************************
-	 |
 	 |		Attributes
 	 |
 	 |****************************
 	 */
+	protected:
+		MainBoard *bitboard;
 
 	/*
 	 |****************************
@@ -20,6 +22,16 @@ class MainController: public AbstractController
 	 |
 	 |****************************
 	 */
+	private:
+		/**
+		 * Takes the board configuration from the BoardView, sends it to the bitboard for validation.
+		 *
+		 * If it is valid, the bitboard will take the changes and return the BoardView's version again.
+		 * Otherwise, it will revert the BoardView's configuration to the right one.
+		 * 
+		 */
+		void validateMoves() const;
+
 	protected:
 		/**
 		 * Renders all the views that are registered in the container.
@@ -32,8 +44,8 @@ class MainController: public AbstractController
 		 * Life and death angels.
 		 * 
 		 */
-		MainController();
-		~MainController();
+		BoardsController();
+		~BoardsController();
 		
 		/**
 		 * Bootstrap's the controller with whatever configuration specified.

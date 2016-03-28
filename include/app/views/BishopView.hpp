@@ -56,8 +56,8 @@ class BishopView : public PieceView
 		 * Constructor and destructor
 		 * 
 		 */
-		BishopView(bool suitColor, int x, int y, int height, int width)
-		:PieceView(suitColor, x, y, height, width)
+		BishopView(bool suitColor, std::string name, int x, int y, int height, int width)
+		:PieceView(suitColor, name, x, y, height, width)
 		{
 			if(suitColor)
 			{
@@ -76,8 +76,6 @@ class BishopView : public PieceView
 
 		    	throw exception.str();
 		    }
-		    
-			std::cout << "Bishop has been made" << std::endl;	
 		};
 		
 		~BishopView();

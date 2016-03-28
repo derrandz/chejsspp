@@ -56,8 +56,8 @@ class QueenView : public PieceView
 		 * Constructor and destructor
 		 * 
 		 */
-		QueenView(bool suitColor, int x, int y, int height, int width)
-		:PieceView(suitColor, x, y, height, width)
+		QueenView(bool suitColor, std::string name, int x, int y, int height, int width)
+		:PieceView(suitColor, name, x, y, height, width)
 		{
 			if(suitColor)
 			{
@@ -76,8 +76,6 @@ class QueenView : public PieceView
 
 		    	throw exception.str();
 		    }
-		    
-			std::cout << "Queen has been made" << std::endl;
 		};
 		
 		~QueenView();

@@ -56,8 +56,8 @@ class KnightView : public PieceView
 		 * Constructor and destructor
 		 * 
 		 */
-		KnightView(bool suitColor, int x, int y, int height, int width)
-		:PieceView(suitColor, x, y, height, width)
+		KnightView(bool suitColor, std::string name, int x, int y, int height, int width)
+		:PieceView(suitColor, name, x, y, height, width)
 		{
 			if(suitColor)
 			{
@@ -76,8 +76,6 @@ class KnightView : public PieceView
 
 		    	throw exception.str();
 		    }
-		    
-			std::cout << "Knight has been made" << std::endl;
 		};
 		
 		~KnightView();

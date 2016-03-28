@@ -27,18 +27,12 @@ class View
 		SDL_Rect myRect;
 
 		/**
-		 * Utility method. Detects whether the click is on this view or not.
-		 * 
-		 */
-		bool isSelected(int x, int y);
-
-	public:
-		/**
 		 * The path to the view file.
 		 * 
 		 */
 		std::string filePath;
 
+	public:
 		/**
 		 * The window and the renderer.
 		 * 
@@ -63,7 +57,14 @@ class View
 		 * @return boolean: returns true upon success.
 		 */
 		bool load();
-	public: 
+
+		/**
+		 * Utility method. Detects whether the click is on this view or not.
+		 * 
+		 */
+		bool isSelected(int x, int y);
+
+	public:
 		/**
 		 * Initializes the SDL loaders that will deal with everything about image loading.
 		 * 
@@ -80,6 +81,7 @@ class View
 		 * Constructor and destructor
 		 * 
 		 */
+		View(){ };
 		View(std::string path, int x, int y, int height, int width);
 		~View();
 		
@@ -94,6 +96,13 @@ class View
 		 * 
 		 */
 		virtual void render(int x, int y);
+
+		/**
+		 * Handles the events related to this view, keyboard and mouse events.
+		 * @param e SDL_Event
+		 * 
+		 */
+		virtual void handleEvents(SDL_Event& e);
 };
 
 #endif _VIEW_H_INCLUDED__

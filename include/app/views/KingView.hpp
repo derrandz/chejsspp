@@ -56,8 +56,8 @@ class KingView : public PieceView
 		 * Constructor and destructor
 		 * 
 		 */
-		KingView(bool suitColor, int x, int y, int height, int width)
-		:PieceView(suitColor, x, y, height, width)
+		KingView(bool suitColor, std::string name, int x, int y, int height, int width)
+		:PieceView(suitColor, name, x, y, height, width)
 		{
 			if(suitColor)
 			{
@@ -76,8 +76,6 @@ class KingView : public PieceView
 
 		    	throw exception.str();
 		    }
-		    
-			std::cout << "King has been made" << std::endl;
 		};
 
 		~KingView();

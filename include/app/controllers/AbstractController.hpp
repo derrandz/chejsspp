@@ -19,7 +19,7 @@ class AbstractController
 		/**
 		 * The to-be-rendered views
 		 */
-		static std::vector<View*> viewsContainer;
+		std::vector<View*> viewsContainer;
 
 	/*
 	 |****************************
@@ -49,10 +49,17 @@ class AbstractController
 
 	public:
 		/**
+		 * Constructor & destructor
+		 * 
+		 */
+		AbstractController();
+		~AbstractController();
+		
+		/**
 		 * Registers the supplied view in the container.
 		 * 
 		 */
-		static void registerView(View*);
+		void registerView(View*);
 
 		/**
 		 * Bootstrap's the controller with whatever configuration specified.

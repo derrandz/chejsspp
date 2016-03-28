@@ -1,5 +1,5 @@
 #include "helpers/GameManager.hpp"
-#include "controllers/MainController.hpp"
+#include "controllers/BoardsController.hpp"
 
 /**
  * Where the singletonED instance is going to be stored.
@@ -71,7 +71,7 @@ void GameManager::registerController(AbstractController* controller)
  */
 int GameManager::bootApp()
 {
-    GameManager::getInstance()->registerController(new MainController());
+    GameManager::getInstance()->registerController(new BoardsController());
 }
 
 /**

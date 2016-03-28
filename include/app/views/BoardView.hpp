@@ -17,7 +17,46 @@ class BoardView : public View
 	 |
 	 |****************************
 	 */
-	private:
+	protected:
+		/**
+		 * A board has two type of squares, black and white, and they are views as well.
+		 * 
+		 */
+		SquareView* squares[2];
+
+		/**
+		 * The board's pieces in place.
+		 * 
+		 */
+		PieceView*** pieces;
+
+		/**
+		 * The piece that is being currently moved.
+		 * 
+		 */
+		PieceView* activePiece;
+
+		/**
+		 * Active piece's old place in the board.
+		 * 
+		 */
+		int* activePieceCoordinates;
+		
+	public:
+		/**
+		 * The board's graphical representation in strings.
+		 * 
+		 */
+		std::string boardConfiguration[8][8]; 
+
+	/*
+	 |****************************
+	 |
+	 |		Methodes
+	 |
+	 |****************************
+	 */
+	protected:
 		/**
 		 * Initializes the squares.
 		 * 
@@ -49,35 +88,91 @@ class BoardView : public View
 		 */
 		bool init();
 
-	protected:
 		/**
-		 * A board has two type of squares, black and white, and they are views as well.
+		 * Handles the click event.
+		 * @param e the SDL_Event object
 		 * 
 		 */
-		SquareView* squares[2];
+		void handleClickEvent(SDL_Event& e);
 
 		/**
-		 * A board has many pieces regardless of their type, and they are dynamically added and deleted.
+		 * Self-descriptive
+		 * @param PieceView*
 		 * 
 		 */
-		std::map<std::string, std::vector<PieceView*>> pieces;
+		void registerMovingPiece(PieceView*);
+
+		/**
+		 * Self-descriptive
+		 * @param PieceView*
+		 * 
+		 */
+		void forgetMovingPiece();
+
+		/**
+		 * Self-descriptive
+		 * @return [description]
+		 * 
+		 */
+		PieceView* getMovingPiece();
+
+		/**
+		 * Self-descriptive.
+		 * @return boolean
+		 * 
+		 */
+		bool isThereAMovingPiece();
+
+		/**
+		 * Gets the piece that is holding the square at (x, y) coordinates.
+		 * @return [description]
+		 * 
+		 */
+		PieceView* getPieceAt(int& x, int& y);
+
+		/**
+		 * Returns the exact coordinates of the square that collides with the provided coordinates.
+		 * @param  x int
+		 * @param  y int
+		 * @return   int* : array
+		 */
+		int* getSquareAt(int& x, int& y);
+
+		/**
+		 * Puts the moving piece in the host square, in the screen and also in the boardConfiguration array.
+		 * @param x int
+		 * @param y int
+		 * 
+		 */
+		void bindMovingPieceToSquare(int& x, int& y);
+
+		/**
+		 * Binds the moving piece to its old position, in the screen and also in the boardCOnfiguration array.
+		 * 
+		 */
+		void bindMovingPieceToPreviousPosition();
+
+		/**
+		 * Updates thep pieces from the boardConfiguration
+		 * 
+		 */
+		void updatePieces();
+
+		/**
+		 * Destructs the pieces array and reinitializes it with NULL;
+		 * 
+		 */
+		void destructPieces();
 
 	public:
+
 		/**
-		 * The board's graphical representation in strings.
+		 * Loads a provided configuration.
+		 * @param std::string**
 		 * 
 		 */
-		std::string boardConfiguration[8][8]; 
+		void loadBoard(std::string**);
 
-		
-	/*
-	 |****************************
-	 |
-	 |		Methodes
-	 |
-	 |****************************
-	 */
-	public:
 		/**
 		 * Constructor
 		 * 
@@ -96,6 +191,19 @@ class BoardView : public View
 		 */
 		void render();
 
+		/**
+		 * Handles the events related to this view, keyboard and mouse events.
+		 * @param e SDL_Event
+		 * 
+		 */
+		void handleEvents(SDL_Event& e);
+
+		/**
+		 * Draws the board, for debugging purposes.
+		 * 
+		 */
+		void drawBoard();
+		
 		/**
 		 * Returns the board in an 8*8 strings array, and each index, there should be either an empty string, or a string representing a piece, such as "wP" for white pawn
 		 * @return std::string[] : Array of strings.

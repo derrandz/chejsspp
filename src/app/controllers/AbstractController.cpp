@@ -1,9 +1,23 @@
 #include "controllers/AbstractController.hpp"
 
 /**
- * The to-be-rendered views
+ * Constructor & destructor
+ * 
  */
-std::vector<View*> AbstractController::viewsContainer;
+AbstractController::AbstractController()
+{
+
+}
+
+AbstractController::~AbstractController()
+{
+    for(std::vector<View*>::iterator view = this->viewsContainer.begin(); view != this->viewsContainer.end(); ++view) 
+    {
+        View* ptr = *view;
+
+        delete ptr;
+    }
+}
 
 /**
  * Renders all the views that are registered in the container.
@@ -11,7 +25,7 @@ std::vector<View*> AbstractController::viewsContainer;
  */
 void AbstractController::renderViews()
 {
-	for(std::vector<View*>::iterator view = AbstractController::viewsContainer.begin(); view != AbstractController::viewsContainer.end(); ++view) 
+	for(std::vector<View*>::iterator view = this->viewsContainer.begin(); view != this->viewsContainer.end(); ++view) 
 	{
         View* ptr = *view;
 
@@ -25,7 +39,7 @@ void AbstractController::renderViews()
  */
 void AbstractController::registerView(View* newView)
 {
-	AbstractController::viewsContainer.push_back(newView);
+	this->viewsContainer.push_back(newView);
 }
 
 /**
@@ -58,13 +72,12 @@ void AbstractController::freeViews()
  */
 void AbstractController::handleEvents(SDL_Event& e)
 {
-    int x, y;
-
-    if(e.type == SDL_MOUSEBUTTONDOWN)
+    for(std::vector<View*>::iterator view = this->viewsContainer.begin(); view != this->viewsContainer.end(); ++view) 
     {
-        SDL_GetMouseState( &x, &y );
+        View* ptr = *view;
 
-    }
+        ptr->handleEvents(e);
+    }   
 }
 
 /**
@@ -123,9 +136,18 @@ int AbstractController::run(bool& gameStatus)
         SDL_SetRenderDrawColor( View::renderer, 0xFF, 0xFF, 0xFF, 0xFF );
         SDL_RenderClear( View::renderer );
 
-        this->mainAction();
-        this->renderViews();
+        try
+        {
+            this->mainAction();
+            this->renderViews();
+        }
+        catch(std::string e)
+        {
+            std::cout << "Exception caught during runtime: " << std::endl;
+            std::cout << "\t" << e << std::endl;
 
+            gameStatus = false;
+        }
         //Update screen
         SDL_RenderPresent( View::renderer );
     }
