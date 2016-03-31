@@ -6,6 +6,37 @@
 #include "entities/QueenBoard.hpp"
 #include "entities/RooksBoard.hpp"
 #include "entities/BishopsBoard.hpp"
+#include <sstream>
+
+/**
+ * Applies the capture to the rest of the boards to propogate changes.
+ * 
+ */
+void MainBoard::applyCaptureHistory()
+{
+	std::pair<std::string, long> captures_history = AbstractBoardEntity::getCaptureHistory();
+
+	if(captures_history.first.compare(" ") != 0)
+	{
+		for (subbitboards_it it = this->subBitboards.begin(); it != this->subBitboards.end() ; ++it)
+		{
+			if(it->second->getName().compare(captures_history.first) != 0 )
+			{
+				long bitboard = it->second->getBitBoard();
+
+				if( (bitboard & captures_history.second) != 0 )
+				{
+					bitboard = bitboard ^ captures_history.second;
+					it->second->loadbitboard(bitboard);
+					break;
+				}
+			}
+		}
+
+		AbstractBoardEntity::forgetCaptureHistory();
+	}
+	
+}
 
 /**
  * Updates the state of the final board, but in an unrecognizable way of just bitmapping everything.
@@ -42,6 +73,8 @@ void MainBoard::alterSubBitboard(bool isInitLoad, std::string boardName, std::st
 			iterator->second->alterBoard(isInitLoad, this->fullboard, binaryString);
 		}
 	}
+
+	this->applyCaptureHistory();
 }
 
 /**
@@ -133,26 +166,6 @@ void MainBoard::arrayBoard_toBitboard(bool isInitLoad, std::string arrayBoard[][
 			HelperFunctions::setBinaryStringToOneAtPosition(wP, i);
 		}
 	}
-
-		std::cout << "Boards applied post validation" << std::endl;
-		std::cout << "\tPawns" << std::endl;
-		long bP_l = HelperFunctions::convertStringToBitBoard(bP);
-		HelperFunctions::drawArrayBoardFromBitBoard(bP_l);
-		std::cout << "\tRooks" << std::endl;
-		long bR_l = HelperFunctions::convertStringToBitBoard(bR);
-		HelperFunctions::drawArrayBoardFromBitBoard(bR_l);
-		std::cout << "\tKing" << std::endl;
-		long bK_l = HelperFunctions::convertStringToBitBoard(bK);
-		HelperFunctions::drawArrayBoardFromBitBoard(bK_l);
-		std::cout << "\tQueen" << std::endl;
-		long bQ_l = HelperFunctions::convertStringToBitBoard(bQ);
-		HelperFunctions::drawArrayBoardFromBitBoard(bQ_l);
-		std::cout << "\tKnights" << std::endl;
-		long bN_l = HelperFunctions::convertStringToBitBoard(bN);
-		HelperFunctions::drawArrayBoardFromBitBoard(bN_l);
-		std::cout << "\tBishops" << std::endl;
-		long bB_l = HelperFunctions::convertStringToBitBoard(bB);
-		HelperFunctions::drawArrayBoardFromBitBoard(bB_l);
 
 		this->alterSubBitboard(isInitLoad, "bP", bP);
 		this->alterSubBitboard(isInitLoad, "bK", bK);
@@ -362,22 +375,22 @@ MainBoard::MainBoard()
 	/**
 	 * Black pieces
 	 */
-	this->subBitboards["bR"] = new RooksBoard(false);
-	this->subBitboards["bB"] = new BishopsBoard(false);
-	this->subBitboards["bK"] = new KingBoard(false);
-	this->subBitboards["bQ"] = new QueenBoard(false);
-	this->subBitboards["bP"] = new PawnsBoard(false);
-	this->subBitboards["bN"] = new KnightsBoard(false);
+	this->subBitboards["bR"] = new RooksBoard(false, "bR");
+	this->subBitboards["bB"] = new BishopsBoard(false, "bB");
+	this->subBitboards["bK"] = new KingBoard(false, "bK");
+	this->subBitboards["bQ"] = new QueenBoard(false, "bQ");
+	this->subBitboards["bP"] = new PawnsBoard(false, "bP");
+	this->subBitboards["bN"] = new KnightsBoard(false, "bN");
 
 	/**
 	 * White pieces
 	 */
-	this->subBitboards["wR"] = new RooksBoard(true);
-	this->subBitboards["wB"] = new BishopsBoard(true);
-	this->subBitboards["wK"] = new KingBoard(true);
-	this->subBitboards["wQ"] = new QueenBoard(true);
-	this->subBitboards["wP"] = new PawnsBoard(true);
-	this->subBitboards["wN"] = new KnightsBoard(true);
+	this->subBitboards["wR"] = new RooksBoard(true, "wR");
+	this->subBitboards["wB"] = new BishopsBoard(true, "wB");
+	this->subBitboards["wK"] = new KingBoard(true, "wK");
+	this->subBitboards["wQ"] = new QueenBoard(true, "wQ");
+	this->subBitboards["wP"] = new PawnsBoard(true, "wP");
+	this->subBitboards["wN"] = new KnightsBoard(true, "wN");
 }
 
 MainBoard::~MainBoard()

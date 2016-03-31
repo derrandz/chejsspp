@@ -48,8 +48,8 @@ class BishopsBoard : public AbstractBoardEntity
 		 * Constructor and destructor
 		 * 
 		 */
-		BishopsBoard(bool suitColor)
-		:AbstractBoardEntity(suitColor)
+		BishopsBoard(bool suitColor, std::string name)
+		:AbstractBoardEntity(suitColor, name)
 		{
 
 		};

@@ -95,7 +95,18 @@ class PawnsBoard : public AbstractBoardEntity
 			}
 			else if( moveType == 2)
 			{
-				return !this->isBoardIsEmptyAt(newPosition, fullboard); //Prohibits the capture if the square is empty.
+				if(!this->isBoardIsEmptyAt(newPosition, fullboard)) //Prohibits the capture if the square is empty.
+				{
+					AbstractBoardEntity::saveCaptureHistory(this->name, newPosition);
+					std::cout << "\n\n\n\n\n\n\n\n\n" << std::endl;
+					std::cout << "Moment of capture:" << std::endl;
+					std::cout << "Captured at position" << std::endl;
+					HelperFunctions::drawArrayBoardFromBitBoard(newPosition);
+					std::cout << "\n\n\n\n\n\n\n\n\n" << std::endl;
+					
+					return true;
+				}
+				else return false;
 			}
 			else return false;
 		};
@@ -105,8 +116,8 @@ class PawnsBoard : public AbstractBoardEntity
 		 * Constructor and destructor
 		 * 
 		 */
-		PawnsBoard(bool suitColor)
-		:AbstractBoardEntity(suitColor)
+		PawnsBoard(bool suitColor, std::string name)
+		:AbstractBoardEntity(suitColor, name)
 		{
 
 		};

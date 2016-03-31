@@ -48,8 +48,8 @@ class KingBoard : public AbstractBoardEntity
 		 * Constructor and destructor
 		 * 
 		 */
-		KingBoard(bool suitColor)
-		:AbstractBoardEntity(suitColor)
+		KingBoard(bool suitColor, std::string name)
+		:AbstractBoardEntity(suitColor, name)
 		{
 
 		};

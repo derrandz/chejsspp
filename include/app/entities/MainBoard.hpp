@@ -2,6 +2,7 @@
 #define _MAIN_BOARD_H_INCLUDED_
 
 #include <map>
+#include <utility>
 
 #ifndef _ABSTRACT_BOARD_ENTITY_H_INCLUDED_
 
@@ -75,7 +76,12 @@ class MainBoard
 		void updateFullboard();
 
 	public:
-		
+		/**
+		 * Applies the capture to the rest of the boards to propogate changes.
+		 * 
+		 */
+		void applyCaptureHistory();
+
 		/**
 		 * Returns the final board in an array form
 		 * @return std::string**

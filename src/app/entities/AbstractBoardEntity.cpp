@@ -8,6 +8,28 @@
  */
 
 /**
+ * Keeps track of the last capturing element and the position he captured
+ * As to remove the capture piece from its motherboard.
+ * 
+ */
+std::pair<std::string, long> AbstractBoardEntity::captures_history_utility = std::make_pair(" ", 0L);
+
+/**
+ * Loads a bitboard without verification.
+ * @param long [description]
+ * 
+ */
+void AbstractBoardEntity::loadbitboard(long bitboard)
+{
+	this->bitRepresentation = bitboard;
+}
+
+std::string AbstractBoardEntity::getName()
+{
+	return this->name;
+}
+
+/**
  * Determines whether the new position is already occupied by other pieces.
  * @param  newposition [description]
  * @param  fullboard   [description]
@@ -68,10 +90,11 @@ bool AbstractBoardEntity::isMoveValid(long move, long fullboard)
  * Constructor and destructor
  * 
  */
-AbstractBoardEntity::AbstractBoardEntity(bool suitColor)
+AbstractBoardEntity::AbstractBoardEntity(bool suitColor, std::string name)
 {
-	this->suitColor = suitColor;
 	this->bitRepresentation = 0L;
+	this->name              = name;
+	this->suitColor         = suitColor;
 }
 
 AbstractBoardEntity::~AbstractBoardEntity()
@@ -108,4 +131,34 @@ void AbstractBoardEntity::alterBoard(bool isInitLoad, long fullboard, std::strin
 long AbstractBoardEntity::getBitBoard()
 {
 	return this->bitRepresentation;
+}
+
+
+/**
+ * Returns the capture history
+ * 
+ */
+void AbstractBoardEntity::saveCaptureHistory(std::string capturing_board, long new_move)
+{
+	AbstractBoardEntity::captures_history_utility.first  = capturing_board;
+	AbstractBoardEntity::captures_history_utility.second = new_move;
+}
+
+/**
+ * Returns the capture history
+ * 
+ */
+std::pair<std::string,long> AbstractBoardEntity::getCaptureHistory()
+{
+	return AbstractBoardEntity::captures_history_utility;
+}
+
+/**
+ * Forgets the capture history
+ * 
+ */
+std::pair<std::string, long> AbstractBoardEntity::forgetCaptureHistory()
+{
+	AbstractBoardEntity::captures_history_utility.first  = " ";
+	AbstractBoardEntity::captures_history_utility.second = 0L;
 }

@@ -27,6 +27,19 @@ class AbstractBoardEntity
 		 * 
 		 */
 		bool suitColor;
+
+		/**
+		 * The name.
+		 * 
+		 */
+		std::string name;
+
+		/**
+		 * Keeps track of the last capturing element and the position he captured
+		 * As to remove the capture piece from its motherboard.
+		 * 
+		 */
+		static std::pair<std::string, long> captures_history_utility;
 	/*
 	 |****************************
 	 |		Methodes
@@ -83,8 +96,26 @@ class AbstractBoardEntity
 		 * 
 		 */
 		bool isBoardIsEmptyAt(long newposition, long fullboard);
-
+		
 	public:
+		/**
+		 * Saves the capture history
+		 * 
+		 */
+		static void saveCaptureHistory(std::string, long);
+
+		/**
+		 * Returns the capture history
+		 * 
+		 */
+		static std::pair<std::string,long> getCaptureHistory();
+
+		/**
+		 * Forgets the capture history
+		 * 
+		 */
+		static std::pair<std::string, long> forgetCaptureHistory();
+		
 		/**
 		 * Returns the bit representation of the board.
 		 * @return long
@@ -96,7 +127,7 @@ class AbstractBoardEntity
 		 * Constructor and destructor
 		 * 
 		 */
-		AbstractBoardEntity(bool suitColor);
+		AbstractBoardEntity(bool suitColor, std::string name);
 		~AbstractBoardEntity();
 
 		/**
@@ -104,7 +135,21 @@ class AbstractBoardEntity
 		 * 
 		 */
 		virtual void alterBoard(bool isInitLoad, long fullboard, std::string& binaryString) = 0;
-
+		
+		/**
+		 * Returns the name of the board.
+		 * @return [description]
+		 * 
+		 */
+		std::string getName();
+		
+		/**
+		 * Loads a bitboard without verification.
+		 * @param long [description]
+		 * 
+		 */
+		void loadbitboard(long);
+			
 	public: 
 
 };

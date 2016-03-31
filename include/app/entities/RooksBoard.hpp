@@ -48,8 +48,8 @@ class RooksBoard : public AbstractBoardEntity
 		 * Constructor and destructor
 		 * 
 		 */
-		RooksBoard(bool suitColor)
-		:AbstractBoardEntity(suitColor)
+		RooksBoard(bool suitColor, std::string name)
+		:AbstractBoardEntity(suitColor, name)
 		{
 
 		};

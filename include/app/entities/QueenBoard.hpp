@@ -48,8 +48,8 @@ class QueenBoard : public AbstractBoardEntity
 		 * Constructor and destructor
 		 * 
 		 */
-		QueenBoard(bool suitColor)
-		:AbstractBoardEntity(suitColor)
+		QueenBoard(bool suitColor, std::string name)
+		:AbstractBoardEntity(suitColor, name)
 		{
 
 		};
