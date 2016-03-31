@@ -41,11 +41,11 @@ class PawnsBoard : public AbstractBoardEntity
 				{
 					if( (oldPosition&file_a) != 0) // if the pawn is on the A's
 					{
-						if( ( (oldPosition&file_a)<<7 ) == newPosition) return 2;
+						if( ( (oldPosition&file_a)<<9 ) == newPosition) return 2;
 					}	
 					else if( (oldPosition&file_h) != 0) // if the pawn is on the H's
 					{
-						if( ( (oldPosition&file_h)<<9 ) == newPosition) return 2;
+						if( ( (oldPosition&file_h)<<7 ) == newPosition) return 2;
 					}	
 					else
 					{
