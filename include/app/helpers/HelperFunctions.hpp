@@ -26,7 +26,7 @@ namespace HelperFunctions
 	 * @param bitboard : the actualized bitboard.
 	 * 
 	 */
-	void drawArrayBoardFromBitBoard(long& bitboard);
+	void drawArrayBoardFromBitBoard(long bitboard);
 
 	/**
 	 * Checks whether a and b collides, provided that a is the cursor, and b is a rect with 80x80 dimensions.

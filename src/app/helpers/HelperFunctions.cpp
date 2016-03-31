@@ -30,7 +30,7 @@ long HelperFunctions::convertStringToBitBoard(std::string& binaryString)
  * @param bitboard : the actualized bitboard.
  * 
  */
-void HelperFunctions::drawArrayBoardFromBitBoard(long& bitboard)
+void HelperFunctions::drawArrayBoardFromBitBoard(long bitboard)
 {
 	std::string board[8][8];
 

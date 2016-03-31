@@ -40,6 +40,7 @@ class AbstractBoardEntity
 		 * 
 		 */
 		static std::pair<std::string, long> captures_history_utility;
+
 	/*
 	 |****************************
 	 |		Methodes
@@ -114,7 +115,7 @@ class AbstractBoardEntity
 		 * Forgets the capture history
 		 * 
 		 */
-		static std::pair<std::string, long> forgetCaptureHistory();
+		static void forgetCaptureHistory();
 		
 		/**
 		 * Returns the bit representation of the board.

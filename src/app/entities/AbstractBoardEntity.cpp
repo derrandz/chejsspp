@@ -157,7 +157,7 @@ std::pair<std::string,long> AbstractBoardEntity::getCaptureHistory()
  * Forgets the capture history
  * 
  */
-std::pair<std::string, long> AbstractBoardEntity::forgetCaptureHistory()
+void AbstractBoardEntity::forgetCaptureHistory()
 {
 	AbstractBoardEntity::captures_history_utility.first  = " ";
 	AbstractBoardEntity::captures_history_utility.second = 0L;

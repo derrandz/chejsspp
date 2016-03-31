@@ -18,9 +18,14 @@ void MainBoard::applyCaptureHistory()
 
 	if(captures_history.first.compare(" ") != 0)
 	{
+		long blacks = 0L;
+		long whites = 0L;
+
 		for (subbitboards_it it = this->subBitboards.begin(); it != this->subBitboards.end() ; ++it)
 		{
-			if(it->second->getName().compare(captures_history.first) != 0 )
+			std::string board_name = it->second->getName();
+
+			if(board_name.compare(captures_history.first) != 0 )
 			{
 				long bitboard = it->second->getBitBoard();
 
@@ -28,10 +33,15 @@ void MainBoard::applyCaptureHistory()
 				{
 					bitboard = bitboard ^ captures_history.second;
 					it->second->loadbitboard(bitboard);
-					break;
 				}
 			}
+
+			if(board_name.compare("b") > -1) blacks += it->second->getBitBoard();
+			else if(board_name.compare("w") > -1) whites += it->second->getBitBoard();
 		}
+
+		HelperFunctions::drawArrayBoardFromBitBoard(blacks);
+		HelperFunctions::drawArrayBoardFromBitBoard(whites);
 
 		AbstractBoardEntity::forgetCaptureHistory();
 	}
@@ -436,6 +446,17 @@ void MainBoard::drawBoard()
 	long finalBoard = this->getFinalBoard();
 	std::cout << std::endl << "----- ----- ----- Arrayboard from bitboards ----- ----- -----" << std::endl;
 	HelperFunctions::drawArrayBoardFromBitBoard(finalBoard);	
+	std::cout << std::endl << "----- ----- ----- ----- ----- ----- ----- ----- ----- -----" << std::endl;
+}
+
+/**
+ * For debugging.
+ * 
+ */
+void MainBoard::drawFullBoard()
+{
+	std::cout << std::endl << "----- ----- ----- Arrayboard from fullboard ----- ----- -----" << std::endl;
+	HelperFunctions::drawArrayBoardFromBitBoard(this->fullboard);	
 	std::cout << std::endl << "----- ----- ----- ----- ----- ----- ----- ----- ----- -----" << std::endl;
 }
 

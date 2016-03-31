@@ -98,12 +98,6 @@ class PawnsBoard : public AbstractBoardEntity
 				if(!this->isBoardIsEmptyAt(newPosition, fullboard)) //Prohibits the capture if the square is empty.
 				{
 					AbstractBoardEntity::saveCaptureHistory(this->name, newPosition);
-					std::cout << "\n\n\n\n\n\n\n\n\n" << std::endl;
-					std::cout << "Moment of capture:" << std::endl;
-					std::cout << "Captured at position" << std::endl;
-					HelperFunctions::drawArrayBoardFromBitBoard(newPosition);
-					std::cout << "\n\n\n\n\n\n\n\n\n" << std::endl;
-					
 					return true;
 				}
 				else return false;

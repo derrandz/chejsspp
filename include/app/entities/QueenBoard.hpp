@@ -40,7 +40,7 @@ class QueenBoard : public AbstractBoardEntity
 		 */
 		inline bool isMoveValid(long move, long fullboard)
 		{
-			return true;
+			return false;
 		};
 
 	public:

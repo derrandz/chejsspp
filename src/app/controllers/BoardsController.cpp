@@ -57,7 +57,9 @@ void BoardsController::mainAction() const
 {
 	std::cout << std::endl << "=============================================================================" << std::endl;
 	std::cout << "=============================[Validation Start]=============================" << std::endl;
+	std::cout << std::endl << std::endl << std::endl;
 	this->validateMoves();
+	std::cout << std::endl << std::endl << std::endl;
 	std::cout << "=============================[Validation End]=============================" << std::endl;
 	std::cout << "=============================================================================" << std::endl;
 }
@@ -84,6 +86,7 @@ void BoardsController::validateMoves() const
 
 	std::cout << std::endl << std::endl << "----- ----- The validated board is :----- -----" << std::endl;
 	this->bitboard->drawBoard();
+	this->bitboard->drawFullBoard();
 	std::cout << std::endl << std::endl << "----- ----- ----- ----- ----- ----- ----- -----" << std::endl;
 
 	graphicalboard->loadBoard(validated_configuration);

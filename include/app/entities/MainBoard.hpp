@@ -129,6 +129,11 @@ class MainBoard
 		 */
 		void drawBoard();
 
+		/**
+		 * For debugging.
+		 * 
+		 */
+		void drawFullBoard();
 };
 
 #endif // _MAIN_BOARD_H_INCLUDED_

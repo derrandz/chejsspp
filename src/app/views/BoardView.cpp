@@ -492,55 +492,30 @@ void BoardView::handleClickEvent(SDL_Event& e)
 	        this->registerMovingPiece(piecePtr);
         	piecePtr->move((x - 80)/2, (y - 80)/2);
         }
-        else
-        {
-        	std::cout << "==================="<< std::endl << "Could not capture any piece at the clicked position." << std::endl << std::endl;
-        }
 	}
 
 	if(e.type == SDL_MOUSEBUTTONUP)
 	{
 		if(this->isThereAMovingPiece())
 		{
-			std::cout << "There is a moving piece and it should now be released." << std::endl;
-
 			int* coordinates = this->getSquareAt(x, y);
 
 			if(coordinates[0] != -1 && coordinates[1] != -1)
 			{
-				std::cout << "Found a receipent square." << std::endl;
 				this->bindMovingPieceToSquare(x, y);
 			}
 			else
 			{
-				std::cout << "Found no receipent square, moving the piece back to where it was." << std::endl;
 				this->bindMovingPieceToPreviousPosition();
 			}
 
 			this->forgetMovingPiece();
-			std::cout << "\t\t Piece is forgotten now." << std::endl;
-
-			for (int i = 0; i < 8; ++i)
-			{
-				for (int j = 0; j < 8; ++j)
-				{
-					std::cout << this->boardConfiguration[i][j] << " ";
-				}
-				std::cout << std::endl;
-				std::cout << " -  -  -  -  -  -  -  - " << std::endl;
-			}
-		}
-		else
-		{
-			std::cout << "==================="<< std::endl << "There is no moving piece to forget." << std::endl;
 		}
 	}
 
     if(this->isThereAMovingPiece())
     {
     	PieceView* piecePtr = this->getMovingPiece();
-
-    	std::cout << "There is moving piece" << std::endl;
     	piecePtr->move(x -40, y -40);
     }
 }
