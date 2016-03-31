@@ -16,6 +16,26 @@ class AbstractBoardEntity
 	 */
 	protected:
 		/**
+		 * Ranks
+		 * 
+		 */
+		static const long ranks[8];
+
+		/**
+		 * Files
+		 */
+		enum files {
+			file_a = -9187201950435737472,
+			file_b = 4629771061636907072,
+			file_c = 2314885530818453536,
+			file_d = 1157442765409226768,
+			file_e = 578721382704613384,
+			file_f = 289360691352306692,
+			file_g = 144680345676153346,
+			file_h = 72340172838076673
+		};
+
+		/**
 		 * The representation of the board in bits.
 		 * 
 		 */
@@ -98,6 +118,24 @@ class AbstractBoardEntity
 		 */
 		bool isBoardIsEmptyAt(long newposition, long fullboard);
 		
+		/**
+		 * Returns the distance between the two positions.
+		 * @param  oldPosition [description]
+		 * @param  newPosition [description]
+		 * @return             [description]
+		 * 
+		 */
+		int getDistance(long oldPosition, long newPosition);
+
+		/**
+		 * Returns the distance between the two positions.
+		 * @param  oldPosition [description]
+		 * @param  newPosition [description]
+		 * @return             [description]
+		 * 
+		 */
+		int getPositionOfBit(long position);
+			
 	public:
 		/**
 		 * Saves the capture history

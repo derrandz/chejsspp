@@ -8,6 +8,23 @@
  */
 
 /**
+ * Ranks
+ * 
+ */
+
+const long AbstractBoardEntity::ranks[8] = 
+{
+		-72057594037927936, // RANK 1
+		71776119061217280, // RANK 2
+		280375465082880, // RANK 3
+		1095216660480, // RANK 4
+		4278190080, // RANK 5
+		16711680, // RANK 6
+		65280, // RANK 7
+		255 // RANK 8
+};
+
+/**
  * Keeps track of the last capturing element and the position he captured
  * As to remove the capture piece from its motherboard.
  * 
@@ -161,4 +178,39 @@ void AbstractBoardEntity::forgetCaptureHistory()
 {
 	AbstractBoardEntity::captures_history_utility.first  = " ";
 	AbstractBoardEntity::captures_history_utility.second = 0L;
+}
+
+/**
+ * Returns the distance between the two positions.
+ * @param  oldPosition [description]
+ * @param  newPosition [description]
+ * @return             [description]
+ * 
+ */
+int AbstractBoardEntity::getDistance(long oldPosition, long newPosition)
+{
+	return this->getPositionOfBit(newPosition) - this->getPositionOfBit(oldPosition);
+}
+
+
+/**
+ * Returns the distance between the two positions.
+ * @param  oldPosition [description]
+ * @param  newPosition [description]
+ * @return             [description]
+ * 
+ */
+int AbstractBoardEntity::getPositionOfBit(long position)
+{
+	long tmp;
+
+	for (int i = 1, tmp = 0L; i <= 64; ++i)
+	{
+		tmp = position>>i;
+
+		if(tmp == 1)
+			return i+1;
+	}
+
+	return -1;
 }
