@@ -25,7 +25,7 @@ class PawnsBoard : public AbstractBoardEntity
 		 * @return bool : true upon valid.
 		 *  
 		 */
-		inline bool isMoveValid(long move)
+		inline bool isMoveValid(long move, long fullboard)
 		{
 			/*long file_a = 72340172838076673L;
 			long file_h = -9187201950435737472L;
@@ -73,9 +73,9 @@ class PawnsBoard : public AbstractBoardEntity
 		 * Alters the positions at this board.
 		 * 
 		 */
-		inline void alterBoard(std::string& binaryString)
+		inline void alterBoard(bool isInitLoad, long fullboard, std::string& binaryString)
 		{
-			AbstractBoardEntity::alterBoard(binaryString);
+			AbstractBoardEntity::alterBoard(isInitLoad, fullboard, binaryString);
 		};
 
 };

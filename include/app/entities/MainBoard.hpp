@@ -26,6 +26,11 @@ class MainBoard
 		 */
 		std::map<std::string, AbstractBoardEntity*> subBitboards;
 
+		/**
+		 * A bitmap for the positions, regardless of their respective boards.
+		 * 
+		 */
+		long fullboard;
 	/*
 	 |****************************
 	 |		Methodes
@@ -39,21 +44,21 @@ class MainBoard
 		 * @param binaryString The bitboard that is going to be applied.
 		 * 
 		 */
-		void alterSubBitboard(std::string boardName, std::string& binaryString);
+		void alterSubBitboard(bool isInitLoad, std::string boardName, std::string& binaryString);
 
 		/**
 		 * Parses the array into a bitboard
 		 * @param std::string The array containing the 'graphical' board./
 		 * 
 		 */
-		void arrayBoard_toBitboard(std::string arrayBoard[][8]);
+		void arrayBoard_toBitboard(bool isInitLoad, std::string arrayBoard[][8]);
 
 		/**
 		 * Loads a given configuration of the board.
 		 * @param std::string[][] The array board.
 		 * 
 		 */
-		void loadConfiguration(std::string conf[][8]);
+		void loadConfiguration(bool isInitLoad, std::string conf[][8]);
 
 		/**
 		 * Returns the final board by superpositioning all of the 12 boards with the use of logical bitwise operators and chess rules.
@@ -62,6 +67,12 @@ class MainBoard
 		 * 
 		 */
 		long getFinalBoard();
+
+		/**
+		 * Updates the state of the final board, but in an unrecognizable way of just bitmapping everything.
+		 * 
+		 */
+		void updateFullboard();
 
 	public:
 		

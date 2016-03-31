@@ -24,7 +24,7 @@ void AbstractBoardEntity::binaryString_toBitboard(std::string&)
  * @return bool : true upon valid.
  *  
  */
-bool AbstractBoardEntity::isMoveValid(long)
+bool AbstractBoardEntity::isMoveValid(long move, long fullboard)
 {
 	std::cout << "AbstractBoardEntity::isMoveValid is being called" << std::endl;
 	return true;
@@ -50,11 +50,18 @@ AbstractBoardEntity::~AbstractBoardEntity()
  * Alters the positions at this board.
  * 
  */
-void AbstractBoardEntity::alterBoard(std::string& binaryString)
+void AbstractBoardEntity::alterBoard(bool isInitLoad, long fullboard, std::string& binaryString)
 {
 	long alteredBitboard = HelperFunctions::convertStringToBitBoard(binaryString);
 
-	if(this->isMoveValid(alteredBitboard))
+	if(!isInitLoad)
+	{
+		if(this->isMoveValid(alteredBitboard, fullboard))
+		{
+			this->bitRepresentation = alteredBitboard;
+		}
+	}
+	else
 	{
 		this->bitRepresentation = alteredBitboard;
 	}

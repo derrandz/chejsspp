@@ -8,12 +8,28 @@
 #include "entities/BishopsBoard.hpp"
 
 /**
+ * Updates the state of the final board, but in an unrecognizable way of just bitmapping everything.
+ * 
+ */
+void MainBoard::updateFullboard()
+{
+	long xfullboard = 0L;
+	
+	for (subbitboards_it it = this->subBitboards.begin(); it != this->subBitboards.end() ; ++it)
+	{
+		xfullboard += it->second->getBitBoard();
+	}
+
+	this->fullboard = xfullboard;
+}
+
+/**
  * Alter the provided sub bitboard out of the 12 sub bitboards.
  * @param boardName    The name of the board, serves as an index to find it.
  * @param binaryString The bitboard that is going to be applied.
  * 
  */
-void MainBoard::alterSubBitboard(std::string boardName, std::string& binaryString)
+void MainBoard::alterSubBitboard(bool isInitLoad, std::string boardName, std::string& binaryString)
 {
 	subbitboards_it iterator;
 
@@ -23,7 +39,7 @@ void MainBoard::alterSubBitboard(std::string boardName, std::string& binaryStrin
 
 		if( iterator != this->subBitboards.end())
 		{
-			iterator->second->alterBoard(binaryString);
+			iterator->second->alterBoard(isInitLoad, this->fullboard, binaryString);
 		}
 	}
 }
@@ -33,7 +49,7 @@ void MainBoard::alterSubBitboard(std::string boardName, std::string& binaryStrin
  * @param std::string The array containing the 'graphical' board./
  * 
  */
-void MainBoard::arrayBoard_toBitboard(std::string arrayBoard[][8])
+void MainBoard::arrayBoard_toBitboard(bool isInitLoad, std::string arrayBoard[][8])
 {
 	std::string bP = "0000000000000000000000000000000000000000000000000000000000000000";
 	std::string bK = "0000000000000000000000000000000000000000000000000000000000000000";
@@ -138,28 +154,29 @@ void MainBoard::arrayBoard_toBitboard(std::string arrayBoard[][8])
 		long bB_l = HelperFunctions::convertStringToBitBoard(bB);
 		HelperFunctions::drawArrayBoardFromBitBoard(bB_l);
 
-		this->alterSubBitboard("bP", bP);
-		this->alterSubBitboard("bK", bK);
-		this->alterSubBitboard("bQ", bQ);
-		this->alterSubBitboard("bB", bB);
-		this->alterSubBitboard("bN", bN);
-		this->alterSubBitboard("bR", bR);
+		this->alterSubBitboard(isInitLoad, "bP", bP);
+		this->alterSubBitboard(isInitLoad, "bK", bK);
+		this->alterSubBitboard(isInitLoad, "bQ", bQ);
+		this->alterSubBitboard(isInitLoad, "bB", bB);
+		this->alterSubBitboard(isInitLoad, "bN", bN);
+		this->alterSubBitboard(isInitLoad, "bR", bR);
 
-		this->alterSubBitboard("wP", wP);
-		this->alterSubBitboard("wK", wK);
-		this->alterSubBitboard("wQ", wQ);
-		this->alterSubBitboard("wB", wB);
-		this->alterSubBitboard("wN", wN);
-		this->alterSubBitboard("wR", wR);
+		this->alterSubBitboard(isInitLoad, "wP", wP);
+		this->alterSubBitboard(isInitLoad, "wK", wK);
+		this->alterSubBitboard(isInitLoad, "wQ", wQ);
+		this->alterSubBitboard(isInitLoad, "wB", wB);
+		this->alterSubBitboard(isInitLoad, "wN", wN);
+		this->alterSubBitboard(isInitLoad, "wR", wR);
 }
 
 /**
  * Loads a given configuration of the board.
  * 
  */
-void MainBoard::loadConfiguration(std::string conf[][8])
+void MainBoard::loadConfiguration(bool isInitLoad, std::string conf[][8])
 {
-	this->arrayBoard_toBitboard(conf);
+	this->arrayBoard_toBitboard(isInitLoad, conf);
+	this->updateFullboard();
 }
 
 /**
@@ -179,7 +196,7 @@ void MainBoard::initStandardBoard()
 		{"wR", "wN", "wB", "wK", "wQ", "wB", "wN", "wR"},
 	};
 
-	this->loadConfiguration(standardBoard);
+	this->loadConfiguration(true, standardBoard);
 }
 
 /**
@@ -394,7 +411,7 @@ void MainBoard::destructSubBitboard(std::string name)
  */
 void MainBoard::initBy(std::string conf[][8])
 {
-	this->loadConfiguration(conf);
+	this->loadConfiguration(true, conf);
 }
 
 /**
@@ -417,7 +434,7 @@ void MainBoard::drawBoard()
  */
 std::string** MainBoard::validateMoves(std::string arrayBoard[][8])
 {
-	this->loadConfiguration(arrayBoard);
+	this->loadConfiguration(false, arrayBoard);
 
 	return this->getFinalArrayBoard();
 }

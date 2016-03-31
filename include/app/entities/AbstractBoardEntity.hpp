@@ -47,7 +47,7 @@ class AbstractBoardEntity
 		 * @return bool : true upon valid.
 		 *  
 		 */
-		virtual bool isMoveValid(long) = 0;
+		virtual bool isMoveValid(long, long) = 0;
 
 	public:
 		/**
@@ -68,7 +68,7 @@ class AbstractBoardEntity
 		 * Alters the positions at this board.
 		 * 
 		 */
-		virtual void alterBoard(std::string& binaryString) = 0;
+		virtual void alterBoard(bool isInitLoad, long fullboard, std::string& binaryString) = 0;
 
 	public: 
 

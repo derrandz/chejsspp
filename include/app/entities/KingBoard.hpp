@@ -25,7 +25,7 @@ class KingBoard : public AbstractBoardEntity
 		 * @return bool : true upon valid.
 		 *  
 		 */
-		inline bool isMoveValid(long move)
+		inline bool isMoveValid(long move, long fullboard)
 		{
 			return true;
 		};
@@ -50,9 +50,9 @@ class KingBoard : public AbstractBoardEntity
 		 * Alters the positions at this board.
 		 * 
 		 */
-		inline void alterBoard(std::string& binaryString)
+		inline void alterBoard(bool isInitLoad, long fullboard, std::string& binaryString)
 		{
-			AbstractBoardEntity::alterBoard(binaryString);
+			AbstractBoardEntity::alterBoard(isInitLoad, fullboard, binaryString);
 		};
 
 };
