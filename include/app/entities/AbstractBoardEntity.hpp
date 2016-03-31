@@ -49,6 +49,41 @@ class AbstractBoardEntity
 		 */
 		virtual bool isMoveValid(long, long) = 0;
 
+		/**
+		 * Extract the diff between the new and old board.
+		 * @param  newboard [description]
+		 * @return          [description]
+		 * 
+		 */
+		long extractNewMove(long newboard);
+
+		/**
+		 * Returns the bitboard in which the old position of the sliding piece figures as a 1.
+		 * @param  newboard [description]
+		 * @return          [description]
+		 * 
+		 */
+		long extractOldPosition(long newboard);
+
+		/**
+		 * Determines whether the new move is a capture of a regular slide.
+		 * @param  oldPosition [description]
+		 * @param  newPosition [description]
+		 * @param  fullboard   [description]
+		 * @return             [description]
+		 * 
+		 */
+		virtual int identifyMoveType(bool xSuitColor, long oldPosition, long newPosition) = 0;
+
+		/**
+		 * Determines whether the new position is already occupied by other pieces.
+		 * @param  newposition [description]
+		 * @param  fullboard   [description]
+		 * @return             [description]
+		 * 
+		 */
+		bool isBoardIsEmptyAt(long newposition, long fullboard);
+
 	public:
 		/**
 		 * Returns the bit representation of the board.

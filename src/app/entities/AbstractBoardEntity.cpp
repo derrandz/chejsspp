@@ -7,6 +7,39 @@
  |
  */
 
+/**
+ * Determines whether the new position is already occupied by other pieces.
+ * @param  newposition [description]
+ * @param  fullboard   [description]
+ * @return             [description]
+ * 
+ */
+bool AbstractBoardEntity::isBoardIsEmptyAt(long newPosition, long fullboard)
+{
+	return (fullboard & newPosition) == 0;
+}
+
+/**
+ * Extract the diff between the new and old board.
+ * @param  newboard [description]
+ * @return          [description]
+ * 
+ */
+long AbstractBoardEntity::extractNewMove(long newboard)
+{
+	return (this->bitRepresentation | newboard)^this->bitRepresentation;
+}
+
+/**
+ * Returns the bitboard in which the old position of the sliding piece figures as a 1.
+ * @param  newboard [description]
+ * @return          [description]
+ * 
+ */
+long AbstractBoardEntity::extractOldPosition(long newboard)
+{
+	return (this->bitRepresentation | newboard)^newboard;
+}
 
 /**
  * Takes the binary string, converts it and stores it to the bitrepresentation member.

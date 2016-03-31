@@ -20,6 +20,63 @@ class PawnsBoard : public AbstractBoardEntity
 	 */
 	protected:
 		/**
+		 * Determines whether the new move is a capture of a regular slide.
+		 * @param  oldPosition [description]
+		 * @param  newPosition [description]
+		 * @param  fullboard   [description]
+		 * @return             [description]
+		 * 
+		 */
+		inline int identifyMoveType(bool xSuitColor, long oldPosition, long newPosition)
+		{
+			long file_a = 72340172838076673L;
+			long file_h = -9187201950435737472L;
+
+			if(0 == newPosition) return 0; // If there was no new move
+
+			if(xSuitColor)//white pieces
+			{
+				if( (oldPosition<<8) == newPosition)	return 1;
+				else
+				{
+					if( (oldPosition&file_a) != 0) // if the pawn is on the A's
+					{
+						if( ( (oldPosition&file_a)<<7 ) == newPosition) return 2;
+					}	
+					else if( (oldPosition&file_h) != 0) // if the pawn is on the H's
+					{
+						if( ( (oldPosition&file_h)<<9 ) == newPosition) return 2;
+					}	
+					else
+					{
+						if( (oldPosition<<9) == newPosition || (oldPosition<<7) == newPosition ) return 2;
+						else return 0;
+					}
+				}
+			}
+			else // black pieces
+			{
+				if( (oldPosition>>8) == newPosition)	return 1;
+				else
+				{
+					if( (oldPosition&file_a) != 0) // if the pawn is on the A's
+					{
+						if( ( (oldPosition&file_a)>>7 ) == newPosition) return 2;
+					}	
+					else if( (oldPosition&file_h) != 0) // if the pawn is on the H's
+					{
+						if( ( (oldPosition&file_h)>>9 ) == newPosition) return 2;
+					}	
+					else
+					{
+						if( (oldPosition>>9) == newPosition || (oldPosition>>7) == newPosition ) return 2;
+						else return 0;
+					}
+				}
+			}
+		};
+
+		/**
 		 * Judges the new move as valid or invalid.
 		 * @param  long : the new board's configuration that represents the new move.
 		 * @return bool : true upon valid.
@@ -27,31 +84,20 @@ class PawnsBoard : public AbstractBoardEntity
 		 */
 		inline bool isMoveValid(long move, long fullboard)
 		{
-			/*long file_a = 72340172838076673L;
-			long file_h = -9187201950435737472L;
-			long possible_moves_to_right = (this->bitRepresentation >> 7) & ~file_a ;
-			long possible_moves_to_left  = (this->bitRepresentation >> 7) & ~file_h ;
-		
-			long initial_positions = 36028797018963968;
+			long oldPosition = this->extractOldPosition(move);
+			long newPosition = this->extractNewMove(move);
 
-			for (int i = 0; i < 64; ++i)
+			int moveType = this->identifyMoveType(this->suitColor, oldPosition, newPosition);
+
+			if(moveType == 1)
 			{
-				if ( ((possible_moves_to_right>>i)&1) && ((move>>i)&1) == 1) 
-				{
-					return true;
-				}	
-				else
-				if ( ((possible_moves_to_left>>i)&1) && ((move>>i)&1) == 1) 
-				{
-					return true;
-				}
+				return this->isBoardIsEmptyAt(newPosition, fullboard); // Prohibits the slide if the square is not empty.
 			}
-
-			if( move == initial_positions)	return true;
-			std::cout << "Invalid move\n";
-			return false;*/
-
-			return true;
+			else if( moveType == 2)
+			{
+				return !this->isBoardIsEmptyAt(newPosition, fullboard); //Prohibits the capture if the square is empty.
+			}
+			else return false;
 		};
 
 	public:
