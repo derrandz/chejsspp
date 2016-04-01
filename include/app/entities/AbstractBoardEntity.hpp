@@ -142,6 +142,14 @@ class AbstractBoardEntity
 		 */
 		int getPositionOfBit(long position);
 		
+		/**
+		 * Tells whether the targeted position is of the enemy or of the friends.
+		 * @param  myFriendsBoard [description]
+		 * @param  targetPosition [description]
+		 * @return                [description]
+		 * 
+		 */
+		bool isEnemyCaptured(long myFriendsBoard, long targetPosition);	
 	public:
 		/**
 		 * Returns the suit color.

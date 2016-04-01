@@ -242,4 +242,17 @@ int AbstractBoardEntity::getPositionOfBit(long position)
 bool AbstractBoardEntity::getSuitColor()
 {
 	return this->suitColor;
-} 
+}
+
+/**
+ * Tells whether the targeted position is of the enemy or of the friends.
+ * @param  myFriendsBoard [description]
+ * @param  targetPosition [description]
+ * @return                [description]
+ * 
+ */
+bool AbstractBoardEntity::isEnemyCaptured(long myFriendsBoard, long targetPosition)
+{
+	if((targetPosition&myFriendsBoard)^targetPosition != 0) return false;
+	else return true;
+}	 

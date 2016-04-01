@@ -296,7 +296,13 @@ class RooksBoard : public AbstractBoardEntity
 				else
 				{
 					/* Save capture */
-					return true;
+					if(this->isEnemyCaptured(myFriendsBoard, newPosition))
+					{
+						AbstractBoardEntity::saveCaptureHistory(this->name, this->suitColor, newPosition);
+						return true;
+					}
+					else
+						return false;
 				}
 			}
 			else
