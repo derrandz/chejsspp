@@ -38,6 +38,22 @@ namespace HelperFunctions
 	 * 
 	 */
 	bool checkCollision(int xa, int ya, int xb, int yb);
+
+	/**
+	 * [maskOut description]
+	 * @param  long [description]
+	 * @param  long [description]
+	 * @return      [description]
+	 */
+	long applyMask_Keep(long board, long mask);
+
+	/**
+	 * [maskOut description]
+	 * @param  long [description]
+	 * @param  long [description]
+	 * @return      [description]
+	 */
+	long applyMask_Delete(long board, long mask);
 };
 
 #endif // _HELPER_FUNCTIONS_H_INCLUDED_

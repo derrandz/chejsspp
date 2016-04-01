@@ -14,9 +14,9 @@
  */
 void MainBoard::applyCaptureHistory()
 {
-	std::pair<std::string, long> captures_history = AbstractBoardEntity::getCaptureHistory();
+	std::tuple<std::string, bool, long> captures_history = AbstractBoardEntity::getCaptureHistory();
 
-	if(captures_history.first.compare(" ") != 0)
+	if(std::get<0>(captures_history).compare(" ") != 0)
 	{
 		long blacks = 0L;
 		long whites = 0L;
@@ -24,14 +24,15 @@ void MainBoard::applyCaptureHistory()
 		for (subbitboards_it it = this->subBitboards.begin(); it != this->subBitboards.end() ; ++it)
 		{
 			std::string board_name = it->second->getName();
+			bool suitcolor         = it->second->getSuitColor();
 
-			if(board_name.compare(captures_history.first) != 0 )
+			if(board_name.compare(std::get<0>(captures_history)) != 0 && !(suitcolor&std::get<1>(captures_history)))
 			{
 				long bitboard = it->second->getBitBoard();
 
-				if( (bitboard & captures_history.second) != 0 )
+				if( (bitboard & std::get<2>(captures_history)) != 0 )
 				{
-					bitboard = bitboard ^ captures_history.second;
+					bitboard = bitboard ^ std::get<2>(captures_history);
 					it->second->loadbitboard(bitboard);
 				}
 			}
@@ -54,14 +55,66 @@ void MainBoard::applyCaptureHistory()
  */
 void MainBoard::updateFullboard()
 {
+	this->updateWhitesBoard();
+	this->updateBlacksBoard();
+
+	this->fullboard = this->getWhitesBoard() | this->getBlacksBoard();
+}
+
+/**
+ * Updates the state of the white final board, but in an unrecognizable way of just bitmapping everything.
+ * 
+ */
+void MainBoard::updateWhitesBoard()
+{
 	long xfullboard = 0L;
 	
 	for (subbitboards_it it = this->subBitboards.begin(); it != this->subBitboards.end() ; ++it)
 	{
-		xfullboard += it->second->getBitBoard();
+		if(it->second->getSuitColor())
+		{
+			xfullboard += it->second->getBitBoard();
+		}
 	}
 
-	this->fullboard = xfullboard;
+	this->whites_board = xfullboard;
+}
+
+void MainBoard::updateBlacksBoard()
+{
+	long xfullboard = 0L;
+	
+	for (subbitboards_it it = this->subBitboards.begin(); it != this->subBitboards.end() ; ++it)
+	{
+		if( ! it->second->getSuitColor() )
+		{
+			xfullboard += it->second->getBitBoard();
+		}
+	}
+
+	this->blacks_board = xfullboard;
+}
+
+long MainBoard::getWhitesBoard()
+{
+	return this->whites_board;
+}
+
+long MainBoard::getBlacksBoard()
+{
+	return this->blacks_board;
+}
+
+long MainBoard::getFulllboardOfColor(bool suitcolor)
+{
+	if(suitcolor)
+	{
+		return this->getWhitesBoard();
+	}
+	else
+	{
+		return this->getBlacksBoard();
+	}
 }
 
 /**
@@ -80,7 +133,7 @@ void MainBoard::alterSubBitboard(bool isInitLoad, std::string boardName, std::st
 
 		if( iterator != this->subBitboards.end())
 		{
-			iterator->second->alterBoard(isInitLoad, this->fullboard, binaryString);
+			iterator->second->alterBoard(isInitLoad, this->fullboard, this->getFulllboardOfColor(iterator->second->getSuitColor()), binaryString);
 		}
 	}
 

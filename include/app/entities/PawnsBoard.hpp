@@ -82,7 +82,7 @@ class PawnsBoard : public AbstractBoardEntity
 		 * @return bool : true upon valid.
 		 *  
 		 */
-		inline bool isMoveValid(long move, long fullboard)
+		inline bool isMoveValid(long move, long fullboard, long myFriendsBoard)
 		{
 			long oldPosition = this->extractOldPosition(move);
 			long newPosition = this->extractNewMove(move);
@@ -97,8 +97,12 @@ class PawnsBoard : public AbstractBoardEntity
 			{
 				if(!this->isBoardIsEmptyAt(newPosition, fullboard)) //Prohibits the capture if the square is empty.
 				{
-					AbstractBoardEntity::saveCaptureHistory(this->name, newPosition);
-					return true;
+					if((newPosition&myFriendsBoard)^newPosition != 0) return false;
+					else
+					{
+						AbstractBoardEntity::saveCaptureHistory(this->name, this->suitColor, newPosition);
+						return true;
+					}
 				}
 				else return false;
 			}
@@ -124,9 +128,9 @@ class PawnsBoard : public AbstractBoardEntity
 		 * Alters the positions at this board.
 		 * 
 		 */
-		inline void alterBoard(bool isInitLoad, long fullboard, std::string& binaryString)
+		inline void alterBoard(bool isInitLoad, long fullboard, long myFriendsBoard, std::string& binaryString)
 		{
-			AbstractBoardEntity::alterBoard(isInitLoad, fullboard, binaryString);
+			AbstractBoardEntity::alterBoard(isInitLoad, fullboard, myFriendsBoard, binaryString);
 		};
 
 };

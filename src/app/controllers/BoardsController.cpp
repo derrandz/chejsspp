@@ -76,22 +76,22 @@ void BoardsController::validateMoves() const
 	//Since that is the only view we have pushed for this controller.
 	BoardView* graphicalboard = dynamic_cast<BoardView*>(*(this->viewsContainer.begin()));
 
-	std::cout << std::endl << std::endl << "----- ----- Graphical Board [Before validation]----- -----" << std::endl;
-	graphicalboard->drawBoard();
-	std::cout << std::endl << std::endl << "----- ----- ----- ----- ----- ----- ----- ----- -----" << std::endl;
+	// std::cout << std::endl << std::endl << "----- ----- Graphical Board [Before validation]----- -----" << std::endl;
+	// graphicalboard->drawBoard();
+	// std::cout << std::endl << std::endl << "----- ----- ----- ----- ----- ----- ----- ----- -----" << std::endl;
 
 	std::string** validated_configuration;
 
 	validated_configuration = this->bitboard->validateMoves( graphicalboard->boardConfiguration );	
 
-	std::cout << std::endl << std::endl << "----- ----- The validated board is :----- -----" << std::endl;
-	this->bitboard->drawBoard();
-	this->bitboard->drawFullBoard();
-	std::cout << std::endl << std::endl << "----- ----- ----- ----- ----- ----- ----- -----" << std::endl;
+	// std::cout << std::endl << std::endl << "----- ----- The validated board is :----- -----" << std::endl;
+	// this->bitboard->drawBoard();
+	// this->bitboard->drawFullBoard();
+	// std::cout << std::endl << std::endl << "----- ----- ----- ----- ----- ----- ----- -----" << std::endl;
 
 	graphicalboard->loadBoard(validated_configuration);
 
-	std::cout << std::endl << std::endl << "----- ----- Graphical Board [After Validation] ----- -----" << std::endl;
-	graphicalboard->drawBoard();
-	std::cout << std::endl << std::endl << "----- ----- ----- ----- ----- ----- ----- ----- ----- -----" << std::endl;
+	// std::cout << std::endl << std::endl << "----- ----- Graphical Board [After Validation] ----- -----" << std::endl;
+	// graphicalboard->drawBoard();
+	// std::cout << std::endl << std::endl << "----- ----- ----- ----- ----- ----- ----- ----- ----- -----" << std::endl;
 }

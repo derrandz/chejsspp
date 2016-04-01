@@ -20,7 +20,121 @@ class RooksBoard : public AbstractBoardEntity
 	 */
 	private:
 
+		/**
+		 * Takes out the board elements whos number is higher than the bitNumber provided.
+		 * @param  board     [description]
+		 * @param  bitNumber [description]
+		 * @return           [description]
+		 * 
+		 */
+		inline long copyBoardTilBit(long board, int bitNumber)
+		{
+			std::string binary = "0000000000000000000000000000000000000000000000000000000000000000";
+
+			for (int i = 1; i <= bitNumber ; ++i)
+			{
+				long tmp = board>>i;
+				
+				tmp &= ~tmp+1; //LSB
+
+				if( tmp&1 == 1 )
+					HelperFunctions::setBinaryStringToOneAtPosition(binary, 63 - i);
+			}
+			return HelperFunctions::convertStringToBitBoard(binary);
+		};
+
 	protected:
+		/**
+		 * Returns the file or the rank on which the move is taking place.
+		 * @param  old_position [description]
+		 * @param  new_position [description]
+		 * @return              long
+		 * 
+		 */
+		inline long identifyMoveField(long old_position, long new_position)
+		{
+			long historyOfMove = old_position | new_position;
+
+			std::cout << "historyOfMove" << std::endl;
+			HelperFunctions::drawArrayBoardFromBitBoard(historyOfMove);
+
+			/* is it file? */
+			for (int i = 0; i < 8; ++i)
+			{
+				long temp_one = RooksBoard::files_array[i] | historyOfMove;
+				long temp_two = temp_one ^RooksBoard::files_array[i];
+			    if( temp_two == 0)
+			   		return RooksBoard::files_array[i];
+			}
+			
+			/* is it rank? */
+			for (int i = 0; i < 8; ++i)
+			{
+				long temp_one = RooksBoard::ranks[i] | historyOfMove;
+				long temp_two = temp_one^ RooksBoard::ranks[i];
+				if( temp_two  == 0)
+					return RooksBoard::ranks[i];
+			}
+
+			return -1;
+		};
+
+		/**
+		 * Idenitifies the direction
+		 * @param  old_position [description]
+		 * @param  new_position [description]
+		 * @return              [description]
+		 * 
+		 */
+		inline long identifyMoveDirection(long old_position, long new_position)
+		{
+			return new_position - old_position;
+		};
+
+		inline std::string getMoveDirection(long old_position, long new_position)
+		{
+			std::string up      = "up";
+			std::string down    = "down";
+			std::string left    = "left";
+			std::string right   = "right";
+			std::string invalid = "invalid";
+
+			long direction    = this->identifyMoveDirection(old_position, new_position);
+			long rank_or_file = this->identifyMoveField(old_position, new_position);
+
+			if(rank_or_file == -1) return invalid;
+
+			for (int i = 0; i < 8; ++i)
+			{
+				if( (rank_or_file ^ RooksBoard::ranks[i]) == 0)
+				{
+					if(direction > 0)
+					{
+						return left;
+					}
+					else
+					{
+						return right;
+					}
+				}
+			}
+
+			for (int i = 0; i < 8; ++i)
+			{
+				if( (rank_or_file ^ RooksBoard::files_array[i]) == 0)
+				{
+					if(direction > 0)
+					{
+						return up;
+					}
+					else
+					{
+						return down;
+					}
+				}
+			}
+		};
+
 		/**
 		 * Determines whether the new move is a capture of a regular slide.
 		 * @param  oldPosition [description]
@@ -34,57 +148,125 @@ class RooksBoard : public AbstractBoardEntity
 
 		};
 
-		inline int identifyMoveType(long alteredBitboard, long fullboard)
+		/**
+		 * Overridding the unimplemented identifyMoveType
+		 * @param  old_position  [description]
+		 * @param  newPosition   [description]
+		 * @param  fullboard     [description]
+		 * @param  moveDirection [description]
+		 * @return               [description]
+		 * 
+		 */
+		inline int identifyMoveType(long old_position, long new_position, long fullboard, long moveDirection)
 		{
-			long old_position_board = this->extractOldPosition(alteredBitboard);
-			long new_position_board = this->extractNewMove(alteredBitboard);
 
-			int old_position = this->getPositionOfBit(old_position_board);
-			int new_position = this->getPositionOfBit(new_position_board);
+		};
 
-			int captured_position = 0;
+		inline int getRankOf(long position)
+		{
+			for (int i = 0; i < 8; ++i)
+				if( ((RooksBoard::ranks[i] & position) ^ position) == 0 ) return i;
 
-			std::cout << " old position of rook " << old_position << std::endl; 
-			std::cout << " new position of rook " << new_position << std::endl; 
-			for (int i = old_position + 1; i <= new_position; ++i)
-			{
-				long temp = (fullboard)>>i;
-				/*
-					To validate rooks moves, we need to identify the move.
-					is it to the left, or to the irght, or where exactly.
-				 */
-				temp &= ~temp + 1;
+			return -1;
+		};
 
-				if(temp == 1)
-				{
-					captured_position = i;
-					break;
-				}
-			}
+		inline int getFileOf(long position)
+		{
+			for (int i = 0; i < 8; ++i)
+				if( ((RooksBoard::files_array[i] & position) ^ position) == 0 ) return i;
 
-			return captured_position;
+			return -1;
 		};
 
 		/**
-		 * If the rook's move is a capture, it sets its destination position to the capture piece's.
-		 * @param  alteredBitboard [description]
-		 * @param  fullboard       [description]
-		 * @return                 If the move is not a capture, 
+		 * [getBoardBetweenPositions description]
+		 * @param  old_position [description]
+		 * @param  new_position [description]
+		 * @param  direction    [description]
+		 * @return              [description]
 		 * 
 		 */
-		inline long makePostCaptureBoard(long alteredBitboard, long fullboard, int position)
+		inline long getBoardBetweenPositions(long old_position, long new_position, long fullboard, long field, std::string direction)
 		{
-			long old_position = this->extractOldPosition(alteredBitboard);
-			long new_position = this->extractNewMove(alteredBitboard);
+			long board_old_and_new         = old_position | new_position;
+			long fullboard_on_moving_field = HelperFunctions::applyMask_Keep(fullboard, field);
 
-			std::string right_position_string = "0000000000000000000000000000000000000000000000000000000000000000";
+			long mask = 0L;
 
-			HelperFunctions::setBinaryStringToOneAtPosition(right_position_string, position);
+			if( direction.compare("up") == 0 || direction.compare("down") == 0)
+			{
+				std::cout << "The direction is " << direction << std::endl;
 
-			long right_position_board = HelperFunctions::convertStringToBitBoard(right_position_string);
+				int rank_one = this->getRankOf(old_position), 
+					rank_two = this->getRankOf(new_position);
 
-			return (long)( ( (this->bitRepresentation^old_position)^new_position ) | right_position_board );
-		}
+					if( rank_one != -1 && rank_two != -1)
+					{
+						for (int i = std::max(rank_one, rank_two); i < 8; ++i)
+							mask += RooksBoard::ranks[i];
+
+						for (int i = std::min(rank_one, rank_two); i >= 0; --i)
+							mask += RooksBoard::ranks[i];
+					}
+			}
+			else if( direction.compare("left") == 0 || direction.compare("right") == 0)
+			{
+				std::cout << "The direction is ===" << direction << std::endl;
+				std::cout << "ddddd";
+				
+				long file_one = this->getFileOf(old_position), 
+					 file_two = this->getFileOf(new_position);
+
+					 std::cout << "ddddd";
+
+					if(file_one != -1 && file_two != -1)
+					{
+						std::cout << "file_one is : " << file_one << " file_two : " << file_two << std::endl;
+
+						for (int i = std::max(file_one, file_two); i < 8; ++i)
+							mask += RooksBoard::files_array[i];
+
+						for (int i = std::min(file_one, file_two); i >= 0; --i)
+							mask += RooksBoard::files_array[i];
+					}
+					else
+					{
+						std::cout << "file_one is : " << file_one << " file_two : " << file_two << std::endl;
+					}
+			}
+
+			std::cout << "----------------------------------------------------------" << std::endl;
+			std::cout << "-------------------The Mask-------------------------------" << std::endl;
+			HelperFunctions::drawArrayBoardFromBitBoard(mask);
+			mask = HelperFunctions::applyMask_Keep(mask, field);
+
+			std::cout << "-------------------The Mask- masked with the field --------" << std::endl;
+			HelperFunctions::drawArrayBoardFromBitBoard(mask);
+
+			fullboard_on_moving_field = fullboard_on_moving_field ^ old_position;
+			fullboard_on_moving_field = (fullboard_on_moving_field | mask) ^ mask;
+
+
+			std::cout << "-------------------The Fullboard:  masked ------------------" << std::endl;
+			HelperFunctions::drawArrayBoardFromBitBoard(fullboard_on_moving_field);
+
+			return fullboard_on_moving_field;			
+		};
+
+		/**
+		 * [isBoardEmptyBetweenOldAndNew description]
+		 * @return [description]
+		 * 
+		 */
+		inline bool isBoardEmptyBetweenOldAndNew(long old_position, long new_position, long fullboard, long move_direction, std::string direction)
+		{
+			if( direction.compare("invalid") == 0 ) return false;
+
+			long what_in_between = this->getBoardBetweenPositions(old_position, new_position, fullboard, move_direction, direction);
+
+			if( what_in_between == 0) return true;
+			else return false;
+		};
 
 		/**
 		 * Judges the new move as valid or invalid.
@@ -92,68 +274,33 @@ class RooksBoard : public AbstractBoardEntity
 		 * @return bool : true upon valid.
 		 *  
 		 */
-		inline bool isMoveValid(long move, long fullboard)
+		inline bool isMoveValid(long move, long fullboard, long myFriendsBoard)
 		{
 			long oldPosition = this->extractOldPosition(move);
 			long newPosition = this->extractNewMove(move);
 
 			if(0 == newPosition) return false; // If there was no new move
 
-			int distance = this->getDistance(oldPosition, newPosition);
+			bool isBoardEmptyBetweenOldAndNew = this->isBoardEmptyBetweenOldAndNew( oldPosition, 
+															newPosition, 
+															fullboard, 
+															this->identifyMoveField(oldPosition, newPosition),
+															this->getMoveDirection(oldPosition, newPosition)
+															);
+			
+			bool isNewPositionEmpty = this->isBoardIsEmptyAt(newPosition, fullboard);
 
-			if( (oldPosition & RooksBoard::files::file_a) != 0) // if rook is on A's only
+			if(isBoardEmptyBetweenOldAndNew)
 			{
-				int rank_number = this->getRankNumber( this->getPositionOfBit(newPosition) );
-
-				if( rank_number != -1)
+				if(isNewPositionEmpty) return true;
+				else
 				{
-					long rank = AbstractBoardEntity::ranks[ rank_number ];
-					if( (newPosition&rank) != 0) return true; //If the horizontal move is allowed
-					else 
-					if( distance%8 == 0 ) return true; // If the vertical move is alowed
-					else return false;
+					/* Save capture */
+					return true;
 				}
-
 			}
-			else if( (oldPosition & RooksBoard::files::file_h) != 0) // if rook is on H's only
-			{
-
-			}
-			else if( (oldPosition & RooksBoard::ranks[0]) != 0) // if rook is on rank_1
-			{
-
-			}
-			else if( (oldPosition & RooksBoard::ranks[7]) != 0) // if rook is on rank_8
-			{
-
-			}
-			else if( (oldPosition & RooksBoard::files::file_a & RooksBoard::ranks[0]) != 0) // if rook is on left lower corner.
-			{
-
-			}
-			else if( (oldPosition & RooksBoard::files::file_h & RooksBoard::ranks[0]) != 0) // if rook is on right lower corner.
-			{
-
-			}
-			else if( (oldPosition & RooksBoard::files::file_a & RooksBoard::ranks[7]) != 0) // if rook is on left top corner.
-			{
-
-			}
-			else if( (oldPosition & RooksBoard::files::file_h & RooksBoard::ranks[7]) != 0) // if rook is on right top corner.
-			{
-
-			}
-			else // rook is on the middle of no where.
-			{
-
-			}
-
-			return false;
-		};
-
-		inline int getRankNumber(int position)
-		{
-			return position/8;
+			else
+				return false;
 		};
 
 	public:
@@ -175,25 +322,15 @@ class RooksBoard : public AbstractBoardEntity
 		 * Alters the positions at this board.
 		 * 
 		 */
-		inline void alterBoard(bool isInitLoad, long fullboard, std::string& binaryString)
+		inline void alterBoard(bool isInitLoad, long fullboard, long myFriendsBoard, std::string& binaryString)
 		{
 			long alteredBitboard = HelperFunctions::convertStringToBitBoard(binaryString);
 
 			if(!isInitLoad)
 			{
-				if(this->isMoveValid(alteredBitboard, fullboard))
+				if(this->isMoveValid(alteredBitboard, fullboard, myFriendsBoard))
 				{
-					int moveType = this->identifyMoveType(alteredBitboard, fullboard);
-					std::cout << "moveType Rooks " << moveType << std::endl; 
-					if(moveType != 0)
-					{
-						long cc = this->makePostCaptureBoard(alteredBitboard, fullboard, moveType);
-						this->bitRepresentation = cc;
-						std::cout << "capture board " << moveType << std::endl; 
-						HelperFunctions::drawArrayBoardFromBitBoard(cc);
-					}
-					else
-						this->bitRepresentation = alteredBitboard;
+					this->bitRepresentation = alteredBitboard;
 				}
 			}
 			else

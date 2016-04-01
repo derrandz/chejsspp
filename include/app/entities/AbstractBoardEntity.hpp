@@ -1,6 +1,9 @@
 #ifndef _ABSTRACT_BOARD_ENTITY_H_INCLUDED_
 #define _ABSTRACT_BOARD_ENTITY_H_INCLUDED_
 #include <string>
+#include <tuple>
+#include <algorithm>
+
 /**
  | =====================================================
  | The abstract class that represents a board, with bits.
@@ -24,7 +27,8 @@ class AbstractBoardEntity
 		/**
 		 * Files
 		 */
-		enum files {
+		static const long files_array[8];
+		enum files_enum{
 			file_a = -9187201950435737472,
 			file_b = 4629771061636907072,
 			file_c = 2314885530818453536,
@@ -59,7 +63,7 @@ class AbstractBoardEntity
 		 * As to remove the capture piece from its motherboard.
 		 * 
 		 */
-		static std::pair<std::string, long> captures_history_utility;
+		static std::tuple<std::string, bool, long> captures_history_utility;
 
 	/*
 	 |****************************
@@ -78,10 +82,12 @@ class AbstractBoardEntity
 		/**
 		 * Judges the new move as valid or invalid.
 		 * @param  long : the new board's configuration that represents the new move.
+		 * @param  long : the fullboard, undistinguishable
+		 * @param  long : the board of the elements with the same color, undistinguishable.
 		 * @return bool : true upon valid.
 		 *  
 		 */
-		virtual bool isMoveValid(long, long) = 0;
+		virtual bool isMoveValid(long, long, long) = 0;
 
 		/**
 		 * Extract the diff between the new and old board.
@@ -135,19 +141,26 @@ class AbstractBoardEntity
 		 * 
 		 */
 		int getPositionOfBit(long position);
-			
+		
 	public:
+		/**
+		 * Returns the suit color.
+		 * @return [description]
+		 * 
+		 */
+		bool getSuitColor();
+		
 		/**
 		 * Saves the capture history
 		 * 
 		 */
-		static void saveCaptureHistory(std::string, long);
+		static void saveCaptureHistory(std::string, bool, long);
 
 		/**
 		 * Returns the capture history
 		 * 
 		 */
-		static std::pair<std::string,long> getCaptureHistory();
+		static std::tuple<std::string, bool, long> getCaptureHistory();
 
 		/**
 		 * Forgets the capture history
@@ -173,7 +186,7 @@ class AbstractBoardEntity
 		 * Alters the positions at this board.
 		 * 
 		 */
-		virtual void alterBoard(bool isInitLoad, long fullboard, std::string& binaryString) = 0;
+		virtual void alterBoard(bool isInitLoad, long fullboard, long myFriendsBoard, std::string& binaryString) = 0;
 		
 		/**
 		 * Returns the name of the board.

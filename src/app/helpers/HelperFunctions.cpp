@@ -74,3 +74,25 @@ bool HelperFunctions::checkCollision(int xa, int ya, int xb, int yb)
 
 	return is_at_y && is_at_x;
 }
+
+/**
+ * [maskOut description]
+ * @param  long [description]
+ * @param  long [description]
+ * @return      [description]
+ */
+long HelperFunctions::applyMask_Keep(long board, long mask)
+{
+	return board&mask;
+}
+
+/**
+ * [maskOut description]
+ * @param  long [description]
+ * @param  long [description]
+ * @return      [description]
+ */
+long HelperFunctions::applyMask_Delete(long board, long mask)
+{
+	return ( board | mask ) ^ board;
+}

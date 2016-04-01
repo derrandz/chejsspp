@@ -14,22 +14,39 @@
 
 const long AbstractBoardEntity::ranks[8] = 
 {
-		-72057594037927936, // RANK 1
-		71776119061217280, // RANK 2
-		280375465082880, // RANK 3
-		1095216660480, // RANK 4
-		4278190080, // RANK 5
-		16711680, // RANK 6
-		65280, // RANK 7
-		255 // RANK 8
+		255, // RANK 1
+		65280, // RANK 2
+		16711680, // RANK 3
+		4278190080, // RANK 4
+		1095216660480, // RANK 5
+		280375465082880, // RANK 6
+		71776119061217280, // RANK 7
+		-72057594037927936 // RANK 8 
 };
+
+/**
+ * Files
+ * 
+ */
+const long AbstractBoardEntity::files_array[8] =
+{
+	-9187201950435737472, //file_a 
+	4629771061636907072,  //file_b 
+	2314885530818453536,  //file_c
+	1157442765409226768,  //file_d
+	578721382704613384,   //file_e
+	289360691352306692,   //file_f
+	144680345676153346,   //file_g 
+	72340172838076673    //file_h
+};
+
 
 /**
  * Keeps track of the last capturing element and the position he captured
  * As to remove the capture piece from its motherboard.
  * 
  */
-std::pair<std::string, long> AbstractBoardEntity::captures_history_utility = std::make_pair(" ", 0L);
+std::tuple<std::string, bool, long> AbstractBoardEntity::captures_history_utility = std::make_tuple(" ", false, 0L);
 
 /**
  * Loads a bitboard without verification.
@@ -96,7 +113,7 @@ void AbstractBoardEntity::binaryString_toBitboard(std::string&)
  * @return bool : true upon valid.
  *  
  */
-bool AbstractBoardEntity::isMoveValid(long move, long fullboard)
+bool AbstractBoardEntity::isMoveValid(long move, long fullboard, long myFriendsBoard)
 {
 	std::cout << "AbstractBoardEntity::isMoveValid is being called" << std::endl;
 	return true;
@@ -123,13 +140,13 @@ AbstractBoardEntity::~AbstractBoardEntity()
  * Alters the positions at this board.
  * 
  */
-void AbstractBoardEntity::alterBoard(bool isInitLoad, long fullboard, std::string& binaryString)
+void AbstractBoardEntity::alterBoard(bool isInitLoad, long fullboard, long myFriendsBoard, std::string& binaryString)
 {
 	long alteredBitboard = HelperFunctions::convertStringToBitBoard(binaryString);
 
 	if(!isInitLoad)
 	{
-		if(this->isMoveValid(alteredBitboard, fullboard))
+		if(this->isMoveValid(alteredBitboard, fullboard, myFriendsBoard))
 		{
 			this->bitRepresentation = alteredBitboard;
 		}
@@ -155,17 +172,18 @@ long AbstractBoardEntity::getBitBoard()
  * Returns the capture history
  * 
  */
-void AbstractBoardEntity::saveCaptureHistory(std::string capturing_board, long new_move)
+void AbstractBoardEntity::saveCaptureHistory(std::string capturing_board, bool suitColor, long new_move)
 {
-	AbstractBoardEntity::captures_history_utility.first  = capturing_board;
-	AbstractBoardEntity::captures_history_utility.second = new_move;
+	std::get<0>(AbstractBoardEntity::captures_history_utility) = capturing_board;
+	std::get<1>(AbstractBoardEntity::captures_history_utility) = suitColor;
+	std::get<2>(AbstractBoardEntity::captures_history_utility) = new_move;
 }
 
 /**
  * Returns the capture history
  * 
  */
-std::pair<std::string,long> AbstractBoardEntity::getCaptureHistory()
+std::tuple<std::string, bool,long> AbstractBoardEntity::getCaptureHistory()
 {
 	return AbstractBoardEntity::captures_history_utility;
 }
@@ -176,8 +194,9 @@ std::pair<std::string,long> AbstractBoardEntity::getCaptureHistory()
  */
 void AbstractBoardEntity::forgetCaptureHistory()
 {
-	AbstractBoardEntity::captures_history_utility.first  = " ";
-	AbstractBoardEntity::captures_history_utility.second = 0L;
+	std::get<0>(AbstractBoardEntity::captures_history_utility) = " ";
+	std::get<1>(AbstractBoardEntity::captures_history_utility) = false;
+	std::get<2>(AbstractBoardEntity::captures_history_utility) = 0L;
 }
 
 /**
@@ -214,3 +233,13 @@ int AbstractBoardEntity::getPositionOfBit(long position)
 
 	return -1;
 }
+
+/**
+ * Returns the suitcolor
+ * @return [description]
+ * 
+ */
+bool AbstractBoardEntity::getSuitColor()
+{
+	return this->suitColor;
+} 

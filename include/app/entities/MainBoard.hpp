@@ -32,6 +32,19 @@ class MainBoard
 		 * 
 		 */
 		long fullboard;
+
+		/**
+		 * White elements' board
+		 * 
+		 */
+		long whites_board;
+
+		/**
+		 * Black elements' board
+		 * 
+		 */
+		long blacks_board;
+
 	/*
 	 |****************************
 	 |		Methodes
@@ -75,6 +88,24 @@ class MainBoard
 		 */
 		void updateFullboard();
 
+		/**
+		 * Updates the state of the white final board, but in an unrecognizable way of just bitmapping everything.
+		 * 
+		 */
+		void updateWhitesBoard();
+		void updateBlacksBoard();
+		
+		long getWhitesBoard();
+		long getBlacksBoard();
+
+		/**
+		 * returns a specified color's board
+		 * @param  suitcolor [description]
+		 * @return           [description]
+		 * 
+		 */
+		long getFulllboardOfColor(bool suitcolor);
+		
 	public:
 		/**
 		 * Applies the capture to the rest of the boards to propogate changes.

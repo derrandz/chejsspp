@@ -38,7 +38,7 @@ class KnightsBoard : public AbstractBoardEntity
 		 * @return bool : true upon valid.
 		 *  
 		 */
-		inline bool isMoveValid(long move, long fullboard)
+		inline bool isMoveValid(long move, long fullboard, long myFriendsBoard)
 		{
 			return false;
 		};
@@ -62,9 +62,9 @@ class KnightsBoard : public AbstractBoardEntity
 		 * Alters the positions at this board.
 		 * 
 		 */
-		inline void alterBoard(bool isInitLoad, long fullboard, std::string& binaryString)
+		inline void alterBoard(bool isInitLoad, long fullboard, long myFriendsBoard, std::string& binaryString)
 		{
-			AbstractBoardEntity::alterBoard(isInitLoad, fullboard, binaryString);
+			AbstractBoardEntity::alterBoard(isInitLoad, fullboard, myFriendsBoard, binaryString);
 		};
 
 };
