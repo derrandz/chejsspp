@@ -19,6 +19,13 @@ class AbstractBoardEntity
 	 */
 	protected:
 		/**
+		 * Diagonals
+		 * 
+		 */
+		static const long right_diagonals[15];
+		static const long left_diagonals[15];
+
+		/**
 		 * Ranks
 		 * 
 		 */
@@ -149,7 +156,7 @@ class AbstractBoardEntity
 		 * @return                [description]
 		 * 
 		 */
-		bool isEnemyCaptured(long myFriendsBoard, long targetPosition);	
+		bool isCaptureLegal(long myFriendsBoard, long targetPosition);	
 	public:
 		/**
 		 * Returns the suit color.

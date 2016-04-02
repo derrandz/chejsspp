@@ -97,7 +97,7 @@ class PawnsBoard : public AbstractBoardEntity
 			{
 				if(!this->isBoardIsEmptyAt(newPosition, fullboard)) //Prohibits the capture if the square is empty.
 				{
-					if((newPosition&myFriendsBoard)^newPosition != 0) return false;
+					if(!this->isCaptureLegal(myFriendsBoard, newPosition)) return false;
 					else
 					{
 						AbstractBoardEntity::saveCaptureHistory(this->name, this->suitColor, newPosition);

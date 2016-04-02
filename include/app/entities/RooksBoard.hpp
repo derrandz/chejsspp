@@ -195,8 +195,6 @@ class RooksBoard : public AbstractBoardEntity
 
 			if( direction.compare("up") == 0 || direction.compare("down") == 0)
 			{
-				std::cout << "The direction is " << direction << std::endl;
-
 				int rank_one = this->getRankOf(old_position), 
 					rank_two = this->getRankOf(new_position);
 
@@ -211,44 +209,24 @@ class RooksBoard : public AbstractBoardEntity
 			}
 			else if( direction.compare("left") == 0 || direction.compare("right") == 0)
 			{
-				std::cout << "The direction is ===" << direction << std::endl;
-				std::cout << "ddddd";
-				
 				long file_one = this->getFileOf(old_position), 
 					 file_two = this->getFileOf(new_position);
 
-					 std::cout << "ddddd";
 
 					if(file_one != -1 && file_two != -1)
 					{
-						std::cout << "file_one is : " << file_one << " file_two : " << file_two << std::endl;
-
 						for (int i = std::max(file_one, file_two); i < 8; ++i)
 							mask += RooksBoard::files_array[i];
 
 						for (int i = std::min(file_one, file_two); i >= 0; --i)
 							mask += RooksBoard::files_array[i];
 					}
-					else
-					{
-						std::cout << "file_one is : " << file_one << " file_two : " << file_two << std::endl;
-					}
 			}
 
-			std::cout << "----------------------------------------------------------" << std::endl;
-			std::cout << "-------------------The Mask-------------------------------" << std::endl;
-			HelperFunctions::drawArrayBoardFromBitBoard(mask);
 			mask = HelperFunctions::applyMask_Keep(mask, field);
-
-			std::cout << "-------------------The Mask- masked with the field --------" << std::endl;
-			HelperFunctions::drawArrayBoardFromBitBoard(mask);
 
 			fullboard_on_moving_field = fullboard_on_moving_field ^ old_position;
 			fullboard_on_moving_field = (fullboard_on_moving_field | mask) ^ mask;
-
-
-			std::cout << "-------------------The Fullboard:  masked ------------------" << std::endl;
-			HelperFunctions::drawArrayBoardFromBitBoard(fullboard_on_moving_field);
 
 			return fullboard_on_moving_field;			
 		};
@@ -296,7 +274,7 @@ class RooksBoard : public AbstractBoardEntity
 				else
 				{
 					/* Save capture */
-					if(this->isEnemyCaptured(myFriendsBoard, newPosition))
+					if(this->isCaptureLegal(myFriendsBoard, newPosition))
 					{
 						AbstractBoardEntity::saveCaptureHistory(this->name, this->suitColor, newPosition);
 						return true;

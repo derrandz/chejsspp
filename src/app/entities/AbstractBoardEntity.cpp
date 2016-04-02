@@ -8,10 +8,53 @@
  */
 
 /**
+ * Diagonals
+ * 
+ */
+const long AbstractBoardEntity::right_diagonals[15] = 
+{
+	1, //white
+	258, //black
+	66052,//white
+	16909320,//black
+	4328785936,//white
+	1108169199648,//black
+	283691315109952,//white
+	72624976668147840,//black
+	145249953336295424,//white
+	290499906672525312,//black
+	580999813328273408,//white
+	1161999622361579520,//black
+	2323998145211531264,//white
+	4647714815446351872,//black
+	9223372036854775808//white
+};
+
+const long AbstractBoardEntity::left_diagonals[15] = 
+{
+	128,//black
+	32832,//white
+	8405024,//black
+	2151686160,//white
+	550831656968,//black
+	141012904183812,//white
+	36099303471055874,//black
+	-9205322385119247871,//white
+	4620710844295151872,//black
+	2310355422147575808,//white
+	1155177711073755136,//black
+	577588855528488960,//white
+	288794425616760832,//black
+	144396663052566528,//white
+	72057594037927936//black
+};
+
+
+
+/**
  * Ranks
  * 
  */
-
 const long AbstractBoardEntity::ranks[8] = 
 {
 		255, // RANK 1
@@ -251,8 +294,21 @@ bool AbstractBoardEntity::getSuitColor()
  * @return                [description]
  * 
  */
-bool AbstractBoardEntity::isEnemyCaptured(long myFriendsBoard, long targetPosition)
+bool AbstractBoardEntity::isCaptureLegal(long myFriendsBoard, long targetPosition)
 {
-	if((targetPosition&myFriendsBoard)^targetPosition != 0) return false;
-	else return true;
+	// std::cout << "Friends" << std::endl;
+	// HelperFunctions::drawArrayBoardFromBitBoard(myFriendsBoard);
+	// std::cout << "Target Position" << std::endl;
+	// HelperFunctions::drawArrayBoardFromBitBoard(targetPosition);
+
+	// std::cout << "Target Position & myFriendsBoard" << std::endl;
+	// HelperFunctions::drawArrayBoardFromBitBoard(targetPosition&myFriendsBoard);
+
+	// std::cout << "(Target Position & myFriendsBoard)^targetPosition" << std::endl;
+	// HelperFunctions::drawArrayBoardFromBitBoard((targetPosition&myFriendsBoard)^targetPosition);
+	long no_name = targetPosition&myFriendsBoard;
+		 no_name ^= targetPosition;
+
+	if(no_name == targetPosition) return true;
+	else return false;
 }	 
