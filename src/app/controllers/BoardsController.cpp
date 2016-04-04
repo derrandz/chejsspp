@@ -83,7 +83,13 @@ void BoardsController::validateMoves() const
 	// this->bitboard->drawFullBoard();
 	// std::cout << std::endl << std::endl << "----- ----- ----- ----- ----- ----- ----- -----" << std::endl;
 
-	graphicalboard->loadBoard(validated_configuration);
+	// if(thereWasAMove);
+	// #if _EMSCRIPTEN_
+	// 	//send the move to the mf
+	// 	//
+	// 	graphicalboard->loadBoard(false, validated_configuration);
+	// #endif // _EMSCRIPTEN_
+	graphicalboard->loadBoard(false, validated_configuration);
 
 	// std::cout << std::endl << std::endl << "----- ----- Graphical Board [After Validation] ----- -----" << std::endl;
 	// graphicalboard->drawBoard();

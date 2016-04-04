@@ -46,25 +46,16 @@ void BoardView::drawBoard()
  * @param std::string**
  * 
  */
-void BoardView::loadBoard(std::string** board)
+void BoardView::loadBoard(bool xIsMyTurn, std::string** board)
 {
+	this->isMyTurn = xIsMyTurn;
+
 	if(!this->mainPlayerColor)
 	{
 		for (int i = 0; i < 64; ++i)
 		{
 			this->boardConfiguration[i/8][i%8] = board[7 - i/8][7 - i%8];
 		}
-
-		for (int i = 0; i < 8; ++i)
-		{
-			for (int j = 0; j < 8; ++j)
-			{
-				std::cout << this->boardConfiguration[i][j] << " | ";
-			}
-
-			std::cout << std::endl;
-		}
-		exit( -1 );
 	}
 	else
 	{
@@ -89,7 +80,7 @@ BoardView::BoardView(bool xMainPlayerColor, std::string** xboard)
 	this->myRect.w               = View::SCREEN_WIDTH;
 	this->mainPlayerColor        = xMainPlayerColor;
 
-	this->loadBoard(xboard);
+	this->loadBoard(xMainPlayerColor, xboard);
 
 	for (int i = 0; i < 8; ++i) {
 	  this->pieces[i] = new PieceView*[8];
@@ -511,45 +502,48 @@ void BoardView::bindMovingPieceToPreviousPosition()
  */
 void BoardView::handleClickEvent(SDL_Event& e)
 {
-	int x, y;
-
-    SDL_GetMouseState( &x, &y );
-
-    if(e.type == SDL_MOUSEBUTTONDOWN)
+	if(this->isMyTurn)
 	{
-        PieceView* piecePtr = this->getPieceAt(x, y);
+		int x, y;
 
-        if(piecePtr != NULL)
-        {
-	        this->registerMovingPiece(piecePtr);
-        	piecePtr->move((x - 80)/2, (y - 80)/2);
-        }
-	}
+		SDL_GetMouseState( &x, &y );
 
-	if(e.type == SDL_MOUSEBUTTONUP)
-	{
-		if(this->isThereAMovingPiece())
+	    if(e.type == SDL_MOUSEBUTTONDOWN)
 		{
-			int* coordinates = this->getSquareAt(x, y);
+	        PieceView* piecePtr = this->getPieceAt(x, y);
 
-			if(coordinates[0] != -1 && coordinates[1] != -1)
-			{
-				this->bindMovingPieceToSquare(x, y);
-			}
-			else
-			{
-				this->bindMovingPieceToPreviousPosition();
-			}
-
-			this->forgetMovingPiece();
+	        if(piecePtr != NULL)
+	        {
+		        this->registerMovingPiece(piecePtr);
+	        	piecePtr->move((x - 80)/2, (y - 80)/2);
+	        }
 		}
-	}
 
-    if(this->isThereAMovingPiece())
-    {
-    	PieceView* piecePtr = this->getMovingPiece();
-    	piecePtr->move(x -40, y -40);
-    }
+		if(e.type == SDL_MOUSEBUTTONUP)
+		{
+			if(this->isThereAMovingPiece())
+			{
+				int* coordinates = this->getSquareAt(x, y);
+
+				if(coordinates[0] != -1 && coordinates[1] != -1)
+				{
+					this->bindMovingPieceToSquare(x, y);
+				}
+				else
+				{
+					this->bindMovingPieceToPreviousPosition();
+				}
+
+				this->forgetMovingPiece();
+			}
+		}
+
+	    if(this->isThereAMovingPiece())
+	    {
+	    	PieceView* piecePtr = this->getMovingPiece();
+	    	piecePtr->move(x -40, y -40);
+	    }
+	}
 }
 
 /**

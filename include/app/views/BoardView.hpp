@@ -46,7 +46,13 @@ class BoardView : public View
 		 * Main player's color.
 		 * 
 		 */
-		bool mainPlayerColor;	
+		bool mainPlayerColor;
+
+		/**
+		 * Indicates whether you have the right to move a piece.
+		 * 
+		 */
+		bool isMyTurn;	
 	public:
 		/**
 		 * The board's graphical representation in strings.
@@ -180,10 +186,11 @@ class BoardView : public View
 
 		/**
 		 * Loads a provided configuration.
+		 * @param bool
 		 * @param std::string**
 		 * 
 		 */
-		void loadBoard(std::string**);
+		void loadBoard(bool, std::string**);
 
 		/**
 		 * Constructor
