@@ -519,9 +519,26 @@ void MainBoard::drawFullBoard()
  * @return std::string**
  * 
  */
-std::string** MainBoard::validateMoves(std::string arrayBoard[][8])
+std::string** MainBoard::validateMoves(std::string arrayBoard[][8], bool mainPlayerColor)
 {
-	this->loadConfiguration(false, arrayBoard);
+	if(mainPlayerColor)
+	{
+		this->loadConfiguration(false, arrayBoard);
+	}
+	else
+	{
+		std::string reversedBoard[8][8];
+	
+		for (int i = 0; i < 8; ++i)
+		{
+			for (int j = 0; j < 8; ++j)
+			{
+				reversedBoard[7-i][7-j] = arrayBoard[i][j];
+			}
+		}
+		
+		this->loadConfiguration(false, reversedBoard);
+	}
 
 	return this->getFinalArrayBoard();
 }

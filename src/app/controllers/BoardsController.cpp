@@ -28,7 +28,7 @@ void BoardsController::bootstrap()
 
 	try
 	{
-	    this->registerView(new BoardView(this->bitboard->getFinalArrayBoard()));
+	    this->registerView(new BoardView(false, this->bitboard->getFinalArrayBoard()));
 	    this->bitboard->drawBoard();
 	    std::cout << std::endl << std::endl << std::endl << std::endl << std::endl;
 	}
@@ -55,13 +55,7 @@ void BoardsController::handleEvents(SDL_Event& e)
  */
 void BoardsController::mainAction() const
 {
-	std::cout << std::endl << "=============================================================================" << std::endl;
-	std::cout << "=============================[Validation Start]=============================" << std::endl;
-	std::cout << std::endl << std::endl << std::endl;
 	this->validateMoves();
-	std::cout << std::endl << std::endl << std::endl;
-	std::cout << "=============================[Validation End]=============================" << std::endl;
-	std::cout << "=============================================================================" << std::endl;
 }
 
 /**
@@ -82,7 +76,7 @@ void BoardsController::validateMoves() const
 
 	std::string** validated_configuration;
 
-	validated_configuration = this->bitboard->validateMoves( graphicalboard->boardConfiguration );	
+	validated_configuration = this->bitboard->validateMoves( graphicalboard->boardConfiguration , graphicalboard->getMainPlayerColor() );	
 
 	// std::cout << std::endl << std::endl << "----- ----- The validated board is :----- -----" << std::endl;
 	// this->bitboard->drawBoard();

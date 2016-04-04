@@ -42,6 +42,11 @@ class BoardView : public View
 		 */
 		int* activePieceCoordinates;
 		
+		/**
+		 * Main player's color.
+		 * 
+		 */
+		bool mainPlayerColor;	
 	public:
 		/**
 		 * The board's graphical representation in strings.
@@ -167,6 +172,13 @@ class BoardView : public View
 	public:
 
 		/**
+		 * Returns the main players' color.
+		 * @return bool
+		 * 
+		 */
+		bool getMainPlayerColor();
+
+		/**
 		 * Loads a provided configuration.
 		 * @param std::string**
 		 * 
@@ -177,7 +189,7 @@ class BoardView : public View
 		 * Constructor
 		 * 
 		 */
-		BoardView(std::string**);
+		BoardView(bool mainPlayerColor, std::string**);
 		
 		/**
 		 * Destructor

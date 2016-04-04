@@ -8,6 +8,16 @@
 #include "helpers/HelperFunctions.hpp"
 
 /**
+ * Returns the main players' color.
+ * @return bool
+ * 
+ */
+bool BoardView::getMainPlayerColor()
+{
+	return this->mainPlayerColor;
+}
+
+/**
  * Draws the board, for debugging purposes.
  * 
  */
@@ -38,9 +48,30 @@ void BoardView::drawBoard()
  */
 void BoardView::loadBoard(std::string** board)
 {
-	for (int i = 0; i < 64; ++i)
+	if(!this->mainPlayerColor)
 	{
-		this->boardConfiguration[i/8][i%8] = board[i/8][i%8];
+		for (int i = 0; i < 64; ++i)
+		{
+			this->boardConfiguration[i/8][i%8] = board[7 - i/8][7 - i%8];
+		}
+
+		for (int i = 0; i < 8; ++i)
+		{
+			for (int j = 0; j < 8; ++j)
+			{
+				std::cout << this->boardConfiguration[i][j] << " | ";
+			}
+
+			std::cout << std::endl;
+		}
+		exit( -1 );
+	}
+	else
+	{
+		for (int i = 0; i < 64; ++i)
+		{
+			this->boardConfiguration[i/8][i%8] = board[i/8][i%8];
+		}
 	}
 }
 
@@ -48,14 +79,15 @@ void BoardView::loadBoard(std::string** board)
  * Constructor and destructor
  * 
  */
-BoardView::BoardView(std::string** xboard)
+BoardView::BoardView(bool xMainPlayerColor, std::string** xboard)
 :View("", 0, 0, 0, 0)
 {
-	this->pieces      = new PieceView**[8];
-	this->activePiece = NULL;
+	this->pieces                 = new PieceView**[8];
+	this->activePiece            = NULL;
 	this->activePieceCoordinates = new int[2]{-1 , -1};
-	this->myRect.h    = View::SCREEN_HEIGHT;
-	this->myRect.w    = View::SCREEN_WIDTH;
+	this->myRect.h               = View::SCREEN_HEIGHT;
+	this->myRect.w               = View::SCREEN_WIDTH;
+	this->mainPlayerColor        = xMainPlayerColor;
 
 	this->loadBoard(xboard);
 

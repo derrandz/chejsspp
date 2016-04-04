@@ -152,7 +152,7 @@ class MainBoard
 		 * @return std::string**
 		 * 
 		 */
-		std::string** validateMoves(std::string conf[][8]);
+		std::string** validateMoves(std::string conf[][8], bool mainPlayerColor);
 
 		/**
 		 * For debugging.
