@@ -29,51 +29,26 @@ class PawnsBoard : public AbstractBoardEntity
 		 */
 		inline int identifyMoveType(bool xSuitColor, long oldPosition, long newPosition)
 		{
-			long file_a = 72340172838076673L;
-			long file_h = -9187201950435737472L;
+			bool moveForward, moveForwardDiagonalLeft, moveForwardDiagonalRight;
 
-			if(0 == newPosition) return 0; // If there was no new move
-
-			if(xSuitColor)//white pieces
+			if(xSuitColor) // white pieces
 			{
-				if( (oldPosition<<8) == newPosition)	return 1;
-				else
-				{
-					if( (oldPosition&file_a) != 0) // if the pawn is on the A's
-					{
-						if( ( (oldPosition&file_a)<<9 ) == newPosition) return 2;
-					}	
-					else if( (oldPosition&file_h) != 0) // if the pawn is on the H's
-					{
-						if( ( (oldPosition&file_h)<<7 ) == newPosition) return 2;
-					}	
-					else
-					{
-						if( (oldPosition<<9) == newPosition || (oldPosition<<7) == newPosition ) return 2;
-						else return 0;
-					}
-				}
+				moveForward              = oldPosition<<8 == newPosition; 
+				moveForwardDiagonalRight = oldPosition<<9 == newPosition; 
+				moveForwardDiagonalLeft  = oldPosition<<7 == newPosition;
 			}
 			else // black pieces
 			{
-				if( (oldPosition>>8) == newPosition)	return 1;
-				else
-				{
-					if( (oldPosition&file_a) != 0) // if the pawn is on the A's
-					{
-						if( ( (oldPosition&file_a)>>7 ) == newPosition) return 2;
-					}	
-					else if( (oldPosition&file_h) != 0) // if the pawn is on the H's
-					{
-						if( ( (oldPosition&file_h)>>9 ) == newPosition) return 2;
-					}	
-					else
-					{
-						if( (oldPosition>>9) == newPosition || (oldPosition>>7) == newPosition ) return 2;
-						else return 0;
-					}
-				}
+				moveForward              = oldPosition>>8 == newPosition; 
+				moveForwardDiagonalRight = oldPosition>>9 == newPosition; 
+				moveForwardDiagonalLeft  = oldPosition>>7 == newPosition;
 			}
+
+			if(0 == newPosition) return 0; // If there was no new move
+
+			if(moveForward) return 1;
+			else if(moveForwardDiagonalLeft || moveForwardDiagonalRight) return 2;
+			else return 0;
 		};
 
 		/**
@@ -89,10 +64,7 @@ class PawnsBoard : public AbstractBoardEntity
 
 			int moveType = this->identifyMoveType(this->suitColor, oldPosition, newPosition);
 
-			if(moveType == 1)
-			{
-				return this->isBoardIsEmptyAt(newPosition, fullboard); // Prohibits the slide if the square is not empty.
-			}
+			if(moveType == 1) return this->isBoardIsEmptyAt(newPosition, fullboard); // Prohibits the slide if the square is not empty.
 			else if( moveType == 2)
 			{
 				if(!this->isBoardIsEmptyAt(newPosition, fullboard)) //Prohibits the capture if the square is empty.
