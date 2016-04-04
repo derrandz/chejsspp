@@ -322,7 +322,7 @@ class QueenBoard : public AbstractBoardEntity
 		 * Judges the new move as valid or invalid.
 		 * @param  long : the new board's configuration that represents the new move.
 		 * @return bool : true upon valid.
-		 *  
+		 *
 		 */
 		inline bool isMoveValid(long move, long fullboard, long myFriendsBoard)
 		{
