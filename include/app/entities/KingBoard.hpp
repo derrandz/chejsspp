@@ -36,18 +36,42 @@ class KingBoard : public AbstractBoardEntity
 		{
 			if(0 == newPosition) return 0; // If there was no new move
 			
+			long special_case = KingBoard::right_diagonals[14];
+
 			bool moveForward, moveBackwards, moveRight, moveLeft, 
 				 moveForwardDiagonal_right, moveForwardDiagonal_left, 
 				 moveBackwardsDiagonal_right, moveBackwardsDiagonal_left;
 			
-			moveForward                 = oldPosition<<8 == newPosition;
-			moveBackwards               = oldPosition>>8 == newPosition;
-			moveRight                   = oldPosition>>1 == newPosition;
-			moveLeft                    = oldPosition<<1 == newPosition;
-			moveForwardDiagonal_right   = oldPosition<<7 == newPosition;
-			moveForwardDiagonal_left    = oldPosition<<9 == newPosition;
-			moveBackwardsDiagonal_right = oldPosition>>9 == newPosition;
-			moveBackwardsDiagonal_left  = oldPosition>>7 == newPosition;
+			if(oldPosition != special_case)
+			{
+				moveForward                 = oldPosition<<8 == newPosition;
+				moveBackwards               = oldPosition>>8 == newPosition;
+				moveRight                   = oldPosition>>1 == newPosition;
+				moveLeft                    = oldPosition<<1 == newPosition;
+				moveForwardDiagonal_right   = oldPosition<<7 == newPosition;
+				moveForwardDiagonal_left    = oldPosition<<9 == newPosition;
+				moveBackwardsDiagonal_right = oldPosition>>9 == newPosition;
+				moveBackwardsDiagonal_left  = oldPosition>>7 == newPosition;
+			}	
+			else
+			{
+				long lsb_container;
+
+				lsb_container = oldPosition>>8;
+				lsb_container = lsb_container<<(64-8);
+				lsb_container &= ~lsb_container + 1;
+				moveBackwards = lsb_container == newPosition;
+				
+				lsb_container = oldPosition>>1;
+				lsb_container = lsb_container<<(64-1);
+				lsb_container &= ~lsb_container + 1;
+				moveRight     = lsb_container == newPosition;
+
+				lsb_container               = oldPosition>>1;
+				lsb_container               = lsb_container<<(64-1);
+				lsb_container               &= ~lsb_container + 1;
+				moveBackwardsDiagonal_right = lsb_container == newPosition;
+			}
 
 			if(moveForward || moveRight || moveLeft || moveBackwards || moveForwardDiagonal_right || moveForwardDiagonal_left || moveBackwardsDiagonal_right || moveBackwardsDiagonal_left)
 			{
