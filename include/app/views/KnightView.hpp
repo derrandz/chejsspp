@@ -74,7 +74,7 @@ class KnightView : public PieceView
 
 		    	exception << "KnightViewException: Could not load image : " << this->filePath;
 
-		    	throw exception.str();
+		    	// throw exception.str();
 		    }
 		};
 		

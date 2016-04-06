@@ -74,7 +74,7 @@ class KingView : public PieceView
 
 		    	exception << "KingViewException: Could not load image : " << this->filePath;
 
-		    	throw exception.str();
+		    	// throw exception.str();
 		    }
 		};
 

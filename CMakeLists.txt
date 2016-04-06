@@ -3,7 +3,7 @@ project(SDLChesspp)
 
 # includes cmake/FindSDL2.cmake
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-
+set(CMAKE_EXECUTABLE_SUFFIX ".html")
 # set(BIN_DIR "${PROJECT_BINARY_DIR}/bin")
 
 # Set an output directory for our binaries

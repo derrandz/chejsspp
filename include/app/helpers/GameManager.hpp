@@ -57,10 +57,9 @@ class GameManager
 		
 		/**
 		 * Boots the application
-		 * @return boolean: returns true upon success, throws an exception upon failure.
 		 * 
 		 */
-		int bootApp();
+		void bootApp();
 
 		/**
 		 * Registers a controller into the GameManager's container.

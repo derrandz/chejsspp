@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "helpers/GameManager.hpp"
+#include <emscripten.h>
 
 int main( int argc, char* args[] )
 {
@@ -10,22 +11,22 @@ int main( int argc, char* args[] )
 	 */
 	GameManager* gameManager;
 
-	try
-	{
+	// try
+	// {
 		gameManager = GameManager::getInstance();
-	}
-	catch(std::string e)
-	{
-		std::cout << e << std::endl;
-	}
+	// }
+	// catch(std::string e)
+	// {
+		// std::cout << e << std::endl;
+	// }
 	
-	try
-	{
+	// try
+	// {
 	    return gameManager->run();
-	}
-	catch(std::string e)
-	{
-		std::cout << e << std::endl;
+	// }
+	// catch(std::string e)
+	// {
+		// std::cout << e << std::endl;
 		return -1;
-	}
+	// }
 }

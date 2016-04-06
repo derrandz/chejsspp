@@ -92,11 +92,11 @@ BoardView::BoardView(bool xMainPlayerColor, std::string** xboard)
 	  }
 	}
 
-	try
-	{
+	// try
+	// {
 		this->init();
-	}
-	catch(std::string e)
+	// }
+/*	catch(std::string e)
 	{
 		std::stringstream exception;
 
@@ -104,7 +104,7 @@ BoardView::BoardView(bool xMainPlayerColor, std::string** xboard)
 		exception << "\t" << e << std::endl;
 
 		throw exception.str();
-	}
+	}*/
 }
 
 BoardView::~BoardView()
@@ -125,24 +125,24 @@ BoardView::~BoardView()
 bool BoardView::initSquares()
 {
 	/* Black Square */
-	try
-	{
+	// try
+	// {
 		this->squares[0] = new SquareView(false, 80, 80);	
-	}
-	catch(std::string e)
+	// }
+	/*catch(std::string e)
 	{
 		throw e;
-	}
+	}*/
 
 	/* White Square */
-	try
-	{
+	// try
+	// {
 		this->squares[1] = new SquareView(true, 80, 80);	
-	}
-	catch(std::string e)
+	// }
+	/*catch(std::string e)
 	{
 		throw e;
-	}
+	}*/
 
 }
 
@@ -156,8 +156,8 @@ bool BoardView::initSquares()
  */
 bool BoardView::initPieces()
 {
-	try
-	{
+	// try
+	// {
 		std::string pieceName;
 
 		for (int i = 0; i < 64; ++i)
@@ -225,11 +225,11 @@ bool BoardView::initPieces()
 				this->pieces[i/8][i%8] = new QueenView(true, pieceName, (i%8)*80, (i/8)*80, 80, 80);
 			}
 		}
-	}
-	catch(std::string e)
+	// }
+	/*catch(std::string e)
 	{
 		throw e;
-	}
+	}*/
 }
 
 /**
@@ -239,23 +239,23 @@ bool BoardView::initPieces()
  */
 bool BoardView::init()
 {
-	try
-	{
+	// try
+	// {
 		this->initSquares();
-	}
-	catch(std::string e)
+	// }
+	/*catch(std::string e)
 	{
 		throw e;
-	}
+	}*/
 
-	try
-	{
+	// try
+	// {
 		this->initPieces();
-	}
-	catch(std::string e)
+	// }
+	/*catch(std::string e)
 	{
 		throw e;
-	}
+	}*/
 }
 
 /**
@@ -315,14 +315,14 @@ void BoardView::updatePieces()
 	{
 		this->destructPieces();
 
-		try
-		{
+		// try
+		// {
 			this->initPieces();
-		}
-		catch(std::string e)
+		// }
+		/*catch(std::string e)
 		{
 			throw e;
-		}
+		}*/
 	}
 }
 
@@ -332,14 +332,14 @@ void BoardView::updatePieces()
  */
 void BoardView::renderPieces()
 {
-	try
-	{
+	// try
+	// {
 		this->updatePieces();
-	}
-	catch(std::string e)
+	// }
+	/*catch(std::string e)
 	{
 		throw e;
-	}
+	}*/
 
 	for (int i = 0; i < 64; ++i)
 	{
@@ -356,15 +356,15 @@ void BoardView::renderPieces()
  */
 void BoardView::render()
 {
-	try
-	{
+	// try
+	// {
 		this->renderSquares();
 		this->renderPieces();
-	}
-	catch(std::string e)
+	// }
+	/*catch(std::string e)
 	{
 		throw e;
-	}
+	}*/
 }
 
 /**

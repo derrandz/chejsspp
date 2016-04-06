@@ -74,7 +74,7 @@ class RookView : public PieceView
 
 		    	exception << "RookViewException: Could not load image : " << this->filePath;
 
-		    	throw exception.str();
+		    	// throw exception.str();
 		    }
 		};
 		

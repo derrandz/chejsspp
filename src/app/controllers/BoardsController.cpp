@@ -26,16 +26,16 @@ void BoardsController::bootstrap()
 	this->bitboard = new MainBoard();
 	this->bitboard->initStandardBoard();
 
-	try
-	{
+	// try
+	// {
 	    this->registerView(new BoardView(false, this->bitboard->getFinalArrayBoard()));
 	    this->bitboard->drawBoard();
 	    std::cout << std::endl << std::endl << std::endl << std::endl << std::endl;
-	}
-	catch(std::string e)
+	// }
+	/*catch(std::string e)
 	{
 		throw e;
-	}
+	}*/
 
 	std::cout << "Board View created\n";
 

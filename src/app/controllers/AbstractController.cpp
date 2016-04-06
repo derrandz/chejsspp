@@ -49,14 +49,14 @@ void AbstractController::registerView(View* newView)
 void AbstractController::initViews()
 {
 	//Start up SDL and create window
-    try
-    {
+    // try
+    // {
     	View::initSDL();
-    }
-    catch(std::string e)
+    // }
+/*    catch(std::string e)
     {
     	throw e;
-    };
+    };*/
 
 }
 
@@ -96,15 +96,15 @@ void AbstractController::bootstrap()
  */
 int AbstractController::run(bool& gameStatus)
 {
-	try
-	{
+	// try
+	// {
 		this->initViews();
         this->bootstrap();
-	}
-	catch(std::string e)
+	// }
+	/*catch(std::string e)
 	{
 		throw e;
-	};
+	};*/
 
 
 	//Make the cursor visible.
@@ -136,22 +136,84 @@ int AbstractController::run(bool& gameStatus)
         SDL_SetRenderDrawColor( View::renderer, 0xFF, 0xFF, 0xFF, 0xFF );
         SDL_RenderClear( View::renderer );
 
-        try
-        {
+        // try
+        // {
             this->mainAction();
             this->renderViews();
-        }
-        catch(std::string e)
+        // }
+    /*    catch(std::string e)
         {
             std::cout << "Exception caught during runtime: " << std::endl;
             std::cout << "\t" << e << std::endl;
 
             gameStatus = false;
         }
-        //Update screen
+*/        //Update screen
         SDL_RenderPresent( View::renderer );
     }
 
     this->freeViews();
     return 0;
 }
+
+#if __EMSCRIPTEN__
+/**
+ * initViews made public
+ * 
+ */
+void AbstractController::initViews_public()
+{
+    this->initViews();
+}
+
+/**
+ * freeViews made public.
+ * 
+ */
+void AbstractController::freeViews_public()
+{
+    this->freeViews();
+}
+
+/**
+ * Runs the controller. (Might raise an exception*)
+ * This function will run a single frame of the mainloop, this is customized for emscripten.
+ * 
+ */
+void AbstractController::one_iter_main_loop(bool& gameStatus, SDL_Event& e)
+{
+    //Handle events on queue
+    while( SDL_PollEvent( &e ) != 0 )
+    {
+        switch( e.type )
+        {
+            case SDL_QUIT: gameStatus = true; break;
+
+            case SDL_KEYDOWN: if( e.key.keysym.sym == SDLK_ESCAPE ) gameStatus = true; break;
+
+            default: gameStatus = false; break;
+        }
+
+        this->handleEvents(e);
+    }
+
+    //Clear screen
+    SDL_SetRenderDrawColor( View::renderer, 0xFF, 0xFF, 0xFF, 0xFF );
+    SDL_RenderClear( View::renderer );
+
+    // try
+    // {
+        this->mainAction();
+        this->renderViews();
+   /* }
+    catch(std::string e)
+    {
+        std::cout << "Exception caught during runtime: " << std::endl;
+        std::cout << "\t" << e << std::endl;
+
+        gameStatus = false;
+    }*/
+    //Update screen
+    SDL_RenderPresent( View::renderer );
+}
+#endif // __EMSCRIPTEN__
