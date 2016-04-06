@@ -73,6 +73,8 @@ void BoardView::loadBoard(bool xIsMyTurn, std::string** board)
 BoardView::BoardView(bool xMainPlayerColor, std::string** xboard)
 :View("", 0, 0, 0, 0)
 {
+    std::cout << "BoardView::BoardView before" << std::endl;
+
 	this->pieces                 = new PieceView**[8];
 	this->activePiece            = NULL;
 	this->activePieceCoordinates = new int[2]{-1 , -1};
@@ -91,20 +93,24 @@ BoardView::BoardView(bool xMainPlayerColor, std::string** xboard)
 	    this->pieces[i][j] = NULL;
 	  }
 	}
-
-	// try
-	// {
+    
+    std::cout << "BoardView::BoardView after" << std::endl;
+	
+	try
+	{
 		this->init();
-	// }
-/*	catch(std::string e)
+	}
+	catch(std::string e)
 	{
 		std::stringstream exception;
 
 		exception << "BoardViewInitException: Exception caught during board initalization: " << std::endl;
 		exception << "\t" << e << std::endl;
 
+		std::cout << exception.str() << std::endl;
+		
 		throw exception.str();
-	}*/
+	}
 }
 
 BoardView::~BoardView()
@@ -124,25 +130,28 @@ BoardView::~BoardView()
  */
 bool BoardView::initSquares()
 {
+	std::cout << "BoardView::initSquares" << std::endl;
 	/* Black Square */
-	// try
-	// {
-		this->squares[0] = new SquareView(false, 80, 80);	
-	// }
-	/*catch(std::string e)
+	try
 	{
+		this->squares[0] = new SquareView(false, 80, 80);	
+	}
+	catch(std::string e)
+	{
+		std::cout << e << std::endl;
 		throw e;
-	}*/
+	}
 
 	/* White Square */
-	// try
-	// {
-		this->squares[1] = new SquareView(true, 80, 80);	
-	// }
-	/*catch(std::string e)
+	try
 	{
+		this->squares[1] = new SquareView(true, 80, 80);	
+	}
+	catch(std::string e)
+	{
+		std::cout << e << std::endl;
 		throw e;
-	}*/
+	}
 
 }
 
@@ -156,8 +165,10 @@ bool BoardView::initSquares()
  */
 bool BoardView::initPieces()
 {
-	// try
-	// {
+    std::cout << "BoardView::initPieces" << std::endl;
+
+	try
+	{
 		std::string pieceName;
 
 		for (int i = 0; i < 64; ++i)
@@ -225,11 +236,12 @@ bool BoardView::initPieces()
 				this->pieces[i/8][i%8] = new QueenView(true, pieceName, (i%8)*80, (i/8)*80, 80, 80);
 			}
 		}
-	// }
-	/*catch(std::string e)
+	}
+	catch(std::string e)
 	{
+		std::cout << e << std::endl;
 		throw e;
-	}*/
+	}
 }
 
 /**
@@ -239,23 +251,26 @@ bool BoardView::initPieces()
  */
 bool BoardView::init()
 {
-	// try
-	// {
+	std::cout << "BoardView::init" << std::endl;
+	try
+	{
 		this->initSquares();
-	// }
-	/*catch(std::string e)
+	}
+	catch(std::string e)
 	{
+		std::cout << e << std::endl;
 		throw e;
-	}*/
+	}
 
-	// try
-	// {
-		this->initPieces();
-	// }
-	/*catch(std::string e)
+	try
 	{
+		this->initPieces();
+	}
+	catch(std::string e)
+	{
+		std::cout << e << std::endl;
 		throw e;
-	}*/
+	}
 }
 
 /**
@@ -315,14 +330,15 @@ void BoardView::updatePieces()
 	{
 		this->destructPieces();
 
-		// try
-		// {
-			this->initPieces();
-		// }
-		/*catch(std::string e)
+		try
 		{
+			this->initPieces();
+		}
+		catch(std::string e)
+		{
+			std::cout << e << std::endl;
 			throw e;
-		}*/
+		}
 	}
 }
 
@@ -332,14 +348,14 @@ void BoardView::updatePieces()
  */
 void BoardView::renderPieces()
 {
-	// try
-	// {
+	try
+	{
 		this->updatePieces();
-	// }
-	/*catch(std::string e)
+	}
+	catch(std::string e)
 	{
 		throw e;
-	}*/
+	}
 
 	for (int i = 0; i < 64; ++i)
 	{
@@ -356,15 +372,15 @@ void BoardView::renderPieces()
  */
 void BoardView::render()
 {
-	// try
-	// {
+	try
+	{
 		this->renderSquares();
 		this->renderPieces();
-	// }
-	/*catch(std::string e)
+	}
+	catch(std::string e)
 	{
 		throw e;
-	}*/
+	}
 }
 
 /**

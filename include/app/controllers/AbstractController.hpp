@@ -84,28 +84,6 @@ class AbstractController
 		 * 
 		 */
 		virtual int run(bool&);
-
-#ifdef __EMSCRIPTEN__
-		/**
-		 * initViews made public
-		 * 
-		 */
-		void initViews_public();
-
-		/**
-		 * freeViews made public.
-		 * 
-		 */
-		void freeViews_public();
-
-		/**
-		 * Runs the controller. (Might raise an exception*)
-		 * This function will run a single frame of the mainloop, this is customized for emscripten.
-		 * 
-		 */
-		void one_iter_main_loop(bool&,  SDL_Event&);
-#endif // __EMSCRIPTEN__
-
 };
 
 #endif //_ABSTRACT_CONTROLLER_INCLUDED_

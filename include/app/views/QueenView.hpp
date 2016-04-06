@@ -73,8 +73,10 @@ class QueenView : public PieceView
 		    	std::stringstream exception;
 
 		    	exception << "QueenViewException: Could not load image : " << this->filePath;
+                
+                std::cout << exception.str() << std::endl; 
 
-		    	// throw exception.str();
+		    	throw exception.str();
 		    }
 		};
 		

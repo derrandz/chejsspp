@@ -243,6 +243,7 @@ void AbstractBoardEntity::alterBoard(bool isInitLoad, long fullboard, long myFri
 {
 	long alteredBitboard = HelperFunctions::convertStringToBitBoard(binaryString);
 
+	std::cout << "HelperFunctions::convertStringToBitBoard passed peacefully with a value of " << alteredBitboard << std::endl;
 	if(!isInitLoad)
 	{
 		if(this->isMoveValid(alteredBitboard, fullboard, myFriendsBoard))
@@ -254,6 +255,8 @@ void AbstractBoardEntity::alterBoard(bool isInitLoad, long fullboard, long myFri
 	{
 		this->bitRepresentation = alteredBitboard;
 	}
+
+	std::cout << "AbstractBoardEntity::alterBoard" << std::endl;
 }
 
 /**

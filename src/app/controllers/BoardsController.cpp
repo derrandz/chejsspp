@@ -23,20 +23,27 @@ BoardsController::~BoardsController()
  */
 void BoardsController::bootstrap()
 {
+    std::cout << "BoardsController::bootstrap" << std::endl;
+	
 	this->bitboard = new MainBoard();
 	this->bitboard->initStandardBoard();
 
-	// try
-	// {
-	    this->registerView(new BoardView(false, this->bitboard->getFinalArrayBoard()));
-	    this->bitboard->drawBoard();
-	    std::cout << std::endl << std::endl << std::endl << std::endl << std::endl;
-	// }
-	/*catch(std::string e)
+    std::cout << "BoardsController::bootstrap about to try" << std::endl;
+	
+	BoardView* ptr;
+	try
 	{
+	    std::cout << "BoardsController::bootstrap in try section" << std::endl;
+	    ptr = new BoardView(false, this->bitboard->getFinalArrayBoard());
+	    // this->bitboard->drawBoard();
+	}
+	catch(std::string e)
+	{
+		std::cout << e << std::endl;
 		throw e;
-	}*/
+	}
 
+    this->registerView(ptr);
 	std::cout << "Board View created\n";
 
 	// mainBoard.drawBoard();

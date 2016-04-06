@@ -74,7 +74,9 @@ class BishopView : public PieceView
 
 		    	exception << "BishopViewException: Could not load image : " << this->filePath;
 
-		    	// throw exception.str();
+                std::cout << exception.str() << std::endl; 
+                
+		    	throw exception.str();
 		    }
 		};
 		

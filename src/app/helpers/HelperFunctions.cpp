@@ -1,4 +1,9 @@
 #include "helpers/HelperFunctions.hpp"
+#include <stdint.h>
+
+#ifdef EMSCRIPTEN
+	#define long int64_t;
+#endif // EMSCRIPTEN
 
 /**
  * Sets the 64bit binary string to 1 in the provided position.
@@ -18,10 +23,12 @@ void HelperFunctions::setBinaryStringToOneAtPosition(std::string& binary, int po
  */
 long HelperFunctions::convertStringToBitBoard(std::string& binaryString)
 {
+	std::cout << "HelperFunctions::convertStringToBitBoard" << std::endl;
 	std::bitset<64>  x(binaryString);
 
+	std::cout << "HelperFunctions::convertStringToBitBoard about to convert. " << std::endl;
 	long convertedString = x.to_ulong();
-
+	std::cout << "HelperFunctions::convertStringToBitBoard converted peacefully :" << convertedString << std::endl;
 	return convertedString;
 }
 

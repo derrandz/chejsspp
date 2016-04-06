@@ -44,6 +44,8 @@ class SquareView : public View
 		SquareView(bool color, int height, int width)
 		:View("", 0, 0, height, width)
 		{
+			std::cout << "SquareView::SquareView" << std::endl;
+
 			if(color)
 			{
 				this->filePath = SquareView::whiteSuitPath;
@@ -58,9 +60,12 @@ class SquareView : public View
 				std::stringstream exception;
 
 		    	exception << "Could not load image : " << this->filePath;
+                
+                std::cout << exception.str() << std::endl; 
 
-		    	// throw exception.str();
+		    	throw exception.str();
 			}
+			std::cout << "SquareView::SquareView : no exception thrown" << std::endl;
 		};
 
 		~SquareView();

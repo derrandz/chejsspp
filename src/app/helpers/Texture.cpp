@@ -4,6 +4,7 @@
 
 Texture::Texture(int xheight, int xwidth)
 {
+	std::cout << "Texture::Texture" << std::endl;
 	//Initialize
 	texture = NULL;
 	width = xwidth;

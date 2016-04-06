@@ -251,8 +251,10 @@ void MainBoard::arrayBoard_toBitboard(bool isInitLoad, std::string arrayBoard[][
  */
 void MainBoard::loadConfiguration(bool isInitLoad, std::string conf[][8])
 {
+	std::cout << "MainBoard::loadConfiguration" << std::endl;
 	this->arrayBoard_toBitboard(isInitLoad, conf);
 	this->updateFullboard();
+	std::cout << "MainBoard::loadConfiguration done" << std::endl;
 }
 
 /**
@@ -261,6 +263,7 @@ void MainBoard::loadConfiguration(bool isInitLoad, std::string conf[][8])
  */
 void MainBoard::initStandardBoard()
 {
+	std::cout << "MainBoard::initStandardBoard" << std::endl;
 	std::string standardBoard[8][8] = {
 		{"bR", "bN", "bB", "bQ", "bK", "bB", "bN", "bR"},
 		{"bP", "bP", "bP", "bP", "bP", "bP", "bP", "bP"},
@@ -435,6 +438,7 @@ std::string** MainBoard::getFinalArrayBoard()
  */
 MainBoard::MainBoard()
 {
+    std::cout << "MainBoard::MainBoard" << std::endl;
 	/**
 	 * Black pieces
 	 */
@@ -454,6 +458,7 @@ MainBoard::MainBoard()
 	this->subBitboards["wQ"] = new QueenBoard(true, "wQ");
 	this->subBitboards["wP"] = new PawnsBoard(true, "wP");
 	this->subBitboards["wN"] = new KnightsBoard(true, "wN");
+    std::cout << "MainBoard::MainBoard done" << std::endl;
 }
 
 MainBoard::~MainBoard()
