@@ -269,11 +269,6 @@ bool BoardView::initPieces()
 		std::cout << e << std::endl;
 		throw e;
 	}
-	catch(const std::exception& e)
-	{
-		std::cout << "STDEXCEPTION CAUGHT :" << e.what() << std::endl;
-		throw e;
-	}
 	catch(...)
 	{
 		std::cout << "Uncaught exception at BoardView::initPieces" << std::endl;
@@ -308,11 +303,6 @@ bool BoardView::init()
 	catch(std::string e)
 	{
 		std::cout << e << std::endl;
-		throw e;
-	}
-	catch(const std::exception& e)
-	{
-		std::cout << "STDEXCEPTION CAUGHT :" << e.what() << std::endl;
 		throw e;
 	}
 	catch(...)
