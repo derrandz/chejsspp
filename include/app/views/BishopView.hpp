@@ -70,11 +70,9 @@ class BishopView : public PieceView
 
 		    if(!this->load())
 		    {
-		    	std::stringstream exception;
+		    	ChessGameCustomException _exception("Could not load image : " + this->filePath);
 
-		    	exception << "BishopViewException: Could not load image : " << this->filePath;
-
-		    	throw exception.str();
+		    	throw _exception;
 		    }
 		    std::cout << "BishopView" << std::endl;
 		};

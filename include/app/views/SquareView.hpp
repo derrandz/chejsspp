@@ -2,6 +2,8 @@
 #define _SQUARE_VIEW_H_INCLUDED_
 
 #include "views/View.hpp"
+#include "exceptions/ChessGameCustomException"
+#include "Helpers/_ExceptionHandler"
 
 class SquareView : public View
 {
@@ -57,11 +59,7 @@ class SquareView : public View
 
 			if(!this->load())
 			{
-				std::stringstream exception;
-
-		    	exception << "Could not load image : " << this->filePath;
-                
-		    	throw exception.str();
+				_ExceptionHandler::throw_exception("Could not load image : " + this->filePath);
 			}
 			
 			std::cout << "No exception was thrown" << std::endl;

@@ -1,7 +1,7 @@
 #ifndef _QUEEN_VIEW_H_INCLUDED_
 #define _QUEEN_VIEW_H_INCLUDED_
 
-#include "views/View.hpp"
+#include "views/PieceView.hpp"
 
 class QueenView : public PieceView
 {
@@ -70,11 +70,9 @@ class QueenView : public PieceView
 
 		    if(!this->load())
 		    {
-		    	std::stringstream exception;
+		    	ChessGameCustomException _exception("Could not load image : " + this->filePath);
 
-		    	exception << "QueenViewException: Could not load image : " << this->filePath;
-                
-		    	throw exception.str();
+		    	throw _exception;
 		    }
 		};
 		

@@ -70,11 +70,9 @@ class PawnView : public PieceView
 
 		    if(!this->load())
 		    {
-		    	std::stringstream exception;
+		    	ChessGameCustomException _exception("Could not load image : " + this->filePath);
 
-		    	exception << "PawnViewException: Could not load image : " << this->filePath;
-
-		    	throw exception.str();
+		    	throw _exception;
 		    }
 		};
 		
