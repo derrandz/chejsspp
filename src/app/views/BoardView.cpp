@@ -111,6 +111,10 @@ BoardView::BoardView(bool xMainPlayerColor, std::string** xboard)
 		
 		throw exception.str();
 	}
+	catch(...)
+	{
+		
+	}
 }
 
 BoardView::~BoardView()
@@ -141,11 +145,6 @@ bool BoardView::initSquares()
 		std::cout << e << std::endl;
 		throw e;
 	}
-	catch(const std::exception& e)
-    {
-        std::cout << "Uncaught exception @BoardView::initSquares" << e.what() << "!\n";
-        throw e;
-    }
 	catch(...)
 	{
 		std::cout << "Uncaught exception" << std::endl;
@@ -163,11 +162,6 @@ bool BoardView::initSquares()
 	catch(std::string e)
 	{
 		std::cout << e << std::endl;
-		throw e;
-	}
-	catch(const std::exception& e)
-	{
-		std::cout << "Uncaught exception @BoardView::initSquares" << e.what() << "!\n";
 		throw e;
 	}
 	catch(...)
