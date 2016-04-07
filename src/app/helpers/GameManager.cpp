@@ -40,9 +40,7 @@ GameManager* GameManager::getInstance()
 		std::stringstream exception;
 
 		exception << "GameManager instance has not been initialized properly.\n";
-#ifdef EMSCRIPTEN
 		std::cout << exception.str() << std::endl;
-#endif
 		throw exception.str();
 	}
 }
@@ -96,19 +94,5 @@ int GameManager::run()
 	{
 		std::cout << e << std::endl;
 		throw e;
-	}
-	catch(const std::exception& e)
-	{
-		std::cout << "Uncaught exception @GameManager::run" << e.what() << "!\n";
-		throw e;
-	}
-	catch(...)
-	{
-		std::cout << "Uncaught exception @GameManager::run" << "!\n";
-		std::stringstream exception;
-
-        exception <<  "There was an uncaught exception @GameManager::run caused by controller_ptr->run()";
-
-        throw exception.str();
 	}
 }

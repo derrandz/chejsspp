@@ -111,20 +111,6 @@ BoardView::BoardView(bool xMainPlayerColor, std::string** xboard)
 		
 		throw exception.str();
 	}
-	catch(const std::exception& e)
-    {
-        std::cout << "Uncaught exception @BoardView::BoardView" << e.what() << "!\n";
-        throw e;
-    }
-	catch(...)
-	{
-		std::cout << "Uncaught exception" << std::endl;
-		std::stringstream exception;
-
-        exception <<  "There was an uncaught exception @BoardView::BoardView caused by init()";
-
-        throw exception.str();
-	}
 }
 
 BoardView::~BoardView()
@@ -166,8 +152,7 @@ bool BoardView::initSquares()
 		std::stringstream exception;
 
         exception <<  "There was an uncaught exception @BoardView::initSquares caused by newSquareView()";
-
-        throw exception.str();
+        std::cout << exception.str() << std::endl;
 	}
 
 	/* White Square */
@@ -191,9 +176,7 @@ bool BoardView::initSquares()
 		std::stringstream exception;
 
         exception <<  "There was an uncaught exception @BoardView::initSquares caused by newSquareView()";
-
-        throw exception.str();
-
+        std::cout << exception.str() << std::endl;
 	}
 
 	std::cout << "BoardView::initSquares ready." << std::endl;
@@ -288,17 +271,12 @@ bool BoardView::initPieces()
 	}
 	catch(const std::exception& e)
 	{
-		std::cout << "Uncaught exception @BoardView::initPieces" << e.what() << "!\n";
+		std::cout << "STDEXCEPTION CAUGHT :" << e.what() << std::endl;
 		throw e;
 	}
 	catch(...)
 	{
-		std::cout << "Uncaught exception @BoardView::initPieces" << "!\n";
-		std::stringstream exception;
-
-        exception <<  "There was an uncaught exception @BoardView::initPieces";
-
-        throw exception.str();
+		std::cout << "Uncaught exception at BoardView::initPieces" << std::endl;
 	}
 }
 
@@ -320,20 +298,6 @@ bool BoardView::init()
 		std::cout << e << std::endl;
 		throw e;
 	}
-	catch(const std::exception& e)
-	{
-		std::cout << "Uncaught exception @BoardView::init in BoardView::initSquares" << e.what() << "!\n";
-		throw e;
-	}
-	catch(...)
-	{
-		std::cout << "Uncaught exception @BoardView::init in BoardView::initSquares" << "!\n";
-        std::stringstream exception;
-
-        exception <<  "There was an uncaught exception @BoardView::init caused by initSquares()";
-
-        throw exception.str();
-	}
 
  	std::cout << "About to initialize all pieces" << std::endl;
 
@@ -348,17 +312,12 @@ bool BoardView::init()
 	}
 	catch(const std::exception& e)
 	{
-		std::cout << "Uncaught exception @BoardView::init in BoardView::initPieces" << e.what() << "!\n";
+		std::cout << "STDEXCEPTION CAUGHT :" << e.what() << std::endl;
 		throw e;
 	}
 	catch(...)
 	{
-		std::cout << "Uncaught exception @BoardView::init in BoardView::initPieces" << "!\n";
-		std::stringstream exception;
-
-        exception << "There was an uncaught exception @BoardView::init caused by initPieces()";
-
-        throw exception.str();
+		std::cout << "Uncaught exception at BoardView::init" << std::endl;
 	}
  	std::cout << "BoardView::init is about go down." << std::endl;
 }
@@ -429,20 +388,6 @@ void BoardView::updatePieces()
 			std::cout << e << std::endl;
 			throw e;
 		}
-		catch(const std::exception& e)
-		{
-			std::cout << "Uncaught exception @BoardView::updatePieces" << e.what() << "!\n";
-			throw e;
-		}
-		catch(...)
-		{
-			std::cout << "Uncaught exception @BoardView::updatePieces" << "!\n";
-			std::stringstream exception;
-
-	        exception <<"There was an uncaught exception @BoardView::updatePieces caused by initPieces()";
-	
-	        throw exception.str();
-		}
 	}
 }
 
@@ -460,20 +405,6 @@ void BoardView::renderPieces()
 	{
 		std::cout << e << std::endl;
 		throw e;
-	}
-	catch(const std::exception& e)
-	{
-		std::cout << "Uncaught exception @BoardView::renderPieces" << e.what() << "!\n";
-		throw e;
-	}
-	catch(...)
-	{
-		std::cout << "Uncaught exception @BoardView::renderPieces" << "!\n";
-		std::stringstream exception;
-
-		exception << "There was an uncaught exception @BoardView::render caused by renderSquares() or renderPieces()";
-
-        throw exception.str();
 	}
 
 	for (int i = 0; i < 64; ++i)
@@ -500,20 +431,6 @@ void BoardView::render()
 	{
 		std::cout << e << std::endl;
 		throw e;
-	}
-	catch(const std::exception& e)
-	{
-		std::cout << "Uncaught exception @BoardView::render" << e.what() << "!\n";
-		throw e;
-	}
-	catch(...)
-	{
-		std::cout << "Uncaught exception @BoardView::render" << "!\n";
-		std::stringstream exception;
-
-		exception << "There was an uncaught exception @BoardView::render caused by renderSquares() or renderPieces()";
-
-        throw exception.str();
 	}
 }
 

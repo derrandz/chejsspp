@@ -42,15 +42,6 @@ void BoardsController::bootstrap()
 		std::cout << e << std::endl;
 		throw e;
 	}
-	catch(const std::exception& e)
-	{
-		std::cout << "Uncaught exception @BoardView::bootstrap" << e.what() << "!\n";
-		throw e;
-	}
-	catch(...)
-	{
-		std::cout << "Uncaught exception @BoardView::bootstrap" << "!\n";
-	}
 
     this->registerView(ptr);
 	std::cout << "Board View created\n";
