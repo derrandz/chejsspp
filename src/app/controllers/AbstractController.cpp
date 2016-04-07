@@ -134,7 +134,6 @@ int AbstractController::run(bool& gameStatus)
 
 #ifdef EMSCRIPTEN
 std::function<void()> one_iter_main_loop = [&](){
-    std::cout << "It works" << std::endl;
     SDL_Event e;
 #else        
     //Event handler

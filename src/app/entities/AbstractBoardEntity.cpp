@@ -214,7 +214,6 @@ void AbstractBoardEntity::binaryString_toBitboard(std::string&)
  */
 bool AbstractBoardEntity::isMoveValid(long long move, long long fullboard, long long myFriendsBoard)
 {
-	std::cout << "AbstractBoardEntity::isMoveValid is being called" << std::endl;
 	return true;
 }
 
@@ -243,7 +242,6 @@ void AbstractBoardEntity::alterBoard(bool isInitLoad, long long fullboard, long 
 {
 	long long alteredBitboard = HelperFunctions::convertStringToBitBoard(binaryString);
 
-	std::cout << "HelperFunctions::convertStringToBitBoard passed peacefully with a value of " << alteredBitboard << std::endl;
 	if(!isInitLoad)
 	{
 		if(this->isMoveValid(alteredBitboard, fullboard, myFriendsBoard))
@@ -255,8 +253,6 @@ void AbstractBoardEntity::alterBoard(bool isInitLoad, long long fullboard, long 
 	{
 		this->bitRepresentation = alteredBitboard;
 	}
-
-	std::cout << "AbstractBoardEntity::alterBoard" << std::endl;
 }
 
 /**

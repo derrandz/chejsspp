@@ -18,12 +18,9 @@ void HelperFunctions::setBinaryStringToOneAtPosition(std::string& binary, int po
  */
 long long HelperFunctions::convertStringToBitBoard(std::string& binaryString)
 {
-	std::cout << "HelperFunctions::convertStringToBitBoard" << std::endl;
 	std::bitset<64>  x(binaryString);
 
-	std::cout << "HelperFunctions::convertStringToBitBoard about to convert. " << std::endl;
 	long long convertedString = x.to_ullong();
-	std::cout << "HelperFunctions::convertStringToBitBoard converted peacefully :" << convertedString << std::endl;
 	return convertedString;
 }
 

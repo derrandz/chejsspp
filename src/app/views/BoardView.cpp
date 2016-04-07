@@ -285,10 +285,6 @@ bool BoardView::init()
 		std::cout << e << std::endl;
 		throw e;
 	}
-	catch(...)
-	{
-		std::cout << "Uncaught exception at BoardView::init for initPieces" << std::endl;
-	}
 }
 
 /**
@@ -357,10 +353,6 @@ void BoardView::updatePieces()
 			std::cout << e << std::endl;
 			throw e;
 		}
-		catch(...)
-		{
-			std::cout << "Uncaught exception BoardView::updatePieces" << std::endl;
-		}
 	}
 }
 
@@ -378,6 +370,10 @@ void BoardView::renderPieces()
 	{
 		std::cout << e << std::endl;
 		throw e;
+	}
+	catch(...)
+	{
+		std::cout << "Uncaught exception renderPieces" << std::endl;
 	}
 
 	for (int i = 0; i < 64; ++i)

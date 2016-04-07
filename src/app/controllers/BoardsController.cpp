@@ -34,7 +34,7 @@ void BoardsController::bootstrap()
 	try
 	{
 	    std::cout << "BoardsController::bootstrap in try section" << std::endl;
-	    ptr = new BoardView(false, this->bitboard->getFinalArrayBoard());
+	    ptr = new BoardView(true, this->bitboard->getFinalArrayBoard());
 	    // this->bitboard->drawBoard();
 	}
 	catch(std::string e)
