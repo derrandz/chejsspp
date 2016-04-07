@@ -113,7 +113,7 @@ BoardView::BoardView(bool xMainPlayerColor, std::string** xboard)
 	}
 	catch(...)
 	{
-		
+
 	}
 }
 
@@ -147,11 +147,7 @@ bool BoardView::initSquares()
 	}
 	catch(...)
 	{
-		std::cout << "Uncaught exception" << std::endl;
-		std::stringstream exception;
-
-        exception <<  "There was an uncaught exception @BoardView::initSquares caused by newSquareView()";
-        std::cout << exception.str() << std::endl;
+		std::cout << "Uncaught exception in BoardView::initSquares" << std::endl;
 	}
 
 	/* White Square */
@@ -166,11 +162,7 @@ bool BoardView::initSquares()
 	}
 	catch(...)
 	{
-		std::cout << "Uncaught exception" << std::endl;
-		std::stringstream exception;
-
-        exception <<  "There was an uncaught exception @BoardView::initSquares caused by newSquareView()";
-        std::cout << exception.str() << std::endl;
+		std::cout << "Uncaught exception in BoardView::initSquares" << std::endl;
 	}
 
 	std::cout << "BoardView::initSquares ready." << std::endl;
@@ -186,8 +178,6 @@ bool BoardView::initSquares()
  */
 bool BoardView::initPieces()
 {
-    std::cout << "BoardView::initPieces" << std::endl;
-
 	try
 	{
 		std::string pieceName;
@@ -276,8 +266,6 @@ bool BoardView::initPieces()
  */
 bool BoardView::init()
 {
-	std::cout << "BoardView::init" << std::endl;
-	
 	try
 	{
 		this->initSquares();
@@ -287,8 +275,6 @@ bool BoardView::init()
 		std::cout << e << std::endl;
 		throw e;
 	}
-
- 	std::cout << "About to initialize all pieces" << std::endl;
 
 	try
 	{
@@ -301,9 +287,8 @@ bool BoardView::init()
 	}
 	catch(...)
 	{
-		std::cout << "Uncaught exception at BoardView::init" << std::endl;
+		std::cout << "Uncaught exception at BoardView::init for initPieces" << std::endl;
 	}
- 	std::cout << "BoardView::init is about go down." << std::endl;
 }
 
 /**
@@ -371,6 +356,10 @@ void BoardView::updatePieces()
 		{
 			std::cout << e << std::endl;
 			throw e;
+		}
+		catch(...)
+		{
+			std::cout << "Uncaught exception BoardView::updatePieces" << std::endl;
 		}
 	}
 }
