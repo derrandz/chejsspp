@@ -93,8 +93,22 @@ int GameManager::run()
 	    return controller_ptr->run(this->gameStatus);
     }
     catch(std::string e)
-    {
-    	std::cout << e << std::endl;
-    	throw e;
-    }
+	{
+		std::cout << e << std::endl;
+		throw e;
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << "Uncaught exception @GameManager::run" << e.what() << "!\n";
+		throw e;
+	}
+	catch(...)
+	{
+		std::cout << "Uncaught exception @GameManager::run" << "!\n";
+		std::stringstream exception;
+
+        exception <<  "There was an uncaught exception @GameManager::run caused by controller_ptr->run()";
+
+        throw exception.str();
+	}
 }

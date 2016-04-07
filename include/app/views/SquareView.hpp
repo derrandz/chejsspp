@@ -61,11 +61,10 @@ class SquareView : public View
 
 		    	exception << "Could not load image : " << this->filePath;
                 
-                std::cout << exception.str() << std::endl; 
-
 		    	throw exception.str();
 			}
-			std::cout << "SquareView::SquareView : no exception thrown" << std::endl;
+			
+			std::cout << "No exception was thrown" << std::endl;
 		};
 
 		~SquareView();

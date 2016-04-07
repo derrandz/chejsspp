@@ -27,13 +27,13 @@ class RooksBoard : public AbstractBoardEntity
 		 * @return           [description]
 		 * 
 		 */
-		inline long copyBoardTilBit(long board, int bitNumber)
+		inline long long copyBoardTilBit(long long board, int bitNumber)
 		{
 			std::string binary = "0000000000000000000000000000000000000000000000000000000000000000";
 
 			for (int i = 1; i <= bitNumber ; ++i)
 			{
-				long tmp = board>>i;
+				long long tmp = board>>i;
 				
 				tmp &= ~tmp+1; //LSB
 
@@ -48,12 +48,12 @@ class RooksBoard : public AbstractBoardEntity
 		 * Returns the file or the rank on which the move is taking place.
 		 * @param  old_position [description]
 		 * @param  new_position [description]
-		 * @return              long
+		 * @return              lon longg
 		 * 
 		 */
-		inline long identifyMoveField(long old_position, long new_position)
+		inline long long identifyMoveField(long long old_position, long long new_position)
 		{
-			long historyOfMove = old_position | new_position;
+			long long historyOfMove = old_position | new_position;
 
 			std::cout << "historyOfMove" << std::endl;
 			HelperFunctions::drawArrayBoardFromBitBoard(historyOfMove);
@@ -61,8 +61,8 @@ class RooksBoard : public AbstractBoardEntity
 			/* is it file? */
 			for (int i = 0; i < 8; ++i)
 			{
-				long temp_one = RooksBoard::files_array[i] | historyOfMove;
-				long temp_two = temp_one ^RooksBoard::files_array[i];
+				long long temp_one = RooksBoard::files_array[i] | historyOfMove;
+				long long temp_two = temp_one ^RooksBoard::files_array[i];
 			    if( temp_two == 0)
 			   		return RooksBoard::files_array[i];
 			}
@@ -70,8 +70,8 @@ class RooksBoard : public AbstractBoardEntity
 			/* is it rank? */
 			for (int i = 0; i < 8; ++i)
 			{
-				long temp_one = RooksBoard::ranks[i] | historyOfMove;
-				long temp_two = temp_one^ RooksBoard::ranks[i];
+				long long temp_one = RooksBoard::ranks[i] | historyOfMove;
+				long long temp_two = temp_one^ RooksBoard::ranks[i];
 				if( temp_two  == 0)
 					return RooksBoard::ranks[i];
 			}
@@ -86,12 +86,12 @@ class RooksBoard : public AbstractBoardEntity
 		 * @return              [description]
 		 * 
 		 */
-		inline long identifyMoveDirection(long old_position, long new_position)
+		inline long long identifyMoveDirection(long long old_position, long long new_position)
 		{
 			return new_position - old_position;
 		};
 
-		inline std::string getMoveDirection(long old_position, long new_position)
+		inline std::string getMoveDirection(long long old_position, long long new_position)
 		{
 			std::string up      = "up";
 			std::string down    = "down";
@@ -99,8 +99,8 @@ class RooksBoard : public AbstractBoardEntity
 			std::string right   = "right";
 			std::string invalid = "invalid";
 
-			long direction    = this->identifyMoveDirection(old_position, new_position);
-			long rank_or_file = this->identifyMoveField(old_position, new_position);
+			long long direction    = this->identifyMoveDirection(old_position, new_position);
+			long long rank_or_file = this->identifyMoveField(old_position, new_position);
 
 			if(rank_or_file == -1) return invalid;
 
@@ -143,7 +143,7 @@ class RooksBoard : public AbstractBoardEntity
 		 * @return             [description]
 		 * 
 		 */
-		int identifyMoveType(bool xSuitColor, long oldPosition, long newPosition)
+		int identifyMoveType(bool xSuitColor, long long oldPosition, long long newPosition)
 		{
 
 		};
@@ -157,12 +157,12 @@ class RooksBoard : public AbstractBoardEntity
 		 * @return               [description]
 		 * 
 		 */
-		inline int identifyMoveType(long old_position, long new_position, long fullboard, long moveDirection)
+		inline int identifyMoveType(long long old_position, long long new_position, long long fullboard, long long moveDirection)
 		{
 
 		};
 
-		inline int getRankOf(long position)
+		inline int getRankOf(long long position)
 		{
 			for (int i = 0; i < 8; ++i)
 				if( ((RooksBoard::ranks[i] & position) ^ position) == 0 ) return i;
@@ -170,7 +170,7 @@ class RooksBoard : public AbstractBoardEntity
 			return -1;
 		};
 
-		inline int getFileOf(long position)
+		inline int getFileOf(long long position)
 		{
 			for (int i = 0; i < 8; ++i)
 				if( ((RooksBoard::files_array[i] & position) ^ position) == 0 ) return i;
@@ -186,12 +186,12 @@ class RooksBoard : public AbstractBoardEntity
 		 * @return              [description]
 		 * 
 		 */
-		inline long getBoardBetweenPositions(long old_position, long new_position, long fullboard, long field, std::string direction)
+		inline long long getBoardBetweenPositions(long long old_position, long long new_position, long long fullboard, long long field, std::string direction)
 		{
-			long board_old_and_new         = old_position | new_position;
-			long fullboard_on_moving_field = HelperFunctions::applyMask_Keep(fullboard, field);
+			long long board_old_and_new         = old_position | new_position;
+			long long fullboard_on_moving_field = HelperFunctions::applyMask_Keep(fullboard, field);
 
-			long mask = 0L;
+			long long mask = 0L;
 
 			if( direction.compare("up") == 0 || direction.compare("down") == 0)
 			{
@@ -209,7 +209,7 @@ class RooksBoard : public AbstractBoardEntity
 			}
 			else if( direction.compare("left") == 0 || direction.compare("right") == 0)
 			{
-				long file_one = this->getFileOf(old_position), 
+				long long file_one = this->getFileOf(old_position), 
 					 file_two = this->getFileOf(new_position);
 
 
@@ -236,11 +236,11 @@ class RooksBoard : public AbstractBoardEntity
 		 * @return [description]
 		 * 
 		 */
-		inline bool isBoardEmptyBetweenOldAndNew(long old_position, long new_position, long fullboard, long move_direction, std::string direction)
+		inline bool isBoardEmptyBetweenOldAndNew(long long old_position, long long new_position, long long fullboard, long long move_direction, std::string direction)
 		{
 			if( direction.compare("invalid") == 0 ) return false;
 
-			long what_in_between = this->getBoardBetweenPositions(old_position, new_position, fullboard, move_direction, direction);
+			long long what_in_between = this->getBoardBetweenPositions(old_position, new_position, fullboard, move_direction, direction);
 
 			if( what_in_between == 0) return true;
 			else return false;
@@ -248,14 +248,14 @@ class RooksBoard : public AbstractBoardEntity
 
 		/**
 		 * Judges the new move as valid or invalid.
-		 * @param  long : the new board's configuration that represents the new move.
+		 * @param  long long : the new board's configuration that represents the new move.
 		 * @return bool : true upon valid.
 		 *  
 		 */
-		inline bool isMoveValid(long move, long fullboard, long myFriendsBoard)
+		inline bool isMoveValid(long long move, long long fullboard, long long myFriendsBoard)
 		{
-			long oldPosition = this->extractOldPosition(move);
-			long newPosition = this->extractNewMove(move);
+			long long oldPosition = this->extractOldPosition(move);
+			long long newPosition = this->extractNewMove(move);
 
 			if(0 == newPosition) return false; // If there was no new move
 
@@ -306,9 +306,9 @@ class RooksBoard : public AbstractBoardEntity
 		 * Alters the positions at this board.
 		 * 
 		 */
-		inline void alterBoard(bool isInitLoad, long fullboard, long myFriendsBoard, std::string& binaryString)
+		inline void alterBoard(bool isInitLoad, long long fullboard, long long myFriendsBoard, std::string& binaryString)
 		{
-			long alteredBitboard = HelperFunctions::convertStringToBitBoard(binaryString);
+			long long alteredBitboard = HelperFunctions::convertStringToBitBoard(binaryString);
 
 			if(!isInitLoad)
 			{

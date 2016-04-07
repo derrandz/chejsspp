@@ -74,8 +74,6 @@ class KingView : public PieceView
 
 		    	exception << "KingViewException: Could not load image : " << this->filePath;
 
-                std::cout << exception.str() << std::endl; 
-                
 		    	throw exception.str();
 		    }
 		};

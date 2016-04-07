@@ -26,9 +26,9 @@ class QueenBoard : public AbstractBoardEntity
 		 * @return              long
 		 * 
 		 */
-		inline long identifyMoveField(long old_position, long new_position)
+		inline long long identifyMoveField(long long old_position, long long new_position)
 		{
-			long historyOfMove = old_position | new_position;
+			long long historyOfMove = old_position | new_position;
 
 			std::cout << "historyOfMove" << std::endl;
 			HelperFunctions::drawArrayBoardFromBitBoard(historyOfMove);
@@ -36,8 +36,8 @@ class QueenBoard : public AbstractBoardEntity
 			/* is it file? */
 			for (int i = 0; i < 8; ++i)
 			{
-				long temp_one = QueenBoard::files_array[i] | historyOfMove;
-				long temp_two = temp_one ^QueenBoard::files_array[i];
+				long long temp_one = QueenBoard::files_array[i] | historyOfMove;
+				long long temp_two = temp_one ^QueenBoard::files_array[i];
 			    if( temp_two == 0)
 			   		return QueenBoard::files_array[i];
 			}
@@ -45,8 +45,8 @@ class QueenBoard : public AbstractBoardEntity
 			/* is it rank? */
 			for (int i = 0; i < 8; ++i)
 			{
-				long temp_one = QueenBoard::ranks[i] | historyOfMove;
-				long temp_two = temp_one^ QueenBoard::ranks[i];
+				long long temp_one = QueenBoard::ranks[i] | historyOfMove;
+				long long temp_two = temp_one^ QueenBoard::ranks[i];
 				if( temp_two  == 0)
 					return QueenBoard::ranks[i];
 			}
@@ -54,8 +54,8 @@ class QueenBoard : public AbstractBoardEntity
 			/* is it left diagonal? */
 			for (int i = 0; i < 15; ++i)
 			{
-				long temp_one = QueenBoard::left_diagonals[i] | historyOfMove;
-				long temp_two = temp_one ^QueenBoard::left_diagonals[i];
+				long long temp_one = QueenBoard::left_diagonals[i] | historyOfMove;
+				long long temp_two = temp_one ^QueenBoard::left_diagonals[i];
 			    if( temp_two == 0)
 			   		return QueenBoard::left_diagonals[i];
 			}
@@ -63,8 +63,8 @@ class QueenBoard : public AbstractBoardEntity
 			/* is it right diagonal? */
 			for (int i = 0; i < 15; ++i)
 			{
-				long temp_one = QueenBoard::right_diagonals[i] | historyOfMove;
-				long temp_two = temp_one^ QueenBoard::right_diagonals[i];
+				long long temp_one = QueenBoard::right_diagonals[i] | historyOfMove;
+				long long temp_two = temp_one^ QueenBoard::right_diagonals[i];
 				if( temp_two  == 0)
 					return QueenBoard::right_diagonals[i];
 			}
@@ -79,12 +79,12 @@ class QueenBoard : public AbstractBoardEntity
 		 * @return              [description]
 		 * 
 		 */
-		inline long identifyMoveDirection(long old_position, long new_position)
+		inline long long identifyMoveDirection(long long old_position, long long new_position)
 		{
 			return new_position - old_position;
 		};
 
-		inline std::string getMoveDirection(long old_position, long new_position)
+		inline std::string getMoveDirection(long long old_position, long long new_position)
 		{
 			std::string up        = "up";
 			std::string down      = "down";
@@ -96,8 +96,8 @@ class QueenBoard : public AbstractBoardEntity
 			std::string upright   = "up_right";
 			std::string downright = "down_right";
 
-			long direction    = this->identifyMoveDirection(old_position, new_position);
-			long rank_or_file = this->identifyMoveField(old_position, new_position);
+			long long direction    = this->identifyMoveDirection(old_position, new_position);
+			long long rank_or_file = this->identifyMoveField(old_position, new_position);
 
 			if(rank_or_file == -1) return invalid;
 
@@ -170,7 +170,7 @@ class QueenBoard : public AbstractBoardEntity
 		 * @return             [description]
 		 * 
 		 */
-		int identifyMoveType(bool xSuitColor, long oldPosition, long newPosition)
+		int identifyMoveType(bool xSuitColor, long long oldPosition, long long newPosition)
 		{
 
 		};
@@ -184,12 +184,12 @@ class QueenBoard : public AbstractBoardEntity
 		 * @return               [description]
 		 * 
 		 */
-		inline int identifyMoveType(long old_position, long new_position, long fullboard, long moveDirection)
+		inline int identifyMoveType(long long old_position, long long new_position, long long fullboard, long long moveDirection)
 		{
 
 		};
 
-		inline int getRankOf(long position)
+		inline int getRankOf(long long position)
 		{
 			for (int i = 0; i < 8; ++i)
 				if( ((QueenBoard::ranks[i] & position) ^ position) == 0 ) return i;
@@ -197,7 +197,7 @@ class QueenBoard : public AbstractBoardEntity
 			return -1;
 		};
 
-		inline int getFileOf(long position)
+		inline int getFileOf(long long position)
 		{
 			for (int i = 0; i < 8; ++i)
 				if( ((QueenBoard::files_array[i] & position) ^ position) == 0 ) return i;
@@ -205,7 +205,7 @@ class QueenBoard : public AbstractBoardEntity
 			return -1;
 		};
 
-		inline int getLeftDiagonalOf(long position)
+		inline int getLeftDiagonalOf(long long position)
 		{
 			for (int i = 0; i < 15; ++i)
 				if( ((QueenBoard::left_diagonals[i] & position) ^ position) == 0 ) return i;
@@ -213,7 +213,7 @@ class QueenBoard : public AbstractBoardEntity
 			return -1;
 		};
 
-		inline int getRightDiagonalOf(long position)
+		inline int getRightDiagonalOf(long long position)
 		{
 			for (int i = 0; i < 15; ++i)
 				if( ((QueenBoard::right_diagonals[i] & position) ^ position) == 0 ) return i;
@@ -229,12 +229,12 @@ class QueenBoard : public AbstractBoardEntity
 		 * @return              [description]
 		 * 
 		 */
-		inline long getBoardBetweenPositions(long old_position, long new_position, long fullboard, long field, std::string direction)
+		inline long long getBoardBetweenPositions(long long old_position, long long new_position, long long fullboard, long long field, std::string direction)
 		{
-			long board_old_and_new         = old_position | new_position;
-			long fullboard_on_moving_field = HelperFunctions::applyMask_Keep(fullboard, field);
+			long long board_old_and_new         = old_position | new_position;
+			long long fullboard_on_moving_field = HelperFunctions::applyMask_Keep(fullboard, field);
 
-			long mask = 0L;
+			long long mask = 0L;
 
 			if( direction.compare("up") == 0 || direction.compare("down") == 0)
 			{
@@ -252,7 +252,7 @@ class QueenBoard : public AbstractBoardEntity
 			}
 			else if( direction.compare("left") == 0 || direction.compare("right") == 0)
 			{
-				long file_one = this->getFileOf(old_position), 
+				long long file_one = this->getFileOf(old_position), 
 					 file_two = this->getFileOf(new_position);
 
 
@@ -281,7 +281,7 @@ class QueenBoard : public AbstractBoardEntity
 			}
 			else if( direction.compare("up_right") == 0 || direction.compare("down_right") == 0)
 			{
-				long file_one = this->getLeftDiagonalOf(old_position), 
+				long long file_one = this->getLeftDiagonalOf(old_position), 
 					 file_two = this->getLeftDiagonalOf(new_position);
 
 
@@ -308,11 +308,11 @@ class QueenBoard : public AbstractBoardEntity
 		 * @return [description]
 		 * 
 		 */
-		inline bool isBoardEmptyBetweenOldAndNew(long old_position, long new_position, long fullboard, long move_direction, std::string direction)
+		inline bool isBoardEmptyBetweenOldAndNew(long long old_position, long long new_position, long long fullboard, long long move_direction, std::string direction)
 		{
 			if( direction.compare("invalid") == 0 ) return false;
 
-			long what_in_between = this->getBoardBetweenPositions(old_position, new_position, fullboard, move_direction, direction);
+			long long what_in_between = this->getBoardBetweenPositions(old_position, new_position, fullboard, move_direction, direction);
 
 			if( what_in_between == 0) return true;
 			else return false;
@@ -320,14 +320,14 @@ class QueenBoard : public AbstractBoardEntity
 
 		/**
 		 * Judges the new move as valid or invalid.
-		 * @param  long : the new board's configuration that represents the new move.
+		 * @param  long long : the new board's configuration that represents the new move.
 		 * @return bool : true upon valid.
 		 *
 		 */
-		inline bool isMoveValid(long move, long fullboard, long myFriendsBoard)
+		inline bool isMoveValid(long long move, long long fullboard, long long myFriendsBoard)
 		{
-			long oldPosition = this->extractOldPosition(move);
-			long newPosition = this->extractNewMove(move);
+			long long oldPosition = this->extractOldPosition(move);
+			long long newPosition = this->extractNewMove(move);
 
 			if(0 == newPosition) return false; // If there was no new move
 
@@ -378,7 +378,7 @@ class QueenBoard : public AbstractBoardEntity
 		 * Alters the positions at this board.
 		 * 
 		 */
-		inline void alterBoard(bool isInitLoad,	long fullboard, long myFriendsBoard, std::string& binaryString)
+		inline void alterBoard(bool isInitLoad,	long long fullboard, long long myFriendsBoard, std::string& binaryString)
 		{
 			AbstractBoardEntity::alterBoard(isInitLoad, fullboard, myFriendsBoard, binaryString);
 		};

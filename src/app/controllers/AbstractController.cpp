@@ -49,7 +49,22 @@ void AbstractController::registerView(View* newView)
     }
     catch(std::string e)
     {
+        std::cout << e << std::endl;
         throw e;
+    }
+    catch(const std::exception& e)
+    {
+        std::cout << "Uncaught exception @AbstractController::registerView" << e.what() << "!\n";
+        throw e;
+    }
+    catch(...)
+    {
+        std::cout << "Uncaught exception @AbstractController::registerView" << std::endl;
+        std::stringstream exception;
+
+        exception <<  "There was an uncaught exception @AbstractController::registerView caused by pushing the new view to the container.";
+
+        throw exception.str();
     }
 }
 
@@ -69,9 +84,22 @@ void AbstractController::initViews()
     catch(std::string e)
     {
         std::cout << e << std::endl;
-    	throw e;
-    };
+        throw e;
+    }
+    catch(const std::exception& e)
+    {
+        std::cout << "Uncaught exception @AbstractController::initViews" << e.what() << "!\n";
+        throw e;
+    }
+    catch(...)
+    {
+        std::cout << "Uncaught exception @AbstractController::initViews" << std::endl;
+        std::stringstream exception;
 
+        exception <<  "There was an uncaught exception @AbstractController::initViews in the main loop probably caused by initSDL()";
+
+        throw exception.str();
+    }
 }
 
 void AbstractController::freeViews()
@@ -118,20 +146,31 @@ static void dispatch_main_loop(void* fp)
  */
 int AbstractController::run(bool& gameStatus)
 {
-    std::cout << "AbstractController::run" << std::endl;
-    
-    // try
-    // {
+    try
+    {
         this->initViews();
         this->bootstrap();
-    // }
-    // catch(std::string e)
-    // {
-        // std::cout << e << std::endl;
-        // throw e;
-    // };
+    }
+    catch(std::string e)
+    {
+        std::cout << e << std::endl;
+        throw e;
+    }
+    catch(const std::exception& e)
+    {
+        std::cout << "Uncaught exception @AbstractController::run" << e.what() << "!\n";
+        throw e;
+    }
+    catch(...)
+    {
+        std::cout << "Uncaught exception @AbstractController::run" << std::endl;
+        std::stringstream exception;
 
-    std::cout << "No exception was throwin yet" << std::endl;
+        exception << "There was an uncaught exception @AbstractController::run in the main loop probably caused by initViews() and bootstrap()";
+
+        throw exception.str();
+    }
+
     //Make the cursor visible.
     SDL_ShowCursor(SDL_ENABLE);
 
@@ -177,13 +216,30 @@ std::function<void()> one_iter_main_loop = [&](){
             std::cout << "\t" << e << std::endl;
 
             gameStatus = false;
+            throw e;
+        }
+        catch(const std::exception& e)
+        {
+            std::cout << "Uncaught exception @AbstractController::run mainloop" << e.what() << "!\n";
+            gameStatus = false;
+            throw e;
+        }
+        catch(...)
+        {
+            std::cout << "Uncaught exception @AbstractController::run mainloop" << std::endl;
+            gameStatus = false;
+            std::stringstream exception;
+
+            exception <<  "There was an uncaught exception caught in the main loop probably caused by mainAction() and renderViews()";
+
+            throw exception.str();
         }
 
         //Update screen
         SDL_RenderPresent( View::renderer );
 #ifdef EMSCRIPTEN
     };
-    emscripten_set_main_loop_arg(dispatch_main_loop, &one_iter_main_loop, 60, 1);
+    emscripten_set_main_loop_arg(dispatch_main_loop, &one_iter_main_loop, 0, 1);
 #else
     }
 #endif // EMSCRIPTEN

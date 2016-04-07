@@ -4,6 +4,13 @@
 #include <map>
 #include <utility>
 
+/*#ifdef EMSCRIPTEN
+	#ifndef _long_DEFINED_AS_int64_t_
+		#define _long_DEFINED_AS_int64_t_
+		#define long int64_t
+	#endif // _long_DEFINED_AS_int64_t_
+#endif // EMSCRIPTEN*/
+
 #ifndef _ABSTRACT_BOARD_ENTITY_H_INCLUDED_
 
 class AbstractBoardEntity;
@@ -31,19 +38,19 @@ class MainBoard
 		 * A bitmap for the positions, regardless of their respective boards.
 		 * 
 		 */
-		long fullboard;
+		long long fullboard;
 
 		/**
 		 * White elements' board
 		 * 
 		 */
-		long whites_board;
+		long long whites_board;
 
 		/**
 		 * Black elements' board
 		 * 
 		 */
-		long blacks_board;
+		long long blacks_board;
 
 	/*
 	 |****************************
@@ -76,11 +83,11 @@ class MainBoard
 
 		/**
 		 * Returns the final board by superpositioning all of the 12 boards with the use of logical bitwise operators and chess rules.
-		 * @return long : the final bitboard
+		 * @return long long : the final bitboard
 		 * For debuggin purposes.
 		 * 
 		 */
-		long getFinalBoard();
+		long long getFinalBoard();
 
 		/**
 		 * Updates the state of the final board, but in an unrecognizable way of just bitmapping everything.
@@ -95,8 +102,8 @@ class MainBoard
 		void updateWhitesBoard();
 		void updateBlacksBoard();
 		
-		long getWhitesBoard();
-		long getBlacksBoard();
+		long long getWhitesBoard();
+		long long getBlacksBoard();
 
 		/**
 		 * returns a specified color's board
@@ -104,7 +111,7 @@ class MainBoard
 		 * @return           [description]
 		 * 
 		 */
-		long getFulllboardOfColor(bool suitcolor);
+		long long getFulllboardOfColor(bool suitcolor);
 		
 	public:
 		/**

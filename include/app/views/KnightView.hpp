@@ -74,8 +74,6 @@ class KnightView : public PieceView
 
 		    	exception << "KnightViewException: Could not load image : " << this->filePath;
 
-                std::cout << exception.str() << std::endl; 
-                
 		    	throw exception.str();
 		    }
 		};

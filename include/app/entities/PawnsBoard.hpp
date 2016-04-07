@@ -27,7 +27,7 @@ class PawnsBoard : public AbstractBoardEntity
 		 * @return             [description]
 		 * 
 		 */
-		inline int identifyMoveType(bool xSuitColor, long oldPosition, long newPosition)
+		inline int identifyMoveType(bool xSuitColor, long long oldPosition, long long newPosition)
 		{
 			bool moveForward, moveForwardDiagonalLeft, moveForwardDiagonalRight;
 
@@ -53,14 +53,14 @@ class PawnsBoard : public AbstractBoardEntity
 
 		/**
 		 * Judges the new move as valid or invalid.
-		 * @param  long : the new board's configuration that represents the new move.
+		 * @param  long long : the new board's configuration that represents the new move.
 		 * @return bool : true upon valid.
 		 *  
 		 */
-		inline bool isMoveValid(long move, long fullboard, long myFriendsBoard)
+		inline bool isMoveValid(long long move, long long fullboard, long long myFriendsBoard)
 		{
-			long oldPosition = this->extractOldPosition(move);
-			long newPosition = this->extractNewMove(move);
+			long long oldPosition = this->extractOldPosition(move);
+			long long newPosition = this->extractNewMove(move);
 
 			int moveType = this->identifyMoveType(this->suitColor, oldPosition, newPosition);
 
@@ -100,7 +100,7 @@ class PawnsBoard : public AbstractBoardEntity
 		 * Alters the positions at this board.
 		 * 
 		 */
-		inline void alterBoard(bool isInitLoad, long fullboard, long myFriendsBoard, std::string& binaryString)
+		inline void alterBoard(bool isInitLoad, long long fullboard, long long myFriendsBoard, std::string& binaryString)
 		{
 			AbstractBoardEntity::alterBoard(isInitLoad, fullboard, myFriendsBoard, binaryString);
 		};

@@ -74,8 +74,6 @@ class RookView : public PieceView
 
 		    	exception << "RookViewException: Could not load image : " << this->filePath;
 
-                std::cout << exception.str() << std::endl; 
-
 		    	throw exception.str();
 		    }
 		};

@@ -14,12 +14,12 @@
  */
 void MainBoard::applyCaptureHistory()
 {
-	std::tuple<std::string, bool, long> captures_history = AbstractBoardEntity::getCaptureHistory();
+	std::tuple<std::string, bool, long long> captures_history = AbstractBoardEntity::getCaptureHistory();
 
 	if(std::get<0>(captures_history).compare(" ") != 0)
 	{
-		long blacks = 0L;
-		long whites = 0L;
+		long long blacks = 0L;
+		long long whites = 0L;
 
 		for (subbitboards_it it = this->subBitboards.begin(); it != this->subBitboards.end() ; ++it)
 		{
@@ -28,7 +28,7 @@ void MainBoard::applyCaptureHistory()
 
 			if(board_name.compare(std::get<0>(captures_history)) != 0 && !(suitcolor&std::get<1>(captures_history)))
 			{
-				long bitboard = it->second->getBitBoard();
+				long long bitboard = it->second->getBitBoard();
 
 				if( (bitboard & std::get<2>(captures_history)) != 0 )
 				{
@@ -67,7 +67,7 @@ void MainBoard::updateFullboard()
  */
 void MainBoard::updateWhitesBoard()
 {
-	long xfullboard = 0L;
+	long long xfullboard = 0L;
 	
 	for (subbitboards_it it = this->subBitboards.begin(); it != this->subBitboards.end() ; ++it)
 	{
@@ -82,7 +82,7 @@ void MainBoard::updateWhitesBoard()
 
 void MainBoard::updateBlacksBoard()
 {
-	long xfullboard = 0L;
+	long long xfullboard = 0L;
 	
 	for (subbitboards_it it = this->subBitboards.begin(); it != this->subBitboards.end() ; ++it)
 	{
@@ -95,17 +95,17 @@ void MainBoard::updateBlacksBoard()
 	this->blacks_board = xfullboard;
 }
 
-long MainBoard::getWhitesBoard()
+long long MainBoard::getWhitesBoard()
 {
 	return this->whites_board;
 }
 
-long MainBoard::getBlacksBoard()
+long long MainBoard::getBlacksBoard()
 {
 	return this->blacks_board;
 }
 
-long MainBoard::getFulllboardOfColor(bool suitcolor)
+long long MainBoard::getFulllboardOfColor(bool suitcolor)
 {
 	if(suitcolor)
 	{
@@ -280,11 +280,11 @@ void MainBoard::initStandardBoard()
 
 /**
  * Returns the final board by superpositioning all of the 12 boards with the use of logical bitwise operators and chess rules.
- * @return long : the final bitboard
+ * @return long long : the final bitboard
  */
-long MainBoard::getFinalBoard()
+long long MainBoard::getFinalBoard()
 {
-	long finalBitboard = 0L;
+	long long finalBitboard = 0L;
 
 	// std::string binaryTestBoard = "1111111100000000000000000000000000000000000000000000000011111111";
 	
@@ -308,8 +308,8 @@ std::string** MainBoard::getFinalArrayBoard()
 	board = new std::string*[8];
 	for(int i=0; i<8; i++) board[i] = new std::string[8];
 
-	long bR, bN, bB, bK, bQ, bP;
-	long wR, wN, wB, wK, wQ, wP;
+	long long bR, bN, bB, bK, bQ, bP;
+	long long wR, wN, wB, wK, wQ, wP;
 
 	/**
 	 * Black bitboards
@@ -501,7 +501,7 @@ void MainBoard::initBy(std::string conf[][8])
  */
 void MainBoard::drawBoard()
 {
-	long finalBoard = this->getFinalBoard();
+	long long finalBoard = this->getFinalBoard();
 	std::cout << std::endl << "----- ----- ----- Arrayboard from bitboards ----- ----- -----" << std::endl;
 	HelperFunctions::drawArrayBoardFromBitBoard(finalBoard);	
 	std::cout << std::endl << "----- ----- ----- ----- ----- ----- ----- ----- ----- -----" << std::endl;

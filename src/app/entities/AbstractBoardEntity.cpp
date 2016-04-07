@@ -11,79 +11,79 @@
  * Diagonals
  * 
  */
-const long AbstractBoardEntity::right_diagonals[15] = 
+const long long AbstractBoardEntity::right_diagonals[15] = 
 {
-	// 1, //white
-	// 258, //black
-	// 66052,//white
-	// 16909320,//black
-	// 4328785936,//white
-	// 1108169199648,//black
-	// 283691315109952,//white
-	// 72624976668147840,//black
-	// 145249953336295424,//white
-	// 290499906672525312,//black
-	// 580999813328273408,//white
-	// 1161999622361579520,//black
-	// 2323998145211531264,//white
-	// 4647714815446351872,//black
-	// 9223372036854775808//white
-	1,
-	1,
-	1,
-	1,
+	 static_cast<long long>(1), //white
+	 static_cast<long long>( 258 ), //black
+	 static_cast<long long>( 66052 ),//white
+	 static_cast<long long>( 16909320 ),//black
+	 static_cast<long long>( 4328785936 ),//white
+	 static_cast<long long>( 1108169199648 ),//black
+	 static_cast<long long>( 283691315109952 ),//white
+	 static_cast<long long>( 72624976668147840 ),//black
+	 static_cast<long long>( 145249953336295424 ),//white
+	 static_cast<long long>( 290499906672525312 ),//black
+	 static_cast<long long>( 580999813328273408 ),//white
+	 static_cast<long long>( 1161999622361579520 ),//black
+	 static_cast<long long>( 2323998145211531264 ),//white
+	 static_cast<long long>( 4647714815446351872 ),//black
+	 static_cast<long long>( 9223372036854775808 )//white
+	// 1,
+	// 1,
+	// 1,
+	// 1,
 	
-	1,
-	1,
-	1,
-	1,
+	// 1,
+	// 1,
+	// 1,
+	// 1,
 
-	1,
-	1,
-	1,
-	1,
-	1,
-	1,
-	1,
+	// 1,
+	// 1,
+	// 1,
+	// 1,
+	// 1,
+	// 1,
+	// 1,
 
 
 };
 
-const long AbstractBoardEntity::left_diagonals[15] = 
+const long long AbstractBoardEntity::left_diagonals[15] = 
 {
-	// 128,//black
-	// 32832,//white
-	// 8405024,//black
-	// 2151686160,//white
-	// 550831656968,//black
-	// 141012904183812,//white
-	// 36099303471055874,//black
-	// -9205322385119247871,//white
-	// 4620710844295151872,//black
-	// 2310355422147575808,//white
-	// 1155177711073755136,//black
-	// 577588855528488960,//white
-	// 288794425616760832,//black
-	// 144396663052566528,//white
-	// 72057594037927936//black
+	static_cast<long long>( 128 ),//black
+	static_cast<long long>( 32832 ),//white
+	static_cast<long long>( 8405024 ),//black
+	static_cast<long long>( 2151686160 ),//white
+	static_cast<long long>( 550831656968 ),//black
+	static_cast<long long>( 141012904183812 ),//white
+	static_cast<long long>( 36099303471055874 ),//black
+	static_cast<long long>( -9205322385119247871 ),//white
+	static_cast<long long>( 4620710844295151872 ),//black
+	static_cast<long long>( 2310355422147575808 ),//white
+	static_cast<long long>( 1155177711073755136 ),//black
+	static_cast<long long>( 577588855528488960 ),//white
+	static_cast<long long>( 288794425616760832 ),//black
+	static_cast<long long>( 144396663052566528 ),//white
+	static_cast<long long>( 72057594037927936 )//black
 
-	1,
-	1,
-	1,
-	1,
+	// 1,
+	// 1,
+	// 1,
+	// 1,
 	
-	1,
-	1,
-	1,
-	1,
+	// 1,
+	// 1,
+	// 1,
+	// 1,
 
-	1,
-	1,
-	1,
-	1,
-	1,
-	1,
-	1,
+	// 1,
+	// 1,
+	// 1,
+	// 1,
+	// 1,
+	// 1,
+	// 1,
 };
 
 
@@ -92,51 +92,51 @@ const long AbstractBoardEntity::left_diagonals[15] =
  * Ranks
  * 
  */
-const long AbstractBoardEntity::ranks[8] = 
+const long long AbstractBoardEntity::ranks[8] = 
 {
-		// 255, // RANK 1
-		// 65280, // RANK 2
-		// 16711680, // RANK 3
-		// 4278190080, // RANK 4
-		// 1095216660480, // RANK 5
-		// 280375465082880, // RANK 6
-		// 71776119061217280, // RANK 7
-		// -72057594037927936 // RANK 8 
+		static_cast<long long>( 255 ), // RANK 1
+		static_cast<long long>( 65280 ), // RANK 2
+		static_cast<long long>( 16711680 ), // RANK 3
+		static_cast<long long>( 4278190080 ), // RANK 4
+		static_cast<long long>( 1095216660480 ), // RANK 5
+		static_cast<long long>( 280375465082880 ), // RANK 6
+		static_cast<long long>( 71776119061217280 ), // RANK 7
+		static_cast<long long>( -72057594037927936 ) // RANK 8 
 
-	1,
-	1,
-	1,
-	1,
+	// 1,
+	// 1,
+	// 1,
+	// 1,
 	
-	1,
-	1,
-	1,
-	1,
+	// 1,
+	// 1,
+	// 1,
+	// 1,
 };
 
 /**
  * Files
  * 
  */
-const long AbstractBoardEntity::files_array[8] =
+const long long AbstractBoardEntity::files_array[8] =
 {
-	// -9187201950435737472, //file_a 
-	// 4629771061636907072,  //file_b 
-	// 2314885530818453536,  //file_c
-	// 1157442765409226768,  //file_d
-	// 578721382704613384,   //file_e
-	// 289360691352306692,   //file_f
-	// 144680345676153346,   //file_g 
-	// 72340172838076673    //file_h
-		1,
-	1,
-	1,
-	1,
+	static_cast<long long>( -9187201950435737472 ), //file_a 
+	static_cast<long long>( 4629771061636907072 ),  //file_b 
+	static_cast<long long>( 2314885530818453536 ),  //file_c
+	static_cast<long long>( 1157442765409226768 ),  //file_d
+	static_cast<long long>( 578721382704613384 ),   //file_e
+	static_cast<long long>( 289360691352306692 ),   //file_f
+	static_cast<long long>( 144680345676153346 ),   //file_g 
+	static_cast<long long>( 72340172838076673 ),  //file_h
+	// 	1,
+	// 1,
+	// 1,
+	// 1,
 	
-	1,
-	1,
-	1,
-	1,
+	// 1,
+	// 1,
+	// 1,
+	// 1,
 };
 
 
@@ -145,14 +145,14 @@ const long AbstractBoardEntity::files_array[8] =
  * As to remove the capture piece from its motherboard.
  * 
  */
-std::tuple<std::string, bool, long> AbstractBoardEntity::captures_history_utility = std::make_tuple(" ", false, 0L);
+std::tuple<std::string, bool, long long> AbstractBoardEntity::captures_history_utility = std::make_tuple(" ", false, 0L);
 
 /**
  * Loads a bitboard without verification.
- * @param long [description]
+ * @param long long [description]
  * 
  */
-void AbstractBoardEntity::loadbitboard(long bitboard)
+void AbstractBoardEntity::loadbitboard(long long bitboard)
 {
 	this->bitRepresentation = bitboard;
 }
@@ -169,7 +169,7 @@ std::string AbstractBoardEntity::getName()
  * @return             [description]
  * 
  */
-bool AbstractBoardEntity::isBoardIsEmptyAt(long newPosition, long fullboard)
+bool AbstractBoardEntity::isBoardIsEmptyAt(long long newPosition, long long fullboard)
 {
 	return (fullboard & newPosition) == 0;
 }
@@ -180,7 +180,7 @@ bool AbstractBoardEntity::isBoardIsEmptyAt(long newPosition, long fullboard)
  * @return          [description]
  * 
  */
-long AbstractBoardEntity::extractNewMove(long newboard)
+long long AbstractBoardEntity::extractNewMove(long long newboard)
 {
 	return (this->bitRepresentation | newboard)^this->bitRepresentation;
 }
@@ -191,7 +191,7 @@ long AbstractBoardEntity::extractNewMove(long newboard)
  * @return          [description]
  * 
  */
-long AbstractBoardEntity::extractOldPosition(long newboard)
+long long AbstractBoardEntity::extractOldPosition(long long newboard)
 {
 	return (this->bitRepresentation | newboard)^newboard;
 }
@@ -208,11 +208,11 @@ void AbstractBoardEntity::binaryString_toBitboard(std::string&)
 
 /**
  * Judges the new move as valid or invalid.
- * @param  long : the new board's configuration that represents the new move.
+ * @param  long long : the new board's configuration that represents the new move.
  * @return bool : true upon valid.
  *  
  */
-bool AbstractBoardEntity::isMoveValid(long move, long fullboard, long myFriendsBoard)
+bool AbstractBoardEntity::isMoveValid(long long move, long long fullboard, long long myFriendsBoard)
 {
 	std::cout << "AbstractBoardEntity::isMoveValid is being called" << std::endl;
 	return true;
@@ -239,9 +239,9 @@ AbstractBoardEntity::~AbstractBoardEntity()
  * Alters the positions at this board.
  * 
  */
-void AbstractBoardEntity::alterBoard(bool isInitLoad, long fullboard, long myFriendsBoard, std::string& binaryString)
+void AbstractBoardEntity::alterBoard(bool isInitLoad, long long fullboard, long long myFriendsBoard, std::string& binaryString)
 {
-	long alteredBitboard = HelperFunctions::convertStringToBitBoard(binaryString);
+	long long alteredBitboard = HelperFunctions::convertStringToBitBoard(binaryString);
 
 	std::cout << "HelperFunctions::convertStringToBitBoard passed peacefully with a value of " << alteredBitboard << std::endl;
 	if(!isInitLoad)
@@ -261,10 +261,10 @@ void AbstractBoardEntity::alterBoard(bool isInitLoad, long fullboard, long myFri
 
 /**
  * Returns the bit representation of the board.
- * @return long
+ * @return lon longg
  * 
  */
-long AbstractBoardEntity::getBitBoard()
+long long AbstractBoardEntity::getBitBoard()
 {
 	return this->bitRepresentation;
 }
@@ -274,7 +274,7 @@ long AbstractBoardEntity::getBitBoard()
  * Returns the capture history
  * 
  */
-void AbstractBoardEntity::saveCaptureHistory(std::string capturing_board, bool suitColor, long new_move)
+void AbstractBoardEntity::saveCaptureHistory(std::string capturing_board, bool suitColor, long long new_move)
 {
 	std::get<0>(AbstractBoardEntity::captures_history_utility) = capturing_board;
 	std::get<1>(AbstractBoardEntity::captures_history_utility) = suitColor;
@@ -285,7 +285,7 @@ void AbstractBoardEntity::saveCaptureHistory(std::string capturing_board, bool s
  * Returns the capture history
  * 
  */
-std::tuple<std::string, bool,long> AbstractBoardEntity::getCaptureHistory()
+std::tuple<std::string, bool,long long> AbstractBoardEntity::getCaptureHistory()
 {
 	return AbstractBoardEntity::captures_history_utility;
 }
@@ -308,7 +308,7 @@ void AbstractBoardEntity::forgetCaptureHistory()
  * @return             [description]
  * 
  */
-int AbstractBoardEntity::getDistance(long oldPosition, long newPosition)
+int AbstractBoardEntity::getDistance(long long oldPosition, long long newPosition)
 {
 	return this->getPositionOfBit(newPosition) - this->getPositionOfBit(oldPosition);
 }
@@ -321,9 +321,9 @@ int AbstractBoardEntity::getDistance(long oldPosition, long newPosition)
  * @return             [description]
  * 
  */
-int AbstractBoardEntity::getPositionOfBit(long position)
+int AbstractBoardEntity::getPositionOfBit(long long position)
 {
-	long tmp;
+	long long tmp;
 
 	for (int i = 1, tmp = 0L; i <= 64; ++i)
 	{
@@ -353,7 +353,7 @@ bool AbstractBoardEntity::getSuitColor()
  * @return                [description]
  * 
  */
-bool AbstractBoardEntity::isCaptureLegal(long myFriendsBoard, long targetPosition)
+bool AbstractBoardEntity::isCaptureLegal(long long myFriendsBoard, long long targetPosition)
 {
 	// std::cout << "Friends" << std::endl;
 	// HelperFunctions::drawArrayBoardFromBitBoard(myFriendsBoard);
@@ -365,7 +365,7 @@ bool AbstractBoardEntity::isCaptureLegal(long myFriendsBoard, long targetPositio
 
 	// std::cout << "(Target Position & myFriendsBoard)^targetPosition" << std::endl;
 	// HelperFunctions::drawArrayBoardFromBitBoard((targetPosition&myFriendsBoard)^targetPosition);
-	long no_name = targetPosition&myFriendsBoard;
+	long long no_name = targetPosition&myFriendsBoard;
 		 no_name ^= targetPosition;
 
 	if(no_name == targetPosition) return true;

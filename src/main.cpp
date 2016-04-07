@@ -19,8 +19,14 @@ int main( int argc, char* args[] )
 	{
 		std::cout << e << std::endl;
 	}
-	
-	std::cout << "Hi there 2" << std::endl;
+    catch(const std::exception& e)
+    {
+        std::cout << "Uncaught exception @main caused by GameManager::getInstance()" << e.what() << "!\n";
+    }
+    catch(...)
+    {
+        std::cout <<  "There was an uncaught exception @BoardView::BoardView caused by init()" << std::endl;
+    }
 
 	try
 	{
@@ -30,6 +36,16 @@ int main( int argc, char* args[] )
 	catch(std::string e)
 	{
 		std::cout << e << std::endl;
+		return -1;
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << "Uncaught exception @main caused by gameManager->run()" << e.what() << "!\n";
+		return -1;
+	}
+	catch(...)
+	{
+		std::cout << "Uncaught exception @main" << "!\n";
 		return -1;
 	}
 }

@@ -4,6 +4,13 @@
 #include <tuple>
 #include <algorithm>
 
+/*#ifdef EMSCRIPTEN
+	#ifndef _long_DEFINED_AS_int64_t_
+		#define _long_DEFINED_AS_int64_t_
+		#define long int64_t
+	#endif // _long_DEFINED_AS_int64_t_
+#endif // EMSCRIPTEN*/
+
 /**
  | =====================================================
  | The abstract class that represents a board, with bits.
@@ -22,19 +29,19 @@ class AbstractBoardEntity
 		 * Diagonals
 		 * 
 		 */
-		static const long right_diagonals[15];
-		static const long left_diagonals[15];
+		static const long long right_diagonals[15];
+		static const long long left_diagonals[15];
 
 		/**
 		 * Ranks
 		 * 
 		 */
-		static const long ranks[8];
+		static const long long ranks[8];
 
 		/**
 		 * Files
 		 */
-		static const long files_array[8];
+		static const long long files_array[8];
 		enum files_enum{
 			file_a = -9187201950435737472,
 			file_b = 4629771061636907072,
@@ -50,7 +57,7 @@ class AbstractBoardEntity
 		 * The representation of the board in bits.
 		 * 
 		 */
-		long bitRepresentation;
+		long long bitRepresentation;
 
 		/**
 		 * Is the board representing white pieces, or black pieces.
@@ -70,7 +77,7 @@ class AbstractBoardEntity
 		 * As to remove the capture piece from its motherboard.
 		 * 
 		 */
-		static std::tuple<std::string, bool, long> captures_history_utility;
+		static std::tuple<std::string, bool, long long> captures_history_utility;
 
 	/*
 	 |****************************
@@ -88,13 +95,13 @@ class AbstractBoardEntity
 
 		/**
 		 * Judges the new move as valid or invalid.
-		 * @param  long : the new board's configuration that represents the new move.
-		 * @param  long : the fullboard, undistinguishable
-		 * @param  long : the board of the elements with the same color, undistinguishable.
+		 * @param  long long : the new board's configuration that represents the new move.
+		 * @param  long long : the fullboard, undistinguishable
+		 * @param  long long : the board of the elements with the same color, undistinguishable.
 		 * @return bool : true upon valid.
 		 *  
 		 */
-		virtual bool isMoveValid(long, long, long) = 0;
+		virtual bool isMoveValid(long long, long long, long long) = 0;
 
 		/**
 		 * Extract the diff between the new and old board.
@@ -102,7 +109,7 @@ class AbstractBoardEntity
 		 * @return          [description]
 		 * 
 		 */
-		long extractNewMove(long newboard);
+		long long extractNewMove(long long newboard);
 
 		/**
 		 * Returns the bitboard in which the old position of the sliding piece figures as a 1.
@@ -110,7 +117,7 @@ class AbstractBoardEntity
 		 * @return          [description]
 		 * 
 		 */
-		long extractOldPosition(long newboard);
+		long long extractOldPosition(long long newboard);
 
 		/**
 		 * Determines whether the new move is a capture of a regular slide.
@@ -120,7 +127,7 @@ class AbstractBoardEntity
 		 * @return             [description]
 		 * 
 		 */
-		virtual int identifyMoveType(bool xSuitColor, long oldPosition, long newPosition) = 0;
+		virtual int identifyMoveType(bool xSuitColor, long long oldPosition, long long newPosition) = 0;
 
 		/**
 		 * Determines whether the new position is already occupied by other pieces.
@@ -129,7 +136,7 @@ class AbstractBoardEntity
 		 * @return             [description]
 		 * 
 		 */
-		bool isBoardIsEmptyAt(long newposition, long fullboard);
+		bool isBoardIsEmptyAt(long long newposition, long long fullboard);
 		
 		/**
 		 * Returns the distance between the two positions.
@@ -138,7 +145,7 @@ class AbstractBoardEntity
 		 * @return             [description]
 		 * 
 		 */
-		int getDistance(long oldPosition, long newPosition);
+		int getDistance(long long oldPosition, long long newPosition);
 
 		/**
 		 * Returns the distance between the two positions.
@@ -147,7 +154,7 @@ class AbstractBoardEntity
 		 * @return             [description]
 		 * 
 		 */
-		int getPositionOfBit(long position);
+		int getPositionOfBit(long long position);
 		
 		/**
 		 * Tells whether the targeted position is of the enemy or of the friends.
@@ -156,7 +163,7 @@ class AbstractBoardEntity
 		 * @return                [description]
 		 * 
 		 */
-		bool isCaptureLegal(long myFriendsBoard, long targetPosition);	
+		bool isCaptureLegal(long long myFriendsBoard, long long targetPosition);	
 	public:
 		/**
 		 * Returns the suit color.
@@ -169,13 +176,13 @@ class AbstractBoardEntity
 		 * Saves the capture history
 		 * 
 		 */
-		static void saveCaptureHistory(std::string, bool, long);
+		static void saveCaptureHistory(std::string, bool, long long);
 
 		/**
 		 * Returns the capture history
 		 * 
 		 */
-		static std::tuple<std::string, bool, long> getCaptureHistory();
+		static std::tuple<std::string, bool, long long> getCaptureHistory();
 
 		/**
 		 * Forgets the capture history
@@ -185,10 +192,10 @@ class AbstractBoardEntity
 		
 		/**
 		 * Returns the bit representation of the board.
-		 * @return long
+		 * @return lon longg
 		 * 
 		 */
-		long getBitBoard();
+		long long getBitBoard();
 		
 		/**
 		 * Constructor and destructor
@@ -201,7 +208,7 @@ class AbstractBoardEntity
 		 * Alters the positions at this board.
 		 * 
 		 */
-		virtual void alterBoard(bool isInitLoad, long fullboard, long myFriendsBoard, std::string& binaryString) = 0;
+		virtual void alterBoard(bool isInitLoad, long long fullboard, long long myFriendsBoard, std::string& binaryString) = 0;
 		
 		/**
 		 * Returns the name of the board.
@@ -212,10 +219,10 @@ class AbstractBoardEntity
 		
 		/**
 		 * Loads a bitboard without verification.
-		 * @param long [description]
+		 * @param long long [description]
 		 * 
 		 */
-		void loadbitboard(long);
+		void loadbitboard(long long);
 			
 	public: 
 

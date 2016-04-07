@@ -23,7 +23,6 @@ bool View::initSDL()
         std::stringstream output;
 
         output << "SDL could not initialize! SDL Error:" << SDL_GetError() << "\n";
-        std::cout << output.str() << std::endl; 
         throw output.str();
     }
     else
@@ -80,7 +79,6 @@ bool View::initSDL()
             }
         }
     }
-    std::cout << "View::initSDL" << std::endl;
     return true;
 }
 
@@ -109,7 +107,6 @@ void View::closeSDL()
 View::View(std::string path, int x, int y, int height, int width)
 :myTexture(height, width)
 {
-    std::cout << "View::View" << std::endl;
 	this->filePath = path;
 	this->myRect.h = height;
 	this->myRect.w = width;

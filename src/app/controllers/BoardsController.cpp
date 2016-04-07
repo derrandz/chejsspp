@@ -42,6 +42,15 @@ void BoardsController::bootstrap()
 		std::cout << e << std::endl;
 		throw e;
 	}
+	catch(const std::exception& e)
+	{
+		std::cout << "Uncaught exception @BoardView::bootstrap" << e.what() << "!\n";
+		throw e;
+	}
+	catch(...)
+	{
+		std::cout << "Uncaught exception @BoardView::bootstrap" << "!\n";
+	}
 
     this->registerView(ptr);
 	std::cout << "Board View created\n";
@@ -96,7 +105,7 @@ void BoardsController::validateMoves() const
 	// 	//
 	// 	graphicalboard->loadBoard(false, validated_configuration);
 	// #endif // _EMSCRIPTEN_
-	graphicalboard->loadBoard(false, validated_configuration);
+	graphicalboard->loadBoard(true, validated_configuration);
 
 	// std::cout << std::endl << std::endl << "----- ----- Graphical Board [After Validation] ----- -----" << std::endl;
 	// graphicalboard->drawBoard();

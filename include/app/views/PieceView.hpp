@@ -192,7 +192,6 @@ class PieceView : public View
 			this->myRect.w  = width;
 			this->myRect.x  = x;
 			this->myRect.y  = y;
-		    std::cout << "PieceView::PieceView" << std::endl;
 		};
 		
 		~PieceView()
