@@ -70,9 +70,20 @@ class PawnView : public PieceView
 
 		    if(!this->load())
 		    {
-		    	ChessGameCustomException _exception("Could not load image : " + this->filePath);
+				std::string	message = "Could not load image :" + this->filePath;
+				std::string	name    = "_PawnViewInitException";
 
-		    	throw _exception;
+		    	try{
+					_ExceptionHandler::throw_exception(name, message);
+				}
+				catch(const std::exception& exception)
+				{
+					throw exception;
+				};
+		    }
+		    else
+		    {
+		    	std::cout << "_$PawnView init: success.";
 		    }
 		};
 		

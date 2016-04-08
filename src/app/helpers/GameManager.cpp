@@ -37,11 +37,7 @@ GameManager* GameManager::getInstance()
 	}
 	else
 	{
-		std::stringstream exception;
-
-		exception << "GameManager instance has not been initialized properly.\n";
-		std::cout << exception.str() << std::endl;
-		throw exception.str();
+		_ExceptionHandler::throw_exception("_GameManagerResolvingException", "Could not resolve the single instance of the GameManager");
 	}
 }
 
@@ -83,16 +79,28 @@ int GameManager::run()
 {
     this->bootApp();
 
-    std::cout << "GameManager::run()" << std::endl;
-    
     AbstractController* controller_ptr  = *this->controllersContainer.begin();
     try
     {
 	    return controller_ptr->run(this->gameStatus);
     }
-    catch(std::string e)
-	{
-		std::cout << e << std::endl;
-		throw e;
-	}
+    catch(const _ExceptionHandler& exception)
+    {
+        std::cout << "Exception raised at _$GameManager::run:  const _ExceptionHandler&" << std::endl;
+		std::cout << "Exception caught during the initialization of the controller: " << std::endl;
+        std::cout << "\t" << "_$GameManager::run" << std::endl;
+        throw exception;
+    }
+    catch(const std::exception& exception)
+    {
+        std::cout << "Exception caught at: _$GameManager::run: const std::exception&  " << std::endl;
+        throw exception;
+    }
+    catch(...)
+    {
+        std::cout << "Could not catch this: _$GameManager::run." << std::endl;
+        std::exception_ptr eptr;
+        eptr = std::current_exception();
+        std::rethrow_exception(eptr);
+    }
 }

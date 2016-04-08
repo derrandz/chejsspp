@@ -2,8 +2,6 @@
 #define _ROOK_VIEW_H_INCLUDED_
 
 #include "views/PieceView.hpp"
-#include "exceptions/ChessGameCustomException"
-#include "Helpers/_ExceptionHandler"
 
 class RookView : public PieceView
 {
@@ -72,11 +70,17 @@ class RookView : public PieceView
 
 		    if(!this->load())
 		    {
-				_ExceptionHandler::throw_exception("_RookViewInitException", "Could not load image :" + this->filePath);
-		    }
+			    try{
+					_ExceptionHandler::throw_exception("_RookViewInitException", "Could not load image :" + this->filePath);
+				}
+				catch(const std::exception& exception)
+				{
+					throw exception;
+				};
+			}
 		    else
 		    {
-		    	std::cout << "RookView init: success.";
+		    	std::cout << "_$RookView init: success.";
 		    }
 		};
 		

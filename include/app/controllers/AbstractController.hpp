@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "views/View.hpp"
+#include "helpers/_ExceptionHandler.hpp"
 
 using namespace std;
 

@@ -70,11 +70,18 @@ class BishopView : public PieceView
 
 		    if(!this->load())
 		    {
-		    	ChessGameCustomException _exception("Could not load image : " + this->filePath);
-
-		    	throw _exception;
+		    	try{
+			    	_ExceptionHandler::throw_exception("_BishopViewInitException", "Could not load image :" + this->filePath);
+				}
+				catch(const std::exception& exception)
+				{
+					throw exception;
+				}
 		    }
-		    std::cout << "BishopView" << std::endl;
+		    else
+		    {
+		    	std::cout << "_$BishopView init: success.";
+		    }
 		};
 		
 		~BishopView();

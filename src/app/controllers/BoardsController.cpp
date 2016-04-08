@@ -23,29 +23,34 @@ BoardsController::~BoardsController()
  */
 void BoardsController::bootstrap()
 {
-    std::cout << "BoardsController::bootstrap" << std::endl;
-	
 	this->bitboard = new MainBoard();
 	this->bitboard->initStandardBoard();
 
-    std::cout << "BoardsController::bootstrap about to try" << std::endl;
-	
 	BoardView* ptr;
 	try
 	{
-	    std::cout << "BoardsController::bootstrap in try section" << std::endl;
 	    ptr = new BoardView(true, this->bitboard->getFinalArrayBoard());
 	    // this->bitboard->drawBoard();
 	}
-	catch(std::string e)
-	{
-		std::cout << e << std::endl;
-		throw e;
-	}
-	catch(...)
-	{
-		std::cout << "Uncaught exception in BoardsController::bootstrap when trying BoardView::BoardView" << std::endl;
-	}
+	catch(const _ExceptionHandler& exception)
+    {
+        std::cout << "Exception raised at _$BoardsController::bootstrap:  const _ExceptionHandler&" << std::endl;
+        std::cout << "Exception caught in the main loop: " << std::endl;
+        std::cout << "\t" << "_$BoardsController::bootstrap" << std::endl;
+        throw exception;
+    }
+    catch(const std::exception& exception)
+    {
+        std::cout << "Exception caught at: _$BoardsController::bootstrap: const std::exception&  " << std::endl;
+        throw exception;
+    }
+    catch(...)
+    {
+        std::cout << "Could not catch this: _$BoardsController::bootstrap." << std::endl;
+        std::exception_ptr eptr;
+        eptr = std::current_exception();
+        std::rethrow_exception(eptr);
+    }
 
     this->registerView(ptr);
 	// mainBoard.drawBoard();

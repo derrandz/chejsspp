@@ -75,14 +75,19 @@ BoardView::BoardView(bool xMainPlayerColor, std::string** xboard)
 {
     std::cout << "BoardView::BoardView before" << std::endl;
 
-	this->pieces                 = new PieceView**[8];
 	this->activePiece            = NULL;
 	this->activePieceCoordinates = new int[2]{-1 , -1};
 	this->myRect.h               = View::SCREEN_HEIGHT;
 	this->myRect.w               = View::SCREEN_WIDTH;
 	this->mainPlayerColor        = xMainPlayerColor;
 
+	this->squares                = new SquareView*[3];
+	this->squares[0]             = NULL;
+	this->squares[1]             = NULL;
+
 	this->loadBoard(xMainPlayerColor, xboard);
+
+	this->pieces                 = new PieceView**[8];
 
 	for (int i = 0; i < 8; ++i) {
 	  this->pieces[i] = new PieceView*[8];
@@ -98,23 +103,29 @@ BoardView::BoardView(bool xMainPlayerColor, std::string** xboard)
 	
 	try
 	{
-		this->init();
+		bool isInit = this->init();
 	}
-	catch(std::string e)
+	catch(const _ExceptionHandler& exception)
 	{
-		std::stringstream exception;
-
-		exception << "BoardViewInitException: Exception caught during board initalization: " << std::endl;
-		exception << "\t" << e << std::endl;
-
-		std::cout << exception.str() << std::endl;
-		
-		throw exception.str();
+		std::cout << "Exception caught during the initialization of the squares: " << std::endl;
+        std::cout << "_$BoardView::BoardView: init const _ExceptionHandler& "<< std::endl;
+        throw exception;
 	}
-	catch(...)
+	catch(const std::exception& exception)
 	{
-
+		std::cout << "BoardViewInitException: Exception caught during board initalization: " << std::endl;
+        std::cout << "\t" << "_$BoardView::BoardView: init const std::exception& "<< std::endl;
+        throw exception;
 	}
+    catch(...)
+	{
+		std::cout << "Could not catch this: _$BoardView::init:" << std::endl;
+		std::exception_ptr eptr;
+		eptr = std::current_exception();
+		std::rethrow_exception(eptr);
+	}
+
+	std::cout << "Passed with success: _$BoardView::BoardView: init() success" << std::endl;
 }
 
 BoardView::~BoardView()
@@ -134,38 +145,58 @@ BoardView::~BoardView()
  */
 bool BoardView::initSquares()
 {
-	std::cout << "BoardView::initSquares" << std::endl;
 	/* Black Square */
 	try
 	{
 		this->squares[0] = new SquareView(false, 80, 80);	
 	}
-	catch(std::string e)
+	catch(const _ExceptionHandler& exception)
 	{
-		std::cout << e << std::endl;
-		throw e;
+		std::cout << "Exception caught during the initialization of the squares: " << std::endl;
+        std::cout << "_$BoardView::initSquares: const _ExceptionHandler& "<< std::endl;
+        throw exception;
+	}
+	catch(const std::exception& exception)
+	{
+		std::cout << "const std::exception" << std::endl;
+		throw exception;
 	}
 	catch(...)
 	{
-		std::cout << "Uncaught exception in BoardView::initSquares" << std::endl;
+		std::cout << "Could not catch this: _$BoardView::initSquares: SquareView(false, 80, 80) Failure" << std::endl;
+		std::exception_ptr eptr;
+		eptr = std::current_exception();
+		std::rethrow_exception(eptr);
 	}
+
+	std::cout << "Passed with success: _$BoardView::initSquares: SquareView(false, 80, 80) success" << std::endl;
 
 	/* White Square */
 	try
 	{
 		this->squares[1] = new SquareView(true, 80, 80);	
 	}
-	catch(std::string e)
+	catch(const _ExceptionHandler& exception)
 	{
-		std::cout << e << std::endl;
-		throw e;
+		std::cout << "Exception caught during the initialization of the squares: " << std::endl;
+        std::cout << "_$BoardView::initSquares: const _ExceptionHandler& "<< std::endl;
+        throw exception;
+	}
+	catch(const std::exception& exception)
+	{
+		std::cout << "runtime error" << std::endl;
+		throw exception;
 	}
 	catch(...)
 	{
-		std::cout << "Uncaught exception in BoardView::initSquares" << std::endl;
+		std::cout << "Could not catch this: _$BoardView::initSquares: SquareView(true, 80, 80) Failure" << std::endl;
+		std::exception_ptr eptr;
+		eptr = std::current_exception();
+		std::rethrow_exception(eptr);
 	}
 
-	std::cout << "BoardView::initSquares ready." << std::endl;
+	std::cout << "Passed with success: _$BoardView::initSquares: SquareView(true, 80, 80) success." << std::endl;
+	return true;
 }
 
 /**
@@ -248,15 +279,27 @@ bool BoardView::initPieces()
 			}
 		}
 	}
-	catch(std::string e)
+	catch(const _ExceptionHandler& exception)
 	{
-		std::cout << e << std::endl;
-		throw e;
+		std::cout << "Exception raised at _$BoardView::initPieces:  const _ExceptionHandler&" << std::endl;
+        throw exception;
+	}
+	catch(const std::exception& exception)
+	{
+		std::cout << "Exception caught during the initialization of the pieces: " << std::endl;
+        std::cout << "_$BoardView::initPieces: const std::exception&"<< std::endl;
+        throw exception;
 	}
 	catch(...)
 	{
-		std::cout << "Uncaught exception at BoardView::initPieces" << std::endl;
+		std::cout << "Could not catch this: _$BoardView::initPieces." << std::endl;
+		std::exception_ptr eptr;
+		eptr = std::current_exception();
+		std::rethrow_exception(eptr);
 	}
+
+	std::cout << "Passed with success: _$BoardView::initPieces: success." << std::endl;
+	return true;
 }
 
 /**
@@ -266,25 +309,57 @@ bool BoardView::initPieces()
  */
 bool BoardView::init()
 {
-	try
-	{
-		this->initSquares();
-	}
-	catch(std::string e)
-	{
-		std::cout << e << std::endl;
-		throw e;
-	}
+	bool initPieces  = false, 
+	     initSquares = false;
 
 	try
 	{
-		this->initPieces();
+		initSquares = this->initSquares();
 	}
-	catch(std::string e)
+	catch(const _ExceptionHandler& exception)
 	{
-		std::cout << e << std::endl;
-		throw e;
+		std::cout << "Exception raised at _$BoardView::initSquares:  const _ExceptionHandler&" << std::endl;
+        throw exception;
 	}
+	catch(const std::exception& exception)
+	{
+		std::cout << "Exception raised at _$BoardView::initSquares: cosnt std::exception" << std::endl;
+        throw exception;
+	}
+	catch(...)
+	{
+		std::cout << "Could not catch this: _$BoardView::init. : initSquares " << std::endl;
+		std::exception_ptr eptr;
+		eptr = std::current_exception();
+		std::rethrow_exception(eptr);
+	}
+
+	std::cout << "Passed with success: _$BoardView::init: initSquares success." << std::endl;
+
+	try
+	{
+		initPieces = this->initPieces();
+	}
+	catch(const _ExceptionHandler& exception)
+	{
+		std::cout << "Exception raised at_$BoardView::initPieces::  const _ExceptionHandler&" << std::endl;
+        throw exception;
+	}
+	catch(const std::exception& exception)
+	{
+		std::cout << "Exception raised at_$BoardView::initPieces:: cosnt std::exception" << std::endl;
+        throw exception;
+	}
+	catch(...)
+	{
+		std::cout << "Could not catch this: _$BoardView::init: initPieces ." << std::endl;
+		std::exception_ptr eptr;
+		eptr = std::current_exception();
+		std::rethrow_exception(eptr);
+	}
+
+	std::cout << "Passed with success: _$BoardView::init: initPieces success." << std::endl;
+	return initPieces & initSquares;
 }
 
 /**
@@ -346,12 +421,24 @@ void BoardView::updatePieces()
 
 		try
 		{
-			this->initPieces();
+			bool status = this->initPieces();
 		}
-		catch(std::string e)
+		catch(const _ExceptionHandler& exception)
 		{
-			std::cout << e << std::endl;
-			throw e;
+			std::cout << "Exception raised at _$BoardView::updatePieces:  const _ExceptionHandler&" << std::endl;
+	        throw exception;
+		}
+		catch(const std::exception& exception)
+		{
+	        std::cout << "Exception caught at: _$BoardView::updatePieces: const std::exception& " << std::endl;
+			throw exception;
+		}
+		catch(...)
+		{
+			std::cout << "Could not catch this: _$BoardView::updatePieces." << std::endl;
+			std::exception_ptr eptr;
+			eptr = std::current_exception();
+			std::rethrow_exception(eptr);
 		}
 	}
 }
@@ -366,15 +453,24 @@ void BoardView::renderPieces()
 	{
 		this->updatePieces();
 	}
-	catch(std::string e)
+	catch(const _ExceptionHandler& exception)
 	{
-		std::cout << e << std::endl;
-		throw e;
+		std::cout << "Exception raised at _$BoardView::renderPieces:  const _ExceptionHandler&" << std::endl;
+        throw exception;
+	}
+	catch(const std::exception& exception)
+	{
+		std::cout << "Exception caught at: _$BoardView::renderPieces: const std::exception&  " << std::endl;
+		throw exception;
 	}
 	catch(...)
 	{
-		std::cout << "Uncaught exception renderPieces" << std::endl;
+		std::cout << "Could not catch this: _$BoardView::renderPieces." << std::endl;
+		std::exception_ptr eptr;
+		eptr = std::current_exception();
+		std::rethrow_exception(eptr);
 	}
+
 
 	for (int i = 0; i < 64; ++i)
 	{
@@ -396,10 +492,22 @@ void BoardView::render()
 		this->renderSquares();
 		this->renderPieces();
 	}
-	catch(std::string e)
+	catch(const _ExceptionHandler& exception)
 	{
-		std::cout << e << std::endl;
-		throw e;
+		std::cout << "Exception raised at _$BoardView::render:  const _ExceptionHandler&" << std::endl;
+        throw exception;
+	}
+	catch(const std::exception& exception)
+	{
+		std::cout << "Exception caught at: _$BoardView::render: const std::exception&  " << std::endl;
+		throw exception;
+	}
+	catch(...)
+	{
+		std::cout << "Could not catch this: _$BoardView::render." << std::endl;
+		std::exception_ptr eptr;
+		eptr = std::current_exception();
+		std::rethrow_exception(eptr);
 	}
 }
 

@@ -41,16 +41,26 @@ void AbstractController::renderViews()
  */
 void AbstractController::registerView(View* newView)
 {
-    std::cout << "AbstractController::registerView before try" << std::endl;
     try
     {
-        std::cout << "AbstractController::registerView in try" << std::endl;
         this->viewsContainer.push_back(newView);
     }
-    catch(std::string e)
+    catch(const _ExceptionHandler& exception)
     {
-        std::cout << e << std::endl;
-        throw e;
+        std::cout << "Exception raised at _$AbstractController::registerView:  const _ExceptionHandler&" << std::endl;
+        throw exception;
+    }
+    catch(const std::exception& exception)
+    {
+        std::cout << "Exception caught at: _$AbstractController::registerView: const std::exception&  " << std::endl;
+        throw exception;
+    }
+    catch(...)
+    {
+        std::cout << "Could not catch this: _$AbstractController::registerView." << std::endl;
+        std::exception_ptr eptr;
+        eptr = std::current_exception();
+        std::rethrow_exception(eptr);
     }
 }
 
@@ -67,10 +77,22 @@ void AbstractController::initViews()
     {
     	View::initSDL();
     }
-    catch(std::string e)
+    catch(const _ExceptionHandler& exception)
     {
-        std::cout << e << std::endl;
-        throw e;
+        std::cout << "Exception raised at _$AbstractController::initViews:  const _ExceptionHandler&" << std::endl;
+        throw exception;
+    }
+    catch(const std::exception& exception)
+    {
+        std::cout << "Exception caught at: _$AbstractController::initViews: const std::exception&  " << std::endl;
+        throw exception;
+    }
+    catch(...)
+    {
+        std::cout << "Could not catch this: _$AbstractController::initViews." << std::endl;
+        std::exception_ptr eptr;
+        eptr = std::current_exception();
+        std::rethrow_exception(eptr);
     }
 }
 
@@ -123,10 +145,27 @@ int AbstractController::run(bool& gameStatus)
         this->initViews();
         this->bootstrap();
     }
-    catch(std::string e)
+    catch(const _ExceptionHandler& exception)
     {
-        std::cout << e << std::endl;
-        throw e;
+        std::cout << "Exception raised at _$AbstractController::run:  const _ExceptionHandler&" << std::endl;
+        std::cout << "Exception caught during the intialization of the environment: " << std::endl;
+        std::cout << "\t" << "_$AbstractController::run" << std::endl;
+        gameStatus = false;
+        throw exception;
+    }
+    catch(const std::exception& exception)
+    {
+        std::cout << "Exception caught at: _$AbstractController::run: const std::exception&  " << std::endl;
+        gameStatus = false;
+        throw exception;
+    }
+    catch(...)
+    {
+        std::cout << "Could not catch this: _$AbstractController::run." << std::endl;
+        gameStatus = false;
+        std::exception_ptr eptr;
+        eptr = std::current_exception();
+        std::rethrow_exception(eptr);
     }
 
     //Make the cursor visible.
@@ -167,13 +206,27 @@ std::function<void()> one_iter_main_loop = [&](){
             this->mainAction();
             this->renderViews();
         }
-        catch(std::string e)
+        catch(const _ExceptionHandler& exception)
         {
-            std::cout << "Exception caught during runtime: " << std::endl;
-            std::cout << "\t" << e << std::endl;
-
+            std::cout << "Exception raised at _$AbstractController::run:  const _ExceptionHandler&" << std::endl;
+            std::cout << "Exception caught in the main loop: " << std::endl;
+            std::cout << "\t" << "_$AbstractController::run" << std::endl;
             gameStatus = false;
-            throw e;
+            throw exception;
+        }
+        catch(const std::exception& exception)
+        {
+            std::cout << "Exception caught at: _$AbstractController::run: const std::exception&  " << std::endl;
+            gameStatus = false;
+            throw exception;
+        }
+        catch(...)
+        {
+            std::cout << "Could not catch this: _$AbstractController::run." << std::endl;
+            gameStatus = false;
+            std::exception_ptr eptr;
+            eptr = std::current_exception();
+            std::rethrow_exception(eptr);
         }
 
         //Update screen

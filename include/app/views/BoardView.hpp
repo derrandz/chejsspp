@@ -22,7 +22,7 @@ class BoardView : public View
 		 * A board has two type of squares, black and white, and they are views as well.
 		 * 
 		 */
-		SquareView* squares[2];
+		SquareView** squares;
 
 		/**
 		 * The board's pieces in place.

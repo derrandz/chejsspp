@@ -70,9 +70,17 @@ class KnightView : public PieceView
 
 		    if(!this->load())
 		    {
-		    	ChessGameCustomException _exception("Could not load image : " + this->filePath);
-
-		    	throw _exception;
+				try{
+					_ExceptionHandler::throw_exception("_KnightViewInitException", "Could not load image :" + this->filePath);
+				}
+				catch(const std::exception& exception)
+				{
+					throw exception;
+				}
+		    }
+		    else
+		    {
+		    	std::cout << "_$KnightView init: success.";
 		    }
 		};
 		

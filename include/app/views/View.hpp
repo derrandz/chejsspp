@@ -3,6 +3,7 @@
 
 #include "../helpers/Texture.hpp"
 #include <vector>
+#include "helpers/_ExceptionHandler.hpp"
 
 class View
 {

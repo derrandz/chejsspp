@@ -1,5 +1,7 @@
 #include "views/View.hpp"
 #include <sstream>
+#include "helpers/_ExceptionHandler.hpp"
+#include <string>
 
 /**
  * Static members initialization
@@ -20,10 +22,17 @@ bool View::initSDL()
 	 //Initialize SDL
     if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
     {
-        std::stringstream output;
+        const char* sdl_error = SDL_GetError();
+        std::string message   = "SDL could not initialize! SDL Error:"; 
+        std::string extra(sdl_error, 255);
 
-        output << "SDL could not initialize! SDL Error:" << SDL_GetError() << "\n";
-        throw output.str();
+        try{
+            _ExceptionHandler::throw_exception("_ViewSDLInitException: ", message + extra);
+        }
+        catch(const std::exception& exception)
+        {
+            throw exception;
+        };
     }
     else
     {
@@ -44,11 +53,15 @@ bool View::initSDL()
 
         if( View::window == NULL )
         {
-            std::stringstream output;
+            std::string str(SDL_GetError());
 
-            output << "Window could not be created! SDL Error:" << SDL_GetError() << "\n"; 
-            std::cout << output.str() << std::endl; 
-            throw output.str();
+            try{
+                _ExceptionHandler::throw_exception("_ViewSDLInitException: ","Window could not be created! SDL Error:" + str + "." );
+            }
+            catch(const std::exception& exception)
+            {
+                throw exception;
+            };
         }
         else
         {
@@ -56,26 +69,29 @@ bool View::initSDL()
             View::renderer = SDL_CreateRenderer( View::window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
             if( View::renderer == NULL )
             {
-                std::stringstream output;
-
-                output << "Renderer could not be created! SDL Error:" << SDL_GetError() << "\n";
-                std::cout << output.str() << std::endl; 
-                throw output.str();
+                std::string str( SDL_GetError() );
+                try{
+                _ExceptionHandler::throw_exception("_ViewSDLInitException: ","Renderer could not be created! SDL Error:" + str + "." );
+                }
+                catch(const std::exception& exception)
+                {
+                    throw exception;
+                };
             }
             else
             {
                 //Initialize renderer color
                 SDL_SetRenderDrawColor( View::renderer, 0xFF, 0xFF, 0xFF, 0xFF );
 
-                //Initialize PNG loading
+                /*//Initialize PNG loading
                 int imgFlags = IMG_INIT_PNG;
                 if( !( IMG_Init( imgFlags ) & imgFlags ) )
                 {
-                    // std::stringstream output;
+                    std::stringstream output;
 
-                    // output << "SDL_image could not initialize! SDL_image Error:" + IMG_GetError() + "\n";
-                    // throw output.str();
-                }
+                    output << "SDL_image could not initialize! SDL_image Error:" + IMG_GetError() + "\n";
+                    throw output.str();
+                }*/
             }
         }
     }

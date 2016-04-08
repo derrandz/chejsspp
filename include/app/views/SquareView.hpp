@@ -2,8 +2,7 @@
 #define _SQUARE_VIEW_H_INCLUDED_
 
 #include "views/View.hpp"
-#include "exceptions/ChessGameCustomException"
-#include "Helpers/_ExceptionHandler"
+#include "helpers/_ExceptionHandler.hpp"
 
 class SquareView : public View
 {
@@ -46,8 +45,6 @@ class SquareView : public View
 		SquareView(bool color, int height, int width)
 		:View("", 0, 0, height, width)
 		{
-			std::cout << "SquareView::SquareView" << std::endl;
-
 			if(color)
 			{
 				this->filePath = SquareView::whiteSuitPath;
@@ -59,10 +56,12 @@ class SquareView : public View
 
 			if(!this->load())
 			{
-				_ExceptionHandler::throw_exception("Could not load image : " + this->filePath);
+				_ExceptionHandler::throw_exception("_SquareViewInitException", "Could not load image : " + this->filePath);
 			}
-			
-			std::cout << "No exception was thrown" << std::endl;
+			else
+		    {
+		    	std::cout << "_$SquareView init: success." << std::endl;
+		    }
 		};
 
 		~SquareView();

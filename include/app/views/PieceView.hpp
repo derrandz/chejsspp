@@ -3,7 +3,7 @@
 
 #include "views/View.hpp"
 #include "helpers/HelperFunctions.hpp"
-#include "exceptions/ChessGameCustomException"
+#include "helpers/_ExceptionHandler.hpp"
 
 class PieceView : public View
 {

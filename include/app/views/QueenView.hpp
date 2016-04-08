@@ -70,9 +70,18 @@ class QueenView : public PieceView
 
 		    if(!this->load())
 		    {
-		    	ChessGameCustomException _exception("Could not load image : " + this->filePath);
+				try{
+					_ExceptionHandler::throw_exception("_QueenViewInitException", "Could not load image :" + this->filePath);
+				}
+				catch(const std::exception& exception)
+				{
+					throw exception;
+				};
 
-		    	throw _exception;
+		    }
+		    else
+		    {
+		    	std::cout << "_$QueenView init: success.";
 		    }
 		};
 		

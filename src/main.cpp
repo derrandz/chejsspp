@@ -1,10 +1,10 @@
 #include <iostream>
 #include <string>
 #include "helpers/GameManager.hpp"
+#include "helpers/_ExceptionHandler.hpp"
 
 int main( int argc, char* args[] )
 {
-	std::cout << "Hi there" << std::endl;
 	/**
 	 * Bootstrap code.
 	 * 
@@ -15,19 +15,37 @@ int main( int argc, char* args[] )
 	{
 		gameManager = GameManager::getInstance();
 	}
-	catch(std::string e)
-	{
-		std::cout << e << std::endl;
-	}
+	catch(const _ExceptionHandler& exception)
+    {
+		std::cout << "Exception caught in main: const _ExceptionHandler&" << std::endl;
+        std::cout << exception.what() << std::endl;
+    }
+    catch(const std::exception& exception)
+    {
+        std::cout << "Exception caught in main: const std::exception&  " << std::endl;
+        std::cout << exception.what() << std::endl;
+    }
+    catch(...)
+    {
+        std::cout << "Could not catch this in main: _$GameManager::getInstance." << std::endl;
+    }
 
 	try
 	{
-		std::cout << "Hi there 3" << std::endl;
 	    return gameManager->run();
 	}
-	catch(std::string e)
-	{
-		std::cout << e << std::endl;
-		return -1;
-	}
+	catch(const _ExceptionHandler& exception)
+    {
+		std::cout << "Exception caught in main: const _ExceptionHandler&" << std::endl;
+        std::cout << exception.what() << std::endl;
+    }
+    catch(const std::exception& exception)
+    {
+        std::cout << "Exception caught in main: const std::exception&  " << std::endl;
+        std::cout << exception.what() << std::endl;
+    }
+    catch(...)
+    {
+        std::cout << "Could not catch this in main: _$GameManager::run." << std::endl;
+    }
 }
