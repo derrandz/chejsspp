@@ -55,9 +55,6 @@ class RooksBoard : public AbstractBoardEntity
 		{
 			long long historyOfMove = old_position | new_position;
 
-			std::cout << "historyOfMove" << std::endl;
-			HelperFunctions::drawArrayBoardFromBitBoard(historyOfMove);
-
 			/* is it file? */
 			for (int i = 0; i < 8; ++i)
 			{

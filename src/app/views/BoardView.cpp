@@ -8,6 +8,16 @@
 #include "helpers/HelperFunctions.hpp"
 
 /**
+ * Using the isMyTurn variable, we determine if the board is in a 'lisetning' state to receive the board of the other side,
+ * @return bool
+ * 
+ */
+bool BoardView::isReceiving()
+{
+	return !this->isMyTurn;
+};
+
+/**
  * Returns the main players' color.
  * @return bool
  * 
@@ -73,8 +83,6 @@ void BoardView::loadBoard(bool xIsMyTurn, std::string** board)
 BoardView::BoardView(bool xMainPlayerColor, std::string** xboard)
 :View("", 0, 0, 0, 0)
 {
-    std::cout << "BoardView::BoardView before" << std::endl;
-
 	this->activePiece            = NULL;
 	this->activePieceCoordinates = new int[2]{-1 , -1};
 	this->myRect.h               = View::SCREEN_HEIGHT;
@@ -98,8 +106,6 @@ BoardView::BoardView(bool xMainPlayerColor, std::string** xboard)
 	    this->pieces[i][j] = NULL;
 	  }
 	}
-    
-    std::cout << "BoardView::BoardView after" << std::endl;
 	
 	try
 	{
@@ -124,8 +130,6 @@ BoardView::BoardView(bool xMainPlayerColor, std::string** xboard)
 		eptr = std::current_exception();
 		std::rethrow_exception(eptr);
 	}
-
-	std::cout << "Passed with success: _$BoardView::BoardView: init() success" << std::endl;
 }
 
 BoardView::~BoardView()
@@ -169,8 +173,6 @@ bool BoardView::initSquares()
 		std::rethrow_exception(eptr);
 	}
 
-	std::cout << "Passed with success: _$BoardView::initSquares: SquareView(false, 80, 80) success" << std::endl;
-
 	/* White Square */
 	try
 	{
@@ -195,7 +197,6 @@ bool BoardView::initSquares()
 		std::rethrow_exception(eptr);
 	}
 
-	std::cout << "Passed with success: _$BoardView::initSquares: SquareView(true, 80, 80) success." << std::endl;
 	return true;
 }
 
@@ -298,7 +299,6 @@ bool BoardView::initPieces()
 		std::rethrow_exception(eptr);
 	}
 
-	std::cout << "Passed with success: _$BoardView::initPieces: success." << std::endl;
 	return true;
 }
 
@@ -334,8 +334,6 @@ bool BoardView::init()
 		std::rethrow_exception(eptr);
 	}
 
-	std::cout << "Passed with success: _$BoardView::init: initSquares success." << std::endl;
-
 	try
 	{
 		initPieces = this->initPieces();
@@ -358,7 +356,6 @@ bool BoardView::init()
 		std::rethrow_exception(eptr);
 	}
 
-	std::cout << "Passed with success: _$BoardView::init: initPieces success." << std::endl;
 	return initPieces & initSquares;
 }
 

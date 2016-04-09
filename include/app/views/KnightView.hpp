@@ -78,10 +78,6 @@ class KnightView : public PieceView
 					throw exception;
 				}
 		    }
-		    else
-		    {
-		    	std::cout << "_$KnightView init: success.";
-		    }
 		};
 		
 		~KnightView();

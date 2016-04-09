@@ -222,7 +222,14 @@ class BoardView : public View
 		 * 
 		 */
 		void drawBoard();
-		
+	
+		/**
+		 * Using the isMyTurn variable, we determine if the board is in a 'lisetning' state to receive the board of the other side,
+		 * @return bool
+		 * 
+		 */
+		bool isReceiving();
+
 		/**
 		 * Returns the board in an 8*8 strings array, and each index, there should be either an empty string, or a string representing a piece, such as "wP" for white pawn
 		 * @return std::string[] : Array of strings.

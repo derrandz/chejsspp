@@ -70,8 +70,6 @@ void AbstractController::registerView(View* newView)
  */
 void AbstractController::initViews()
 {
-    std::cout << "AbstractController::initViews" << std::endl;
-
 	//Start up SDL and create window
     try
     {

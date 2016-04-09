@@ -78,10 +78,6 @@ class RookView : public PieceView
 					throw exception;
 				};
 			}
-		    else
-		    {
-		    	std::cout << "_$RookView init: success.";
-		    }
 		};
 		
 		~RookView();

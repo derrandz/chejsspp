@@ -25,6 +25,23 @@ long long HelperFunctions::convertStringToBitBoard(std::string& binaryString)
 }
 
 /**
+ * Prints an array into the screen in a form on an array.
+ * @param bitboard : the actualized bitboard.
+ * 
+ */
+void HelperFunctions::drawArrayBoard(std::string** arrayboard)
+{
+	for (int i = 0; i < 8; ++i)
+	{
+		for (int j = 0; j < 8; ++j)
+		{
+			std::cout << arrayboard[i][j] << " ";
+		}
+		std::cout << std::endl;
+	}
+}
+
+/**
  * Prints a bitboard into the screen in a form on an array.
  * @param bitboard : the actualized bitboard.
  * 
@@ -94,4 +111,53 @@ long long HelperFunctions::applyMask_Keep(long long board, long long mask)
 long long HelperFunctions::applyMask_Delete(long long board, long long mask)
 {
 	return ( board | mask ) ^ board;
+}
+
+/**
+ * Flattens an array board for sending
+ * @param	std::string** : the array board
+ * @return	std::string : the flat board
+ * 
+ */
+std::string HelperFunctions::flatten_array_board(std::string** array_board)
+{
+	std::string flat_board = "";
+	for (int i = 0; i < 64; ++i)
+	{
+		flat_board += array_board[i/8][i%8] + "__";
+	}
+
+	return flat_board;
+}
+
+/**
+ * Reverses flatten_array_board
+ * @param	std::string : the flat board
+ * @return	std::string** : the array board
+ * 
+ */
+std::string** HelperFunctions::array_flat_board(std::string flat_board)
+{
+	/* Initializing the array board */
+	std::string** array_board;
+
+	array_board = new std::string*[8];
+	for(int i=0; i<8; i++) array_board[i] = new std::string[8];
+	/* Initializing the array board */
+
+	std::string _flat_board_copy(flat_board); // a safe container for the flat board, as we will modifying it
+	std::string delimiter = "__";
+	std::string token;
+	size_t pos = 0;
+	int i = 0;
+
+	while ((pos = _flat_board_copy.find(delimiter)) != std::string::npos) {
+	    token = _flat_board_copy.substr(0, pos);
+	    array_board[i/8][i%8] = token;
+	    _flat_board_copy.erase(0, pos + delimiter.length());
+
+	    if(i<64) i++;
+	}
+
+	return array_board;
 }

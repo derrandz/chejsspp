@@ -79,10 +79,6 @@ class QueenView : public PieceView
 				};
 
 		    }
-		    else
-		    {
-		    	std::cout << "_$QueenView init: success.";
-		    }
 		};
 		
 		~QueenView();

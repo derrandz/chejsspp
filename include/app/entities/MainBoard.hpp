@@ -115,6 +115,13 @@ class MainBoard
 		
 	public:
 		/**
+		 * returns the final bitboard
+		 * @return [description]
+		 * 
+		 */
+		long long get_final_bit_board();
+		
+		/**
 		 * Applies the capture to the rest of the boards to propogate changes.
 		 * 
 		 */

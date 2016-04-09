@@ -78,10 +78,6 @@ class BishopView : public PieceView
 					throw exception;
 				}
 		    }
-		    else
-		    {
-		    	std::cout << "_$BishopView init: success.";
-		    }
 		};
 		
 		~BishopView();

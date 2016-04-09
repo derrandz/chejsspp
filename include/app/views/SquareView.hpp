@@ -58,10 +58,6 @@ class SquareView : public View
 			{
 				_ExceptionHandler::throw_exception("_SquareViewInitException", "Could not load image : " + this->filePath);
 			}
-			else
-		    {
-		    	std::cout << "_$SquareView init: success." << std::endl;
-		    }
 		};
 
 		~SquareView();

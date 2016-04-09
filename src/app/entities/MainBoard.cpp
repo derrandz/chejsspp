@@ -542,3 +542,13 @@ std::string** MainBoard::validateMoves(std::string arrayBoard[][8], bool mainPla
 
 	return this->getFinalArrayBoard();
 }
+
+/**
+ * returns the final bitboard
+ * @return [description]
+ * 
+ */
+long long MainBoard::get_final_bit_board()
+{
+	return this->getFinalBoard();
+}

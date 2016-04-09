@@ -36,6 +36,13 @@ namespace HelperFunctions
 	void drawArrayBoardFromBitBoard(long long bitboard);
 
 	/**
+	 * Prints an array into the screen in a form on an array.
+	 * @param bitboard : the actualized bitboard.
+	 * 
+	 */
+	void drawArrayBoard(std::string** arrayboard);
+
+	/**
 	 * Checks whether a and b collides, provided that a is the cursor, and b is a rect with 80x80 dimensions.
 	 * @param  xa [self-descriptive]
 	 * @param  ya [self-descriptive]
@@ -61,6 +68,22 @@ namespace HelperFunctions
 	 * @return      [description]
 	 */
 	long long applyMask_Delete(long long board, long long mask);
+
+	/**
+	 * Flattens an array board for sending
+	 * @param	std::string** : the array board
+	 * @return	std::string : the flat board
+	 * 
+	 */
+	std::string flatten_array_board(std::string**);
+
+	/**
+	 * Reverses flatten_array_board
+	 * @param	std::string : the flat board
+	 * @return	std::string** : the array board
+	 * 
+	 */
+	std::string** array_flat_board(std::string);
 };
 
 #endif // _HELPER_FUNCTIONS_H_INCLUDED_

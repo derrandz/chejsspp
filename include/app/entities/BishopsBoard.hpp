@@ -41,9 +41,6 @@ class BishopsBoard : public AbstractBoardEntity
 		{
 			long long historyOfMove = old_position | new_position;
 
-			std::cout << "historyOfMove" << std::endl;
-			HelperFunctions::drawArrayBoardFromBitBoard(historyOfMove);
-
 			/* is it left diagonal? */
 			for (int i = 0; i < 15; ++i)
 			{
@@ -87,8 +84,6 @@ class BishopsBoard : public AbstractBoardEntity
 
 			long long direction    = this->identifyMoveDirection(old_position, new_position);
 			long long rank_or_file = this->identifyMoveField(old_position, new_position);
-
-			std::cout << "rank_or_file: " << rank_or_file << std::endl;
 
 			if(rank_or_file == -1) return invalid;
 
@@ -198,25 +193,11 @@ class BishopsBoard : public AbstractBoardEntity
 					}
 			}
 
-			std::cout << "The pitchup has moved on: " <<std::endl;
-			HelperFunctions::drawArrayBoardFromBitBoard(field);
-
-			std::cout << "The Mask that is to be applied without field " <<std::endl;
-			HelperFunctions::drawArrayBoardFromBitBoard(mask);
-
 			mask = HelperFunctions::applyMask_Keep(mask, field);
 
-			std::cout << "The Mask that is to be applied " <<std::endl;
-			HelperFunctions::drawArrayBoardFromBitBoard(mask);
 
 			fullboard_on_moving_field = fullboard_on_moving_field ^ old_position;
 			fullboard_on_moving_field = (fullboard_on_moving_field | mask) ^ mask;
-
-			std::cout << "The fullboard" <<std::endl;
-			HelperFunctions::drawArrayBoardFromBitBoard(fullboard);
-
-			std::cout << "The fullboard after masking " <<std::endl;
-			HelperFunctions::drawArrayBoardFromBitBoard(fullboard_on_moving_field);
 
 			return fullboard_on_moving_field;			
 		};
@@ -258,9 +239,6 @@ class BishopsBoard : public AbstractBoardEntity
 			
 			bool isNewPositionEmpty = this->isBoardIsEmptyAt(newPosition, fullboard);
 
-			std::cout << " isBoardEmptyBetweenOldAndNew: " << isBoardEmptyBetweenOldAndNew << std::endl;
-			std::cout << " isNewPositionEmpty: " << isNewPositionEmpty << std::endl;
-
 			if(isBoardEmptyBetweenOldAndNew)
 			{
 				if(isNewPositionEmpty) return true;
@@ -269,7 +247,6 @@ class BishopsBoard : public AbstractBoardEntity
 					/* Save capture */
 					if(this->isCaptureLegal(myFriendsBoard, newPosition))
 					{
-						std::cout << " isCaptureLegal: " << "true" << std::endl;
 						AbstractBoardEntity::saveCaptureHistory(this->name, this->suitColor, newPosition);
 						return true;
 					}

@@ -78,10 +78,6 @@ class KingView : public PieceView
 					throw exception;
 				}
 		    }
-		    else
-		    {
-		    	std::cout << "_$KingView init: success.";
-		    }
 		};
 
 		~KingView();

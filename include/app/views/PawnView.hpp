@@ -81,10 +81,6 @@ class PawnView : public PieceView
 					throw exception;
 				};
 		    }
-		    else
-		    {
-		    	std::cout << "_$PawnView init: success.";
-		    }
 		};
 		
 		~PawnView()

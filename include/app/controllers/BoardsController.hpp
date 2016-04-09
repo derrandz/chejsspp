@@ -65,6 +65,12 @@ class BoardsController: public AbstractController
 		 */
 		void mainAction() const;
 
+		/**
+		 * Indicates whether there was a move on first side, and if it is worth sending.
+		 * 
+		 */
+		bool send_move(long long, long long) const;
+
 };
 
 #endif //_MAIN_CONTROLLER_INCLUDED_

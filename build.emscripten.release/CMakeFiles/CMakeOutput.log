@@ -1,0 +1,30 @@
+The target system is: Emscripten - 1 - x86
+The host system is: Linux - 3.19.0-56-generic - x86_64
+Determining if the pthread_create exist passed with the following output:
+Change Dir: /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_ee7dc/fast"
+/usr/bin/make -f CMakeFiles/cmTC_ee7dc.dir/build.make CMakeFiles/cmTC_ee7dc.dir/build
+make[1]: Entering directory `/home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_ee7dc.dir/CheckSymbolExists.c.o
+/home/hrt/Schoolspace/Capstone/Libraries/emsdk_portable/emscripten/master/emcc    -s ERROR_ON_UNDEFINED_SYMBOLS=1   -o CMakeFiles/cmTC_ee7dc.dir/CheckSymbolExists.c.o   -c /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_ee7dc.js
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ee7dc.dir/link.txt --verbose=1
+/home/hrt/Schoolspace/Capstone/Libraries/emsdk_portable/emscripten/master/emcc   -s ERROR_ON_UNDEFINED_SYMBOLS=1    @CMakeFiles/cmTC_ee7dc.dir/objects1.rsp  -o cmTC_ee7dc.js  
+make[1]: Leaving directory `/home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release/CMakeFiles/CMakeTmp'
+
+File /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
