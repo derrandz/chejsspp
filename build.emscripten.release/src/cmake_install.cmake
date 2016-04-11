@@ -28,11 +28,11 @@ if(NOT CMAKE_INSTALL_COMPONENT)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/./../bin" TYPE EXECUTABLE FILES "/home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release/src/chessgame.html")
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/./../bin/chessgame.html" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/./../bin/chessgame.html")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/./../bin" TYPE EXECUTABLE FILES "/home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release/src/chessgame_white.html")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/./../bin/chessgame_white.html" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/./../bin/chessgame_white.html")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/./../bin/chessgame.html")
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/./../bin/chessgame_white.html")
     endif()
   endif()
 endif()

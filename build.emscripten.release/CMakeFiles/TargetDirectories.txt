@@ -1,1 +1,1 @@
-/home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release/src/CMakeFiles/chessgame.dir
+/home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release/src/CMakeFiles/chessgame_white.dir

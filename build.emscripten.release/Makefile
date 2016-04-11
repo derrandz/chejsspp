@@ -155,17 +155,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named chessgame
+# Target rules for targets named chessgame_white
 
 # Build rule for target.
-chessgame: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 chessgame
-.PHONY : chessgame
+chessgame_white: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 chessgame_white
+.PHONY : chessgame_white
 
 # fast build rule for target.
-chessgame/fast:
-	$(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/build
-.PHONY : chessgame/fast
+chessgame_white/fast:
+	$(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/build
+.PHONY : chessgame_white/fast
 
 # Help Target
 help:
@@ -179,7 +179,7 @@ help:
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... install/strip"
-	@echo "... chessgame"
+	@echo "... chessgame_white"
 .PHONY : help
 
 

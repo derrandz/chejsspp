@@ -155,19 +155,19 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-src/CMakeFiles/chessgame.dir/rule:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/chessgame.dir/rule
-.PHONY : src/CMakeFiles/chessgame.dir/rule
+src/CMakeFiles/chessgame_white.dir/rule:
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/chessgame_white.dir/rule
+.PHONY : src/CMakeFiles/chessgame_white.dir/rule
 
 # Convenience name for target.
-chessgame: src/CMakeFiles/chessgame.dir/rule
+chessgame_white: src/CMakeFiles/chessgame_white.dir/rule
 
-.PHONY : chessgame
+.PHONY : chessgame_white
 
 # fast build rule for target.
-chessgame/fast:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/build
-.PHONY : chessgame/fast
+chessgame_white/fast:
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/build
+.PHONY : chessgame_white/fast
 
 app/controllers/AbstractController.o: app/controllers/AbstractController.cpp.o
 
@@ -175,7 +175,7 @@ app/controllers/AbstractController.o: app/controllers/AbstractController.cpp.o
 
 # target to build an object file
 app/controllers/AbstractController.cpp.o:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/controllers/AbstractController.cpp.o
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/controllers/AbstractController.cpp.o
 .PHONY : app/controllers/AbstractController.cpp.o
 
 app/controllers/AbstractController.i: app/controllers/AbstractController.cpp.i
@@ -184,7 +184,7 @@ app/controllers/AbstractController.i: app/controllers/AbstractController.cpp.i
 
 # target to preprocess a source file
 app/controllers/AbstractController.cpp.i:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/controllers/AbstractController.cpp.i
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/controllers/AbstractController.cpp.i
 .PHONY : app/controllers/AbstractController.cpp.i
 
 app/controllers/AbstractController.s: app/controllers/AbstractController.cpp.s
@@ -193,7 +193,7 @@ app/controllers/AbstractController.s: app/controllers/AbstractController.cpp.s
 
 # target to generate assembly for a file
 app/controllers/AbstractController.cpp.s:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/controllers/AbstractController.cpp.s
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/controllers/AbstractController.cpp.s
 .PHONY : app/controllers/AbstractController.cpp.s
 
 app/controllers/BoardsController.o: app/controllers/BoardsController.cpp.o
@@ -202,7 +202,7 @@ app/controllers/BoardsController.o: app/controllers/BoardsController.cpp.o
 
 # target to build an object file
 app/controllers/BoardsController.cpp.o:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/controllers/BoardsController.cpp.o
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/controllers/BoardsController.cpp.o
 .PHONY : app/controllers/BoardsController.cpp.o
 
 app/controllers/BoardsController.i: app/controllers/BoardsController.cpp.i
@@ -211,7 +211,7 @@ app/controllers/BoardsController.i: app/controllers/BoardsController.cpp.i
 
 # target to preprocess a source file
 app/controllers/BoardsController.cpp.i:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/controllers/BoardsController.cpp.i
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/controllers/BoardsController.cpp.i
 .PHONY : app/controllers/BoardsController.cpp.i
 
 app/controllers/BoardsController.s: app/controllers/BoardsController.cpp.s
@@ -220,7 +220,7 @@ app/controllers/BoardsController.s: app/controllers/BoardsController.cpp.s
 
 # target to generate assembly for a file
 app/controllers/BoardsController.cpp.s:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/controllers/BoardsController.cpp.s
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/controllers/BoardsController.cpp.s
 .PHONY : app/controllers/BoardsController.cpp.s
 
 app/entities/AbstractBoardEntity.o: app/entities/AbstractBoardEntity.cpp.o
@@ -229,7 +229,7 @@ app/entities/AbstractBoardEntity.o: app/entities/AbstractBoardEntity.cpp.o
 
 # target to build an object file
 app/entities/AbstractBoardEntity.cpp.o:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/entities/AbstractBoardEntity.cpp.o
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/entities/AbstractBoardEntity.cpp.o
 .PHONY : app/entities/AbstractBoardEntity.cpp.o
 
 app/entities/AbstractBoardEntity.i: app/entities/AbstractBoardEntity.cpp.i
@@ -238,7 +238,7 @@ app/entities/AbstractBoardEntity.i: app/entities/AbstractBoardEntity.cpp.i
 
 # target to preprocess a source file
 app/entities/AbstractBoardEntity.cpp.i:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/entities/AbstractBoardEntity.cpp.i
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/entities/AbstractBoardEntity.cpp.i
 .PHONY : app/entities/AbstractBoardEntity.cpp.i
 
 app/entities/AbstractBoardEntity.s: app/entities/AbstractBoardEntity.cpp.s
@@ -247,7 +247,7 @@ app/entities/AbstractBoardEntity.s: app/entities/AbstractBoardEntity.cpp.s
 
 # target to generate assembly for a file
 app/entities/AbstractBoardEntity.cpp.s:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/entities/AbstractBoardEntity.cpp.s
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/entities/AbstractBoardEntity.cpp.s
 .PHONY : app/entities/AbstractBoardEntity.cpp.s
 
 app/entities/MainBoard.o: app/entities/MainBoard.cpp.o
@@ -256,7 +256,7 @@ app/entities/MainBoard.o: app/entities/MainBoard.cpp.o
 
 # target to build an object file
 app/entities/MainBoard.cpp.o:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/entities/MainBoard.cpp.o
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/entities/MainBoard.cpp.o
 .PHONY : app/entities/MainBoard.cpp.o
 
 app/entities/MainBoard.i: app/entities/MainBoard.cpp.i
@@ -265,7 +265,7 @@ app/entities/MainBoard.i: app/entities/MainBoard.cpp.i
 
 # target to preprocess a source file
 app/entities/MainBoard.cpp.i:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/entities/MainBoard.cpp.i
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/entities/MainBoard.cpp.i
 .PHONY : app/entities/MainBoard.cpp.i
 
 app/entities/MainBoard.s: app/entities/MainBoard.cpp.s
@@ -274,7 +274,7 @@ app/entities/MainBoard.s: app/entities/MainBoard.cpp.s
 
 # target to generate assembly for a file
 app/entities/MainBoard.cpp.s:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/entities/MainBoard.cpp.s
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/entities/MainBoard.cpp.s
 .PHONY : app/entities/MainBoard.cpp.s
 
 app/helpers/GameManager.o: app/helpers/GameManager.cpp.o
@@ -283,7 +283,7 @@ app/helpers/GameManager.o: app/helpers/GameManager.cpp.o
 
 # target to build an object file
 app/helpers/GameManager.cpp.o:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/helpers/GameManager.cpp.o
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/helpers/GameManager.cpp.o
 .PHONY : app/helpers/GameManager.cpp.o
 
 app/helpers/GameManager.i: app/helpers/GameManager.cpp.i
@@ -292,7 +292,7 @@ app/helpers/GameManager.i: app/helpers/GameManager.cpp.i
 
 # target to preprocess a source file
 app/helpers/GameManager.cpp.i:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/helpers/GameManager.cpp.i
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/helpers/GameManager.cpp.i
 .PHONY : app/helpers/GameManager.cpp.i
 
 app/helpers/GameManager.s: app/helpers/GameManager.cpp.s
@@ -301,7 +301,7 @@ app/helpers/GameManager.s: app/helpers/GameManager.cpp.s
 
 # target to generate assembly for a file
 app/helpers/GameManager.cpp.s:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/helpers/GameManager.cpp.s
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/helpers/GameManager.cpp.s
 .PHONY : app/helpers/GameManager.cpp.s
 
 app/helpers/HelperFunctions.o: app/helpers/HelperFunctions.cpp.o
@@ -310,7 +310,7 @@ app/helpers/HelperFunctions.o: app/helpers/HelperFunctions.cpp.o
 
 # target to build an object file
 app/helpers/HelperFunctions.cpp.o:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/helpers/HelperFunctions.cpp.o
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/helpers/HelperFunctions.cpp.o
 .PHONY : app/helpers/HelperFunctions.cpp.o
 
 app/helpers/HelperFunctions.i: app/helpers/HelperFunctions.cpp.i
@@ -319,7 +319,7 @@ app/helpers/HelperFunctions.i: app/helpers/HelperFunctions.cpp.i
 
 # target to preprocess a source file
 app/helpers/HelperFunctions.cpp.i:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/helpers/HelperFunctions.cpp.i
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/helpers/HelperFunctions.cpp.i
 .PHONY : app/helpers/HelperFunctions.cpp.i
 
 app/helpers/HelperFunctions.s: app/helpers/HelperFunctions.cpp.s
@@ -328,7 +328,7 @@ app/helpers/HelperFunctions.s: app/helpers/HelperFunctions.cpp.s
 
 # target to generate assembly for a file
 app/helpers/HelperFunctions.cpp.s:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/helpers/HelperFunctions.cpp.s
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/helpers/HelperFunctions.cpp.s
 .PHONY : app/helpers/HelperFunctions.cpp.s
 
 app/helpers/Texture.o: app/helpers/Texture.cpp.o
@@ -337,7 +337,7 @@ app/helpers/Texture.o: app/helpers/Texture.cpp.o
 
 # target to build an object file
 app/helpers/Texture.cpp.o:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/helpers/Texture.cpp.o
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/helpers/Texture.cpp.o
 .PHONY : app/helpers/Texture.cpp.o
 
 app/helpers/Texture.i: app/helpers/Texture.cpp.i
@@ -346,7 +346,7 @@ app/helpers/Texture.i: app/helpers/Texture.cpp.i
 
 # target to preprocess a source file
 app/helpers/Texture.cpp.i:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/helpers/Texture.cpp.i
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/helpers/Texture.cpp.i
 .PHONY : app/helpers/Texture.cpp.i
 
 app/helpers/Texture.s: app/helpers/Texture.cpp.s
@@ -355,7 +355,7 @@ app/helpers/Texture.s: app/helpers/Texture.cpp.s
 
 # target to generate assembly for a file
 app/helpers/Texture.cpp.s:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/helpers/Texture.cpp.s
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/helpers/Texture.cpp.s
 .PHONY : app/helpers/Texture.cpp.s
 
 app/views/BoardView.o: app/views/BoardView.cpp.o
@@ -364,7 +364,7 @@ app/views/BoardView.o: app/views/BoardView.cpp.o
 
 # target to build an object file
 app/views/BoardView.cpp.o:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/views/BoardView.cpp.o
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/views/BoardView.cpp.o
 .PHONY : app/views/BoardView.cpp.o
 
 app/views/BoardView.i: app/views/BoardView.cpp.i
@@ -373,7 +373,7 @@ app/views/BoardView.i: app/views/BoardView.cpp.i
 
 # target to preprocess a source file
 app/views/BoardView.cpp.i:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/views/BoardView.cpp.i
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/views/BoardView.cpp.i
 .PHONY : app/views/BoardView.cpp.i
 
 app/views/BoardView.s: app/views/BoardView.cpp.s
@@ -382,7 +382,7 @@ app/views/BoardView.s: app/views/BoardView.cpp.s
 
 # target to generate assembly for a file
 app/views/BoardView.cpp.s:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/views/BoardView.cpp.s
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/views/BoardView.cpp.s
 .PHONY : app/views/BoardView.cpp.s
 
 app/views/PiecesPaths.o: app/views/PiecesPaths.cpp.o
@@ -391,7 +391,7 @@ app/views/PiecesPaths.o: app/views/PiecesPaths.cpp.o
 
 # target to build an object file
 app/views/PiecesPaths.cpp.o:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/views/PiecesPaths.cpp.o
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/views/PiecesPaths.cpp.o
 .PHONY : app/views/PiecesPaths.cpp.o
 
 app/views/PiecesPaths.i: app/views/PiecesPaths.cpp.i
@@ -400,7 +400,7 @@ app/views/PiecesPaths.i: app/views/PiecesPaths.cpp.i
 
 # target to preprocess a source file
 app/views/PiecesPaths.cpp.i:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/views/PiecesPaths.cpp.i
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/views/PiecesPaths.cpp.i
 .PHONY : app/views/PiecesPaths.cpp.i
 
 app/views/PiecesPaths.s: app/views/PiecesPaths.cpp.s
@@ -409,7 +409,7 @@ app/views/PiecesPaths.s: app/views/PiecesPaths.cpp.s
 
 # target to generate assembly for a file
 app/views/PiecesPaths.cpp.s:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/views/PiecesPaths.cpp.s
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/views/PiecesPaths.cpp.s
 .PHONY : app/views/PiecesPaths.cpp.s
 
 app/views/View.o: app/views/View.cpp.o
@@ -418,7 +418,7 @@ app/views/View.o: app/views/View.cpp.o
 
 # target to build an object file
 app/views/View.cpp.o:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/views/View.cpp.o
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/views/View.cpp.o
 .PHONY : app/views/View.cpp.o
 
 app/views/View.i: app/views/View.cpp.i
@@ -427,7 +427,7 @@ app/views/View.i: app/views/View.cpp.i
 
 # target to preprocess a source file
 app/views/View.cpp.i:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/views/View.cpp.i
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/views/View.cpp.i
 .PHONY : app/views/View.cpp.i
 
 app/views/View.s: app/views/View.cpp.s
@@ -436,7 +436,7 @@ app/views/View.s: app/views/View.cpp.s
 
 # target to generate assembly for a file
 app/views/View.cpp.s:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/app/views/View.cpp.s
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/app/views/View.cpp.s
 .PHONY : app/views/View.cpp.s
 
 main.o: main.cpp.o
@@ -445,7 +445,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/main.cpp.o
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -454,7 +454,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/main.cpp.i
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -463,7 +463,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame.dir/build.make src/CMakeFiles/chessgame.dir/main.cpp.s
+	cd /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release && $(MAKE) -f src/CMakeFiles/chessgame_white.dir/build.make src/CMakeFiles/chessgame_white.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -478,7 +478,7 @@ help:
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... install/strip"
-	@echo "... chessgame"
+	@echo "... chessgame_white"
 	@echo "... app/controllers/AbstractController.o"
 	@echo "... app/controllers/AbstractController.i"
 	@echo "... app/controllers/AbstractController.s"

@@ -167,7 +167,13 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 EMSCRIPTEN:BOOL=1
 
 //No help, variable specified on the command line.
+EMSCRIPTEN_BLACK_PLAYER:UNINITIALIZED=0
+
+//No help, variable specified on the command line.
 EMSCRIPTEN_SOCKET:UNINITIALIZED=1
+
+//No help, variable specified on the command line.
+EMSCRIPTEN_WHITE_PLAYER:UNINITIALIZED=1
 
 //Path to a library.
 SDL2MAIN_LIBRARY:FILEPATH=SDL2MAIN_LIBRARY-NOTFOUND

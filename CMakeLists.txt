@@ -3,7 +3,10 @@ project(SDLChesspp)
 
 # includes cmake/FindSDL2.cmake
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-set(CMAKE_EXECUTABLE_SUFFIX ".html")
+
+if(${EMSCRIPTEN})
+	set(CMAKE_EXECUTABLE_SUFFIX ".html")
+endif()
 # set(BIN_DIR "${PROJECT_BINARY_DIR}/bin")
 
 # Set an output directory for our binaries
@@ -23,6 +26,11 @@ elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
 	endif()
 endif()
+
+set(EMSCRIPTEN ${EMSCRIPTEN})
+set(EMSCRIPTEN_WHITE_PLAYER ${EMSCRIPTEN_WHITE_PLAYER})
+set(EMSCRIPTEN_BLACK_PLAYER ${EMSCRIPTEN_BLACK_PLAYER})
+set(EMSCRIPTEN_SOCKET ${EMSCRIPTEN_SOCKET})
 
 # Look up SDL2 and add the include directory to our include path
 find_package(SDL2 REQUIRED)

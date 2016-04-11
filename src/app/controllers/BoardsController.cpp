@@ -31,7 +31,22 @@ void BoardsController::bootstrap()
 	BoardView* ptr;
 	try
 	{
-	    ptr = new BoardView(true, this->bitboard->getFinalArrayBoard());
+#ifdef EMSCRIPTEN
+	#if EMSCRIPTEN
+		#ifdef EMSCRIPTEN_BLACK_PLAYER && EMSCRIPTEN_WHITE_PLAYER
+			#if EMSCRIPTEN_BLACK_PLAYER
+		    ptr = new BoardView(false, this->bitboard->getFinalArrayBoard());
+		    #else
+			    #if EMSCRIPTEN_WHITE_PLAYER
+			    ptr = new BoardView(true, this->bitboard->getFinalArrayBoard());
+			    #else
+			    ptr = new BoardView(true, this->bitboard->getFinalArrayBoard());
+				#endif // EMSCRIPTEN_WHITE_PLAYER
+			#endif EMSCRIPTEN_BLACK_PLAYER
+		#endif // EMSCRIPTEN_BLACK_PLAYER
+	#endif // EMSCRIPTEN
+#endif // EMSCRIPTEN
+
 	    // this->bitboard->drawBoard();
 	}
 	catch(const _ExceptionHandler& exception)
@@ -106,51 +121,59 @@ void BoardsController::validateMoves() const
 	// std::cout << std::endl << std::endl << "----- ----- ----- ----- ----- ----- ----- -----" << std::endl;
 
 #ifdef EMSCRIPTEN
-		std::cout << "EMSCRIPTEN_SOCKET" << std::endl;
-		if(graphicalboard->isReceiving())
-		{
-			std::cout << "Board Receiving" << std::endl;
-			char* _js_flat_board_char;
-			bool javascript_api_response = javascript_api::receive_board(&_js_flat_board_char);
-			std::string _js_flat_board_string(_js_flat_board_char);
-			
-			if(_js_flat_board_string.compare("__null__") != 0)
-			{
-				if(javascript_api_response) // double check
+	#if EMSCRIPTEN
+		#ifdef EMSCRIPTEN_SOCKET
+			#if EMSCRIPTEN_SOCKET
+				if(graphicalboard->isReceiving())
 				{
-					std::string** _js_validated_board = HelperFunctions::array_flat_board(_js_flat_board_string);
-					std::cout << "Received board: " << std::endl;
-					HelperFunctions::drawArrayBoard(_js_validated_board);
-					graphicalboard->loadBoard(true, _js_validated_board);
+					char* _js_flat_board_char;
+					bool javascript_api_response = javascript_api::receive_board(&_js_flat_board_char);
+					std::string _js_flat_board_string(_js_flat_board_char);
+					
+					if(_js_flat_board_string.compare("__null__") != 0)
+					{
+						if(javascript_api_response) // double check
+						{
+							std::string** _js_validated_board = HelperFunctions::array_flat_board(_js_flat_board_string);
+							std::cout << "Received board: " << std::endl;
+							HelperFunctions::drawArrayBoard(_js_validated_board);
+							graphicalboard->loadBoard(true, _js_validated_board);
+						}
+						else
+						{
+							graphicalboard->loadBoard(false, validated_configuration);
+						}
+					}
+					else
+					{
+						graphicalboard->loadBoard(false, validated_configuration);
+					}
 				}
 				else
 				{
-					std::cout << "Did not receive board yet." << std::endl;
-					graphicalboard->loadBoard(false, validated_configuration);
+					if(this->send_move(old_bit_board, new_bit_board))
+					{
+						std::string flat_board = HelperFunctions::flatten_array_board(validated_configuration);
+						std::cout << "Sending flat board: " << flat_board << std::endl;
+						javascript_api::send_board(flat_board.c_str());
+						//Take off him the control as he played a valid move and he needs to wait for the other side.
+						graphicalboard->loadBoard(false, validated_configuration);
+					}
+					else
+					{
+						//Hand him over the control again as to play a valid move.
+						graphicalboard->loadBoard(true, validated_configuration);
+					}
 				}
-			}
-			else
-			{
-				std::cout << "Did not receive board yet." << std::endl;
-				graphicalboard->loadBoard(false, validated_configuration);
-			}
-		}
-		else
-		{
-			if(this->send_move(old_bit_board, new_bit_board))
-			{
-				std::string flat_board = HelperFunctions::flatten_array_board(validated_configuration);
-				std::cout << "Sending flat board: " << flat_board << std::endl;
-				javascript_api::send_board(flat_board.c_str());
-				//Take off him the control as he played a valid move and he needs to wait for the other side.
-				graphicalboard->loadBoard(false, validated_configuration);
-			}
-			else
-			{
-				//Hand him over the control again as to play a valid move.
-				graphicalboard->loadBoard(true, validated_configuration);
-			}
-		}
+			#else
+			graphicalboard->loadBoard(true, validated_configuration);
+			#endif // EMSCRIPTEN_SOCKET
+		#else
+		graphicalboard->loadBoard(true, validated_configuration);
+		#endif // EMSCRIPTEN_SOCKET.
+	#else
+		graphicalboard->loadBoard(true, validated_configuration);
+	#endif // EMSCRIPTEN
 #else
 	graphicalboard->loadBoard(true, validated_configuration);
 #endif // EMSCRIPTEN
