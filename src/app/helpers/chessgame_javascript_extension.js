@@ -25,7 +25,6 @@
 	  		});
 	  	});
 
-	  	console.log("Did not receive any board");
 		var response_str = "__null__";
 		var buffer       = Module._malloc(response_str.length + 1);
 

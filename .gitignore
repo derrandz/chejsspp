@@ -2,3 +2,5 @@ build
 temp
 bin
 build.emscripten
+build.emscripten.release
+bin.release

@@ -3,14 +3,14 @@ The host system is: Linux - 3.19.0-56-generic - x86_64
 Determining if the pthread_create exist passed with the following output:
 Change Dir: /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_b338b/fast"
-/usr/bin/make -f CMakeFiles/cmTC_b338b.dir/build.make CMakeFiles/cmTC_b338b.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_dad09/fast"
+/usr/bin/make -f CMakeFiles/cmTC_dad09.dir/build.make CMakeFiles/cmTC_dad09.dir/build
 make[1]: Entering directory `/home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_b338b.dir/CheckSymbolExists.c.o
-/home/hrt/Schoolspace/Capstone/Libraries/emsdk_portable/emscripten/master/emcc    -s ERROR_ON_UNDEFINED_SYMBOLS=1   -o CMakeFiles/cmTC_b338b.dir/CheckSymbolExists.c.o   -c /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTC_b338b.js
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b338b.dir/link.txt --verbose=1
-/home/hrt/Schoolspace/Capstone/Libraries/emsdk_portable/emscripten/master/emcc   -s ERROR_ON_UNDEFINED_SYMBOLS=1    @CMakeFiles/cmTC_b338b.dir/objects1.rsp  -o cmTC_b338b.js  
+Building C object CMakeFiles/cmTC_dad09.dir/CheckSymbolExists.c.o
+/home/hrt/Schoolspace/Capstone/Libraries/emsdk_portable/emscripten/master/emcc    -s ERROR_ON_UNDEFINED_SYMBOLS=1   -o CMakeFiles/cmTC_dad09.dir/CheckSymbolExists.c.o   -c /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_dad09.js
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dad09.dir/link.txt --verbose=1
+/home/hrt/Schoolspace/Capstone/Libraries/emsdk_portable/emscripten/master/emcc   -s ERROR_ON_UNDEFINED_SYMBOLS=1    @CMakeFiles/cmTC_dad09.dir/objects1.rsp  -o cmTC_dad09.js  
 make[1]: Leaving directory `/home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release/CMakeFiles/CMakeTmp'
 
 File /home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
