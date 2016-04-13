@@ -3,6 +3,9 @@
 #include "helpers/GameManager.hpp"
 #include "helpers/_ExceptionHandler.hpp"
 
+#ifdef EMSCRIPTEN
+    #include <emscripten.h>
+#endif
 int main( int argc, char* args[] )
 {
 	/**

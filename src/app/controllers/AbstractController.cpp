@@ -231,7 +231,7 @@ std::function<void()> one_iter_main_loop = [&](){
         SDL_RenderPresent( View::renderer );
 #ifdef EMSCRIPTEN
     };
-    emscripten_set_main_loop_arg(dispatch_main_loop, &one_iter_main_loop, 0, 1);
+    emscripten_set_main_loop_arg(dispatch_main_loop, &one_iter_main_loop, 60, 1);
 #else
     }
 #endif // EMSCRIPTEN

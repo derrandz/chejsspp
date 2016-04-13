@@ -1,4 +1,5 @@
-#include "helpers/HelperFunctions.hpp"
+#include "views/BoardView.hpp"
+#include <stdlib.h>
 
 /**
  * Sets the 64bit binary string to 1 in the provided position.
@@ -160,4 +161,47 @@ std::string** HelperFunctions::array_flat_board(std::string flat_board)
 	}
 
 	return array_board;
+}
+
+/**
+ * This function will be called as a callback after receiving a board from the other side throug the socket.
+ *
+ * @param void* : the pointer that takes cares of the visual rendering.
+ * @param char* : the received flat board.
+ * 
+ */
+void HelperFunctions::_load_received_board_success_callback(void* graphicalboard_ptr, char* received_flat_board)
+{
+	// BoardView
+	BoardView* graphicalboard = static_cast<BoardView*>(graphicalboard_ptr);
+
+	const char* _const_char_received_flat_board;
+	_const_char_received_flat_board = static_cast<const char*>(received_flat_board);
+
+	std::string _js_flat_board_string(_const_char_received_flat_board);
+	std::cout << "std::string _js_flat_board_string(_char, 193);" << std::endl;
+	
+	// convert the string flat board into an array board/
+	std::string** _js_validated_board = HelperFunctions::array_flat_board(_js_flat_board_string);
+	std::cout << "std::string** _js_validated_board = HelperFunctions::array_flat_board(_js_flat_board_string);" << std::endl;
+
+	//debugging
+	// std::cout << "Received board: " << std::endl;
+	// std::cout << "_js_flat_board_string: " << _js_flat_board_string << std::endl;
+	// std::cout << "received_flat_board: " << *received_flat_board << std::endl;
+	// HelperFunctions::drawArrayBoard(_js_validated_board);
+
+	//Load the board, do not wait for receipt, instead set the mode ready to send his next move.
+	graphicalboard->loadBoard(true, _js_validated_board);
+}
+
+void HelperFunctions::load_board_failure_callback(void* graphicalboard_ptr, char* validated_board)
+{
+	BoardView* graphicalboard = static_cast<BoardView*>(graphicalboard_ptr);
+	
+	std::string _js_validated_board((char*)validated_board);
+
+	std::string** _js_validated_board_array = HelperFunctions::array_flat_board(_js_validated_board);
+	
+	graphicalboard->loadBoard(false, _js_validated_board_array);
 }

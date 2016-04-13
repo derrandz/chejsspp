@@ -5,6 +5,9 @@
 #include "views/SquareView.hpp"
 #include "views/PieceView.hpp"
 #include <map>
+#include <vector>
+
+class PieceView;
 
 typedef std::map<std::string, std::vector<PieceView*>>::iterator pieces_it;
 

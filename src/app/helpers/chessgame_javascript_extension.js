@@ -1,36 +1,24 @@
-	
+
 	mergeInto(LibraryManager.library, {
 	  send_board: function(board) {
-	  	
-	  	socket.on("connect", function(){
-
-	  		socket.emit('game_request_sender_pipeline', {
-                board: Pointer_stringify(board),
-			});
-
-	  		console.log("Sent board: " + Pointer_stringify(board));
-	  	}); 
+  		socket.emit('game_request_sender_pipeline', {
+            board: Pointer_stringify(board),
+		});
+  		console.log("Sent board.");
 	  },
 
-	  receive_board: function(_string_dest_in_c){
+	  receive_board: function(success_callback_pointer, failure_callback_pointer, viewptr, flat_validated_configuration){
+	  	
+		socket.on('game_request_receiver_pipeline' , function (message)
+		{
+			var str = String(message.board);
+  			var buffer = Module._malloc(str.length + 1);
+	        Module.writeStringToMemory(str, buffer);
+	        console.log("address in js:" + buffer);
+	        Module.ccall('callback_invoker', 'void', ['number','number','number'], [success_callback_pointer, viewptr, buffer]);
+	        return;
+  		});
 
-	  	socket.on("connect", function(){
-	  		socket.on('game_request_receiver_pipeline' , function (message)
-			{
-	  			var buffer = Module._malloc(message.board.length + 1);
-		        Module.writeStringToMemory(message.board, buffer);
-		        setValue(_string_dest_in_c, buffer, '*');
-		        console.log("Board received");
-		        return true;
-	  		});
-	  	});
-
-		var response_str = "__null__";
-		var buffer       = Module._malloc(response_str.length + 1);
-
-        Module.writeStringToMemory(response_str, buffer);
-        setValue(_string_dest_in_c, buffer, '*');
- 		
- 		return false;
-  	  },
+        Module.ccall('callback_invoker', 'void', ['number','number','number'], [failure_callback_pointer, viewptr, flat_validated_configuration]);
+  	  }
 	});

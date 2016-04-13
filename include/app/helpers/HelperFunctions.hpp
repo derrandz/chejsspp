@@ -4,6 +4,8 @@
 #include <bitset>
 #include <iostream>
 
+class BoardView;
+
 /*#ifdef EMSCRIPTEN
 	#ifndef _long_DEFINED_AS_int64_t_
 		#define _long_DEFINED_AS_int64_t_
@@ -84,6 +86,24 @@ namespace HelperFunctions
 	 * 
 	 */
 	std::string** array_flat_board(std::string);
+
+	/**
+	 * This function will be called as a callback after receiving a board from the other side throug the socket.
+	 *
+	 * @param void* : the pointer that takes cares of the visual rendering.
+	 * @param char* : the received flat board.
+	 * 
+	 */
+	void _load_received_board_success_callback(void*, char* received_flat_board);
+
+	/**
+	 * This function will be called as a callback after receiving a board fails.
+	 *
+	 * @param void* : the pointer that takes cares of the visual rendering.
+	 * @param char* : the old board flattened.
+	 * 
+	 */
+	void load_board_failure_callback(void*, char* validated_board);
 };
 
 #endif // _HELPER_FUNCTIONS_H_INCLUDED_

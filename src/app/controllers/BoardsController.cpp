@@ -110,28 +110,21 @@ void BoardsController::validateMoves() const
 #ifdef EMSCRIPTEN
 	if(graphicalboard->isReceiving())
 	{
-		char* _js_flat_board_char;
-		bool javascript_api_response = javascript_api::receive_board(&_js_flat_board_char);
-		std::string _js_flat_board_string(_js_flat_board_char);
+		std::string validated_board_flattened = HelperFunctions::flatten_array_board(validated_configuration);
 		
-		if(_js_flat_board_string.compare("__null__") != 0)
-		{
-			if(javascript_api_response) // double check
-			{
-				std::string** _js_validated_board = HelperFunctions::array_flat_board(_js_flat_board_string);
-				std::cout << "Received board: " << std::endl;
-				HelperFunctions::drawArrayBoard(_js_validated_board);
-				graphicalboard->loadBoard(true, _js_validated_board);
-			}
-			else
-			{
-				graphicalboard->loadBoard(false, validated_configuration);
-			}
-		}
-		else
-		{
-			graphicalboard->loadBoard(false, validated_configuration);
-		}
+		void (*succes_callback_pointer)(void*, char*);
+		void (*failure_callback_pointer)(void*, char*);
+
+		succes_callback_pointer = &HelperFunctions::_load_received_board_success_callback;
+		failure_callback_pointer = &HelperFunctions::load_board_failure_callback;
+
+		char * _char_validated_board_flattened = new char[validated_board_flattened.size() + 1];
+		std::copy(validated_board_flattened.begin(), validated_board_flattened.end(), _char_validated_board_flattened);
+		_char_validated_board_flattened[validated_board_flattened.size()] = '\0'; // don't forget the terminating 0
+
+		javascript_api::receive_board(succes_callback_pointer, failure_callback_pointer, static_cast<void* >(graphicalboard), (char*)_char_validated_board_flattened);
+
+		delete[] _char_validated_board_flattened;
 	}
 	else
 	{
@@ -139,9 +132,16 @@ void BoardsController::validateMoves() const
 		{
 			std::string flat_board = HelperFunctions::flatten_array_board(validated_configuration);
 			std::cout << "Sending flat board: " << flat_board << std::endl;
-			javascript_api::send_board(flat_board.c_str());
+
+			char * _char_flat_board_flattened = new char[flat_board.size() + 1];
+			std::copy(flat_board.begin(), flat_board.end(), _char_flat_board_flattened);
+			_char_flat_board_flattened[flat_board.size()] = '\0'; // don't forget the terminating 0
+
+			javascript_api::send_board(_char_flat_board_flattened);
 			//Take off him the control as he played a valid move and he needs to wait for the other side.
 			graphicalboard->loadBoard(false, validated_configuration);
+
+			delete[] _char_flat_board_flattened;
 		}
 		else
 		{

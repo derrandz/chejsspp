@@ -28,7 +28,7 @@ CMAKE_COLOR_MAKEFILE:BOOL=ON
 CMAKE_CROSSCOMPILING_EMULATOR:UNINITIALIZED="/home/hrt/Schoolspace/Capstone/Libraries/emsdk_portable/node/4.1.1_64bit/bin/node"
 
 //Flags used by the compiler during all build types.
-CMAKE_CXX_FLAGS:STRING=-Wall -O2 -Oz --js-library ../../src/app/helpers/chessgame_javascript_extension.js -s SAFE_HEAP=1 -Werror -g2 -s ASSERTIONS=2 --emrun -s DEMANGLE_SUPPORT=1 -s DISABLE_EXCEPTION_CATCHING=0 --memory-init-file 0  -s STB_IMAGE=1 -s --use-preload-plugins --use-preload-plugins --preload-file ../../res
+CMAKE_CXX_FLAGS:STRING=-Wall -O2 -Oz --js-library ../../src/app/helpers/chessgame_javascript_extension.js -s SAFE_HEAP=1 -Werror -g2 -s ASSERTIONS=2 -s ALLOW_MEMORY_GROWTH=1 --emrun -s DEMANGLE_SUPPORT=1 -s DISABLE_EXCEPTION_CATCHING=0 --memory-init-file 0  -s STB_IMAGE=1 -s --use-preload-plugins --use-preload-plugins --preload-file ../../res
 
 //Flags used by the compiler during debug builds.
 CMAKE_CXX_FLAGS_DEBUG:STRING=-g
@@ -167,13 +167,13 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 EMSCRIPTEN:BOOL=1
 
 //No help, variable specified on the command line.
-EMSCRIPTEN_BLACK_PLAYER:UNINITIALIZED=0
+EMSCRIPTEN_BLACK_PLAYER:UNINITIALIZED=1
 
 //No help, variable specified on the command line.
 EMSCRIPTEN_SOCKET:UNINITIALIZED=1
 
 //No help, variable specified on the command line.
-EMSCRIPTEN_WHITE_PLAYER:UNINITIALIZED=1
+EMSCRIPTEN_WHITE_PLAYER:UNINITIALIZED=0
 
 //Path to a library.
 SDL2MAIN_LIBRARY:FILEPATH=SDL2MAIN_LIBRARY-NOTFOUND
