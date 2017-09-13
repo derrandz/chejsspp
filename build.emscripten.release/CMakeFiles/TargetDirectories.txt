@@ -1,1 +1,0 @@
-/home/hrt/Schoolspace/Capstone/project/cppchessgame/build.emscripten.release/src/CMakeFiles/chessgame_black.dir
