@@ -3,6 +3,8 @@ Provided that the project is pretty old, I still have not made the time to polis
 a reference for learning.
 In the future, expect to find:
 
+    * Severe refactoring (I've written this a long long time ago and in a hurry)
+    * C++11 Standard or later
     * A throughout wiki
     * A Dockerfile! so you would not have to lose your brain with emscripten
     * git submodules to fetch the dependencies (probably)
